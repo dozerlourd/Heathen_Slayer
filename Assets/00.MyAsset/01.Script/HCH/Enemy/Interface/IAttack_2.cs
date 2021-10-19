@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMove
+public interface IAttack_2
 {
-    void EnemyMove();
+    IEnumerator Attack_2();
 }

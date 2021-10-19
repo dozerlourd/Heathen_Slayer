@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISkill_2
+public interface IDamaged
 {
-    void Skill_2();
+    IEnumerator Damaged();
 }

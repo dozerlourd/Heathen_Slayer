@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IAttack_1
+public interface IPatrol
 {
-    void Attack_1();
+    IEnumerator EnemyPatrol();
 }

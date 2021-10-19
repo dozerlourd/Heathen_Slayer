@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IIdle
+public interface IAttack_1
 {
-    void Idle();
+    IEnumerator EnemyAttack_1();
 }

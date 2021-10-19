@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamaged
+public interface ITrace
 {
-    void Damaged();
+    IEnumerator EnemyTrace();
 }

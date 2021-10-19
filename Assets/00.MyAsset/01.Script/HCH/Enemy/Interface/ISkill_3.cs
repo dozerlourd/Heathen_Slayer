@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISkill_1
+public interface ISkill_3
 {
-    void Skill_1();
+    IEnumerator Skill_3();
 }
