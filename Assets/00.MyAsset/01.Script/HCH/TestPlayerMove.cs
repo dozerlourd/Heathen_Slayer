@@ -24,4 +24,8 @@ public class TestPlayerMove : MonoBehaviour
             rigid.AddForce(Vector2.up * 12, ForceMode2D.Impulse);
         }
     }
+    public void RandomNum()
+    {
+        HCH.Random.RandomToDateTime();
+    }
 }
