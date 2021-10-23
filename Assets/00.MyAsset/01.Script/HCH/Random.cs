@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace HCH
 {
-    
-
     public class Random
     {
         public static float RandomToDateTime()

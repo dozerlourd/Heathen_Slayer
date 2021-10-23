@@ -41,7 +41,6 @@ public abstract class EnemyFSM : MonoBehaviour
     protected BoxCollider2D boxCol2D;
     protected Animator anim;
     protected SpriteRenderer spriteRenderer;
-    protected float pastPosX = 0;
 
     #endregion
 
@@ -49,7 +48,8 @@ public abstract class EnemyFSM : MonoBehaviour
 
     #region Property
 
-
+    public bool IsFlip { get; protected set; }
+    protected Vector2 playerPos => PlayerSystem.Instance.Player.transform.position;
 
     #endregion
 
@@ -64,7 +64,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected void Update()
     {
-        FlipCheck();
+        //FlipCheck();
         GroundCheck(groundCheckRayDist);
         if (!isGround)
         {
@@ -78,17 +78,12 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected abstract IEnumerator Co_Pattern();
 
-    protected void FlipCheck()
+    public void FlipCheck()
     {
-        if(pastPosX < transform.position.x)
+        if(playerPos.x != transform.position.x)
         {
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = playerPos.x > transform.position.x ? true : false;
         }
-        else if(pastPosX > transform.position.x)
-        {
-            spriteRenderer.flipX = false;
-        }
-        pastPosX = transform.position.x;
     }
 
     protected void GroundCheck(float dist)

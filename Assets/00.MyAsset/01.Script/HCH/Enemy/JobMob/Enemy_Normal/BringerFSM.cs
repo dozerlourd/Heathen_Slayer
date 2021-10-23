@@ -12,7 +12,14 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     [SerializeField] float waitToAttackTime;
     [SerializeField] float waitToSkillTime;
 
-    [Header("Max Aggro Duration: After end duration, change to patrol")]
+    [Header(" - Related to Bringer's skill")]
+    [SerializeField] GameObject skillEffect;
+    [SerializeField] int maxSkillEffectPoolCount;
+    GameObject[] skillEffects;
+    [SerializeField, Range(0f, 1f)] float skillEffectTiming;
+
+    [Space(15)]
+    [Tooltip("Max Aggro Duration: After end duration, change to patrol")]
     [SerializeField] float aggroDuration = 10;
 
     WaitForSeconds waitToPatrol, waitToTrace, waitToAttack, waitToSkill;
@@ -39,6 +46,15 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     void Start()
     {
+        skillEffects = new GameObject[maxSkillEffectPoolCount];
+        for (int i = 0; i < 5; i++)
+        {
+            skillEffects[i] = Instantiate(skillEffect);
+            skillEffects[i].name = skillEffect.name;
+            skillEffects[i].transform.SetParent(FolderSystem.Instance.Bringer_SkillPool);
+            skillEffects[i].SetActive(false);
+        }
+
         StartCoroutine(Co_Pattern());
     }
 
@@ -60,22 +76,25 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     public IEnumerator EnemyIdle()
     {
-        print("나 가만히 있는다!");
+        //print("나 가만히 있는다!");
         anim.SetTrigger("ToIdle");
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(0.5f);
     }
 
     public IEnumerator EnemyPatrol()
     {
+        
         float randomDirTime = 0;
         Vector2 moveVec = RandomVec();
 
-        print("나 움직인다!");
+        //print("나 움직인다!");
         anim.SetTrigger("ToWalk");
         anim.SetFloat("WalkSpeed", 0.45f);
 
         while (true)
         {
+            spriteRenderer.flipX = moveVec == Vector2.right ? true : false;
+
             if (randomDirTime < Random.Range(3.5f, 5f))
             {
                 randomDirTime += Time.deltaTime;
@@ -95,20 +114,25 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     {
         float traceCount = 0;
 
-        print("나 너 쫒아간다!");
+        //print("나 너 쫒아간다!");
         anim.SetFloat("WalkSpeed", 1.35f);
         while (true)
         {
+            FlipCheck();
             if (GetDistanceB2WPlayer() < attackRange)
             {
+                anim.SetBool("ToWalk", false);
                 traceCount = 0;
-                if (HCH.Well512.Next() > HCH.Well512.Next())
-                    yield return StartCoroutine(EnemyAttack_1());
-                else
+                //if (HCH.Well512.Next() > HCH.Well512.Next())
+                //    yield return StartCoroutine(EnemyAttack_1());
+                //else
                     yield return StartCoroutine(EnemySkill_1());
+
+                yield return StartCoroutine(EnemyIdle());
             }
             else if (GetDistanceB2WPlayer() < detectRange)
             {
+                anim.SetBool("ToWalk", true);
                 if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Walk"))
                 {
                     yield return null;
@@ -120,6 +144,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
             }
             else
             {
+                anim.SetBool("ToWalk", true);
                 if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Walk"))
                 {
                     yield return null;
@@ -139,23 +164,62 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     public IEnumerator EnemyAttack_1()
     {
+        FlipCheck();
         print("나 너 때린다!");
         anim.SetTrigger("ToAttack");
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Attack"));
+
+        anim.SetFloat("AttackSpeed", 0.85f);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.35f);
+        anim.SetFloat("AttackSpeed", 1.2f);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f);
+        anim.SetFloat("AttackSpeed", 0.85f);
+
+
+        yield return waitToAttack;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Idle"));
     }
 
     public IEnumerator EnemySkill_1()
     {
-        print("이거 아프다!");
+        FlipCheck();
+        //print("이거 아프다!");
+
         anim.SetTrigger("ToSkill");
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Cast"));
+
+        anim.SetFloat("AttackSpeed", 0.65f);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= skillEffectTiming);
+        //print("이거 받아라!");
+        GodHand();
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.75f);
+        anim.SetFloat("AttackSpeed", 0.3f);
+
+        yield return waitToSkill;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Idle"));
     }
 
     Vector2 RandomVec() => HCH.Well512.Next() > HCH.Well512.Next() ? Vector2.right : Vector2.left;
-    public void SetAttackSpeed() => anim.SetFloat("AttackSpeed", attackSpeed);
-    public void GetDamage()
-    {
 
+    public void SetAttackSpeed() => anim.SetFloat("AttackSpeed", attackSpeed);
+
+    /// <summary> Use Bringer's Skill </summary>
+    void GodHand()
+    {
+        for (int i = 0; i < skillEffects.Length; i++)
+        {
+            if(!skillEffects[i].activeInHierarchy)
+            {
+                skillEffects[i].SetActive(true);
+                skillEffects[i].transform.position = PlayerSystem.Instance.Player.transform.position + Vector3.up * 2.5f;
+
+                break;
+            }
+        }
     }
 
     #endregion

@@ -11,7 +11,7 @@ public class PlayerSystem : MonoBehaviour
 
     private void Awake()
     {
-        if(!instance) instance = this;
+        if (!instance) instance = this;
         else Destroy(gameObject);
     }
 
@@ -26,6 +26,15 @@ public class PlayerSystem : MonoBehaviour
     #region Property
 
     public GameObject Player => player != null ? player : player = GameObject.FindGameObjectWithTag("Player");
+
+    #endregion
+
+    #region Unity Life Cycle
+
+    private void Start()
+    {
+        transform.SetParent(FolderSystem.Instance.SystemFolder);
+    }
 
     #endregion
 }

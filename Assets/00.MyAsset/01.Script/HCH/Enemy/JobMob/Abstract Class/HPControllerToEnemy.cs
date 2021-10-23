@@ -20,6 +20,7 @@ public abstract class HPControllerToEnemy : MonoBehaviour
         protected set
         {
             currHP = value;
+            EnemyDamaged();
             RefreshUI(value);
         }
     }
@@ -37,6 +38,9 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     public void TakeDamage(float _damage) => CurrHP -= _damage;
 
     protected abstract void RefreshUI(float _val);
+
+    /// <summary> When Enemy Taking Damage, Generate this method </summary>
+    protected abstract void EnemyDamaged();
 
     #endregion
 }
