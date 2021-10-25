@@ -8,6 +8,8 @@ public class PlayerAttack : MonoBehaviour
     public float attackSpeed = 0.5f;
     [Tooltip("공격 범위")]
     public BoxCollider2D atkCollider;
+    [Tooltip("스킬 계수")]
+    public float skillFactor = 1.5f;
 
     void Start()
     {
@@ -21,13 +23,28 @@ public class PlayerAttack : MonoBehaviour
             StartCoroutine(Attack());
             print("플레이어 공격");
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        { 
+            // 스킬공격 1
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            // 스킬공격 2
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            // 스킬공격 3
+        }
     }
 
     IEnumerator Attack()
     {
         atkCollider.enabled = true;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(attackSpeed);
         atkCollider.enabled = false;
     }
 }

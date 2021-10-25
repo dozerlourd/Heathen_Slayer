@@ -7,6 +7,7 @@ public class PlayerMove : PlayerStat
     Rigidbody2D rb;
     bool isJumping = false;
     bool isDash = false;
+    bool isDamaged = false;
     Vector3 moveDir;
 
     float dashTime = 0.3f;
@@ -14,6 +15,7 @@ public class PlayerMove : PlayerStat
     float lerpSpeed = 4;
     float dashCountTime = 1;
     float dashCountCurTime = 0;
+    float damagedTime = 0.5f;
 
     void Start()
     {
@@ -27,7 +29,7 @@ public class PlayerMove : PlayerStat
             isJumping = true;   
         }
 
-        if (Input.GetKeyDown(KeyCode.C) && dashCount > 0)
+        if (Input.GetKeyDown(KeyCode.C) && dashCount > 0 && !isDamaged)
         {
             StartCoroutine(Dash());
             dashCount--;
@@ -54,6 +56,11 @@ public class PlayerMove : PlayerStat
                 StartCoroutine(DashCoolTime());
             }
         }
+
+        if (currentHP == 0)
+        { 
+            // 사망 애니메이션 출력
+        }
     }
 
     private void FixedUpdate()
@@ -65,6 +72,9 @@ public class PlayerMove : PlayerStat
     // 이동 함수
     void Move()
     {
+        if (isDamaged)
+            return;
+
         moveDir = Vector3.zero;
 
         // 왼쪽 방향키를 부르면
@@ -95,6 +105,9 @@ public class PlayerMove : PlayerStat
     // 점프 함수
     void Jump()
     {
+        if (isDamaged)
+            return;
+
         if (!isJumping)
             return;
 
@@ -128,16 +141,17 @@ public class PlayerMove : PlayerStat
 
                 rb.velocity = Vector2.zero;
                 rb.gravityScale = 0;
-                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
+                StartCoroutine(SetGracePeriod(dashTime));
 
                 yield return null;
             }
 
             curTime = 0;
             rb.gravityScale = 1;
-            gameObject.GetComponent<BoxCollider2D>().enabled = true;
         }
     }
+
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -146,14 +160,31 @@ public class PlayerMove : PlayerStat
         {
             jumpCount = 2;
         }
+
+
     }
 
-    // 대쉬를 2번까지 하고싶다.
-    // 대쉬에 쿨타임이 있다
-    // 땅땅쿨O 땅쿨X
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        // SpecialAttack 태그를 가진 오브젝트에게 부딪히면
+        if (col.gameObject.CompareTag("SpecialAttack"))
+        {
+            Vector2 damagedVelocity = Vector2.zero;
 
-    // 대쉬할때는 무적이다
-    // 대쉬할때는 중력적용이 안되고 이동적용도 안된다.
+            if (col.gameObject.transform.position.x > transform.position.x)
+            {
+                damagedVelocity = new Vector2(-2f, 2f);
+            }
+            else
+            { 
+                damagedVelocity = new Vector2(2f, 2f);
+            }
+
+            StartCoroutine(DamagedMove(damagedTime, damagedVelocity));
+
+            StartCoroutine(SetGracePeriod(damagedTime));
+        }
+    }
 
     // 대쉬 쿨타임 적용
     IEnumerator DashCoolTime()
@@ -165,5 +196,23 @@ public class PlayerMove : PlayerStat
         dashCount = 2;
         dashCountCurTime = 0;
         isDash = false;
+    }
+
+    // 피격 시 넉백 및 경직
+    IEnumerator DamagedMove(float damagedTime, Vector2 damagedDir)
+    {
+        float currentTime = 0;
+        isDamaged = true;
+
+        while (currentTime <= damagedTime)
+        {
+            currentTime += Time.deltaTime;
+
+            transform.position += new Vector3(damagedDir.x, damagedDir.y, 0) * Time.deltaTime;
+
+            yield return null;
+        }
+
+        isDamaged = false;
     }
 }

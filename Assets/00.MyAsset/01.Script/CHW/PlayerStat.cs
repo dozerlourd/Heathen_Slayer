@@ -16,4 +16,36 @@ public class PlayerStat : MonoBehaviour
     //public int dashMaxCount = 2;
     [Tooltip("대쉬 쿨타임")]
     public float dashCoolDown = 3f;
+    [Tooltip("최대 체력")]
+    public int maxHP = 100;
+    [Tooltip("현재 체력")]
+    public int currentHP = 0;
+
+    private void Awake()
+    {
+        currentHP = maxHP;
+    }
+
+    // HP 변동사항
+    public void SetHP(int value)
+    {
+        currentHP += value;
+    }
+
+    // 해당 시간만큼 게임 오브젝트를 무적 상태로 설정
+    public IEnumerator SetGracePeriod(float gracePeriod)
+    {
+        float currentTime = 0;
+
+        Physics2D.IgnoreLayerCollision(6, 7, true);
+
+        while (currentTime <= gracePeriod)
+        {
+            currentTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        Physics2D.IgnoreLayerCollision(6, 7, false);
+    }
 }
