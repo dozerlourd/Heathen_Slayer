@@ -13,16 +13,18 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     [SerializeField] float waitToSkillTime;
 
     [Header(" - Related to Bringer's skill")]
-    [SerializeField] GameObject skillEffect;
+    [SerializeField] GameObject skill_GodHand;
     [SerializeField] int maxSkillEffectPoolCount;
-    GameObject[] skillEffects;
     [SerializeField, Range(0f, 1f)] float skillEffectTiming;
+
+    GameObject[] skillEffects;
 
     [Space(15)]
     [Tooltip("Max Aggro Duration: After end duration, change to patrol")]
     [SerializeField] float aggroDuration = 10;
 
     WaitForSeconds waitToPatrol, waitToTrace, waitToAttack, waitToSkill;
+
     Coroutine Co_Patrol, Co_Trace;
 
     #endregion
@@ -44,13 +46,16 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         waitToSkill = new WaitForSeconds(waitToSkillTime);
     }
 
-    void Start()
+    private new void Start()
     {
+        base.Start();
+
         skillEffects = new GameObject[maxSkillEffectPoolCount];
         for (int i = 0; i < 5; i++)
         {
-            skillEffects[i] = Instantiate(skillEffect);
-            skillEffects[i].name = skillEffect.name;
+            skillEffects[i] = Instantiate(skill_GodHand);
+            skillEffects[i].name = skill_GodHand.name;
+            skillEffects[i].GetComponent<Bringer_GodHand>().SetDamage(skillAttackDmg[0]);
             skillEffects[i].transform.SetParent(FolderSystem.Instance.Bringer_SkillPool);
             skillEffects[i].SetActive(false);
         }
@@ -123,9 +128,9 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
             {
                 anim.SetBool("ToWalk", false);
                 traceCount = 0;
-                //if (HCH.Well512.Next() > HCH.Well512.Next())
-                //    yield return StartCoroutine(EnemyAttack_1());
-                //else
+                if (HCH.Well512.Next() > HCH.Well512.Next())
+                    yield return StartCoroutine(EnemyAttack_1());
+                else
                     yield return StartCoroutine(EnemySkill_1());
 
                 yield return StartCoroutine(EnemyIdle());

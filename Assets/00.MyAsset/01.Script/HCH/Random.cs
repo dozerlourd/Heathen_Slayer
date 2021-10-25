@@ -10,9 +10,22 @@ namespace HCH
         {
             // 무조건 보완해야함
             int milliSeconds = System.DateTime.Now.Millisecond;
+            //int randomNum = HCH.Random.Range(0, 1000);
+
+
             Debug.Log("CurrTime: " + milliSeconds);
             return milliSeconds;
         }
+
+        //public static int Range(int min, int max)
+        //{
+            
+        //}
+
+        //public static float Range(float min, float max)
+        //{
+
+        //}
     }
 
     public class Well512

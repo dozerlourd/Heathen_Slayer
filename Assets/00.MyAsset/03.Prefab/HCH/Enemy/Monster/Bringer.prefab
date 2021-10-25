@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8689224006875875951
 Transform:
   m_ObjectHideFlags: 0
@@ -158,18 +158,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicAttackDmg: 10
   skillAttackDmg:
-  - 0
-  - 0
-  - 0
+  - 10
   attackSpeed: 1
   moveSpeed: 3
   detectRange: 8
   attackRange: 2.5
   groundCheckRayDist: 0.03
-  gravityScale: 19.62
+  gravityScale: 2
   waitToPatrolTime: 1
   waitToTraceTime: 5
   waitToAttackTime: 0.8
   waitToSkillTime: 1.8
+  skill_GodHand: {fileID: 5723722605407805117, guid: 99a24cd6f49384941abc0faa511f35dd, type: 3}
+  maxSkillEffectPoolCount: 5
+  skillEffectTiming: 0.375
   aggroDuration: 5
-  skillEffect: {fileID: 0}

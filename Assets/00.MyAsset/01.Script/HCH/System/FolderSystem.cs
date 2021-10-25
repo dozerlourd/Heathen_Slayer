@@ -24,14 +24,42 @@ public class FolderSystem : MonoBehaviour
     [Tooltip("All Skill Object Pool's Parent")]
     [SerializeField] Transform skillPoolFolder;
     [SerializeField] Transform bringer_SkillPool;
+    [SerializeField] Transform shaman_SkillPool;
 
     #endregion
 
     #region Property
 
     public Transform SystemFolder => systemFolder = systemFolder ? systemFolder : GameObject.Find("-----SystemFolder") == null ? new GameObject("-----SystemFolder").transform : GameObject.Find("-----SystemFolder").transform;
-    public Transform SkillPoolFolder => skillPoolFolder = skillPoolFolder ? skillPoolFolder : new GameObject("-----SkillPoolFolder").transform;
-    public Transform Bringer_SkillPool => bringer_SkillPool = bringer_SkillPool ? bringer_SkillPool : new GameObject("BringerSkillPool").transform;
+    public Transform SkillPoolFolder
+    {
+        get
+        {
+            skillPoolFolder = skillPoolFolder ? skillPoolFolder : new GameObject("-----SkillPoolFolder").transform;
+            skillPoolFolder.transform.SetParent(SystemFolder);
+            return skillPoolFolder;
+        }
+    }
+
+    public Transform Bringer_SkillPool
+    {
+        get
+        {
+            bringer_SkillPool = bringer_SkillPool ? bringer_SkillPool : new GameObject("Bringer's_SkillPool").transform;
+            bringer_SkillPool.transform.SetParent(SkillPoolFolder);
+            return bringer_SkillPool;
+        }
+    }
+
+    public Transform Shaman_SkillPool
+    {
+        get
+        {
+            shaman_SkillPool = shaman_SkillPool ? shaman_SkillPool : new GameObject("Shaman's_SkillPool").transform;
+            shaman_SkillPool.transform.SetParent(SkillPoolFolder);
+            return shaman_SkillPool;
+        }
+    }
 
     #endregion
 
