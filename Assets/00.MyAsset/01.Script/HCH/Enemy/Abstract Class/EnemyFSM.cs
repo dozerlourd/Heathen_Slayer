@@ -50,8 +50,11 @@ public abstract class EnemyFSM : MonoBehaviour
 
     #region Property
 
-    public bool IsFlip { get; protected set; }
+    [Tooltip("니가 처음에 왼쪽을 보고있냐 아님 오른쪽을 보고있냐")]
+    [SerializeField] protected bool originFlipIsRight;
     protected Vector2 playerPos => PlayerSystem.Instance.Player.transform.position;
+
+    protected float flipValue => originFlipIsRight ? spriteRenderer.flipX ? -1 : 1 : spriteRenderer.flipX ? 1 : -1;
 
     #endregion
 
@@ -78,7 +81,7 @@ public abstract class EnemyFSM : MonoBehaviour
     IEnumerator Grivaty()
     {
         yield return new WaitForSeconds(0.25f);
-        while(true)
+        while (true)
         {
             GroundCheck(groundCheckRayDist);
             if (!isGround)
@@ -91,7 +94,11 @@ public abstract class EnemyFSM : MonoBehaviour
 
     public void FlipCheck()
     {
-        if(playerPos.x != transform.position.x)
+        if (originFlipIsRight)
+        {
+            spriteRenderer.flipX = playerPos.x < transform.position.x ? true : false;
+        }
+        else
         {
             spriteRenderer.flipX = playerPos.x > transform.position.x ? true : false;
         }
@@ -99,7 +106,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected void GroundCheck(float dist)
     {
-        isGround = Physics2D.Raycast(transform.position, -transform.up, boxCol2D.size.y / 2 + dist, LayerMask.GetMask("Ground")) ? true : false;
+        isGround = Physics2D.Raycast(transform.position + Vector3.up * boxCol2D.offset.y, -transform.up, boxCol2D.size.y / 2 + dist, LayerMask.GetMask("Ground")) ? true : false;
     }
 
     protected float GetDistanceB2WPlayer() => Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
+public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1, IDeath
 {
     #region Variable
 
@@ -51,14 +51,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         base.Start();
 
         skillEffects = new GameObject[maxSkillEffectPoolCount];
-        for (int i = 0; i < 5; i++)
-        {
-            skillEffects[i] = Instantiate(skill_GodHand);
-            skillEffects[i].name = skill_GodHand.name;
-            skillEffects[i].GetComponent<Bringer_GodHand>().SetDamage(skillAttackDmg[0]);
-            skillEffects[i].transform.SetParent(FolderSystem.Instance.Bringer_SkillPool);
-            skillEffects[i].SetActive(false);
-        }
+        skillEffects = HCH.Pool.GeneratePool(skill_GodHand, maxSkillEffectPoolCount, FolderSystem.Instance.Bringer_SkillPool, false);
 
         StartCoroutine(Co_Pattern());
     }
@@ -145,7 +138,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
                 }
 
                 traceCount = 0;
-                transform.Translate(Vector2.right * (PlayerSystem.Instance.Player.transform.position - transform.position).normalized.x * moveSpeed * 2.25f * Time.deltaTime);
+                transform.Translate(Vector2.right * flipValue * moveSpeed * 2.25f * Time.deltaTime);
             }
             else
             {
@@ -158,7 +151,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
                 if (traceCount <= aggroDuration)
                 {
-                    transform.Translate(Vector2.right * (PlayerSystem.Instance.Player.transform.position - transform.position).normalized.x * moveSpeed * 2.25f * Time.deltaTime);
+                    transform.Translate(Vector2.right * flipValue * moveSpeed * 2.25f * Time.deltaTime);
                     traceCount += Time.deltaTime;
                 }
                 else break;
@@ -198,7 +191,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         anim.SetFloat("AttackSpeed", 0.65f);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= skillEffectTiming);
-        //print("이거 받아라!");
         GodHand();
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.75f);
@@ -213,18 +205,18 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     public void SetAttackSpeed() => anim.SetFloat("AttackSpeed", attackSpeed);
 
     /// <summary> Use Bringer's Skill </summary>
-    void GodHand()
-    {
-        for (int i = 0; i < skillEffects.Length; i++)
-        {
-            if(!skillEffects[i].activeInHierarchy)
-            {
-                skillEffects[i].SetActive(true);
-                skillEffects[i].transform.position = PlayerSystem.Instance.Player.transform.position + Vector3.up * 2.5f;
+    void GodHand() => HCH.Pool.PopObjectFromPool(skillEffects, PlayerSystem.Instance.Player.transform.position + Vector3.up * 2.5f);
 
-                break;
-            }
-        }
+    public IEnumerator Damaged()
+    {
+        FlipCheck();
+        anim.SetTrigger("ToDamaged");
+        yield return null;
+    }
+
+    public IEnumerator Death()
+    {
+        yield return null;
     }
 
     #endregion

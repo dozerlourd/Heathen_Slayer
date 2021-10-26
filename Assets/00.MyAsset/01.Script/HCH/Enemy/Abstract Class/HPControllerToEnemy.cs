@@ -25,18 +25,23 @@ public abstract class HPControllerToEnemy : MonoBehaviour
         }
     }
 
+    public float NormalizedCurrHP => CurrHP / MaxHP;
+
     #endregion
 
     #region Unity Life Cycle
 
-
+    protected void OnEnable()
+    {
+        CurrHP = MaxHP;
+    }
 
     #endregion
 
     #region Implementation Place
 
     public void TakeDamage(float _damage) => CurrHP -= _damage;
-
+    
     protected abstract void RefreshUI(float _val);
 
     /// <summary> When Enemy Taking Damage, Generate this method </summary>

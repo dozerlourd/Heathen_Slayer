@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6940265782750724331}
   - component: {fileID: -7433820919114173412}
   m_Layer: 0
-  m_Name: BringerSkillEffect
+  m_Name: Bringer_SkillEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

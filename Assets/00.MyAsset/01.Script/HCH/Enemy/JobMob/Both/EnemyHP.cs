@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EnemyHP : HPControllerToEnemy
 {
-    EnemyFSM EnemyFSM => EnemyFSM ? EnemyFSM : GetComponent<EnemyFSM>();
-    Animator Animator => Animator ? Animator : GetComponent<Animator>();
+    EnemyFSM enemyFSM;
+    Animator animator;
+    EnemyFSM EnemyFSM => enemyFSM = enemyFSM ? enemyFSM : GetComponent<EnemyFSM>();
+    Animator Animator => animator = animator ? animator : GetComponent<Animator>();
 
 
 

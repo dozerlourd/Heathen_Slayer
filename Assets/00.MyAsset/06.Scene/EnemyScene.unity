@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 456456658}
   - component: {fileID: 456456659}
   - component: {fileID: 456456660}
+  - component: {fileID: 456456662}
   - component: {fileID: 456456661}
   m_Layer: 0
   m_Name: Boss_Shaman
@@ -274,7 +275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456456656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.31, z: 0}
+  m_LocalPosition: {x: 12.97, y: 3.31, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -394,20 +395,34 @@ MonoBehaviour:
   - 0
   - 0
   attackSpeed: 1
-  moveSpeed: 1
+  moveSpeed: 3.8
   detectRange: 10
-  attackRange: 3
+  attackRange: 1.75
   groundCheckRayDist: 0.03
   gravityScale: 2
-  waitToPatrolTime: 0
-  waitToTraceTime: 0
-  waitToAttackTime: 0
-  waitToSkillTime: 0
+  originFlipIsRight: 1
   Skill_PoisonDart: {fileID: 5723722605407805117, guid: 99a24cd6f49384941abc0faa511f35dd, type: 3}
-  Skill_PoisonFloor: {fileID: 5723722605407805117, guid: 99a24cd6f49384941abc0faa511f35dd, type: 3}
   Skill_PoisonExplosion: {fileID: 5723722605407805117, guid: 99a24cd6f49384941abc0faa511f35dd, type: 3}
-  maxSkillEffectPoolCounts: 050000000300000002000000
+  Skill_PoisonArea:
+  - {fileID: 1261830690}
+  - {fileID: 1026194203}
+  maxSkillEffectPoolCounts: 0500000014000000
   skillEffectTiming: 0
+  IdleDelayTime: 0.3
+  teleportingDist: 15
+--- !u!114 &456456662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456456656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327290734ad13f6458ff788f94a6351f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 1000
 --- !u!1 &486120266
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,7 +921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212f909c012f77d45aa54d5479fa7d90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 14
 --- !u!61 &946447142
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -954,6 +969,68 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!1001 &1026194202
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.1672835
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.59536
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091500940329929343, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+      propertyPath: m_Name
+      value: Shaman_Poison Area_21
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+--- !u!1 &1026194203 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4091500940329929343, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
+  m_PrefabInstance: {fileID: 1026194202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1064963962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,6 +1620,68 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1001 &1261830689
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.1672835
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.59536
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1948556557364465594, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+      propertyPath: m_Name
+      value: Shaman_Poison Area_3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+--- !u!1 &1261830690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1948556557364465594, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
+  m_PrefabInstance: {fileID: 1261830689}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1463858895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,6 +1883,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8689224006875875944, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_Name
       value: Bringer
@@ -1752,9 +1895,25 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: originIsFlip
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_LocalPosition.x
