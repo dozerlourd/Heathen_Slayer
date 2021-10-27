@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1, ISkill_2, ISkill_3, IDeath
+public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1, ISkill_2, ISkill_3
 {
     #region Variable
 
@@ -11,16 +11,23 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
     [SerializeField] GameObject Skill_PoisonExplosion;
     [SerializeField] GameObject[] Skill_PoisonArea;
 
-    [Space(5)]
     [Tooltip("0 => Dart \n 1 => Explosion")]
     [SerializeField] int[] maxSkillEffectPoolCounts;
-    [SerializeField, Range(0f, 1f)] float skillEffectTiming;
+    [SerializeField, Range(0f, 1f)] float[] skillEffectTiming;
+    [Tooltip("The speed of moving darts")]
+    [SerializeField] float dartSpeed;
 
     [Header(" - Elapsed Time For State Change"), Min(0.0f)]
     [SerializeField] float IdleDelayTime;
+    [SerializeField] float dartDelayTime;
+    [SerializeField] float areaSkillTime;
 
     [Header(" - Check Distance")]
     [SerializeField] float teleportingDist;
+
+    [Header(" - Variable objects for attack")]
+    [SerializeField] Collider2D[] attackCols;
+    [SerializeField] Transform dartFirePos;
 
     ShamanPoisonArea[] poisonArea;
 
@@ -44,6 +51,10 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
     private new void Start()
     {
         base.Start();
+        for (int i = 0; i < attackCols.Length; i++)
+        {
+            attackCols[i].enabled = false;
+        }
 
         #region Generate ObjectPool
         skillEffects_PoisonDart = new GameObject[maxSkillEffectPoolCounts[0]];
@@ -96,10 +107,19 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         yield return EnemyIdle();
         // 나중에 랜덤으로 공격 패턴 실행하게끔
         yield return EnemyAttack_2();
+        yield return EnemyIdle();
         yield return EnemyAttack_2();
+        yield return EnemyIdle();
         yield return EnemyAttack_1();
+        yield return EnemyIdle();
         yield return EnemySkill_1();
-        yield return null;
+        yield return EnemySkill_2();
+        yield return EnemyAttack_2();
+        yield return EnemyIdle();
+        yield return EnemyAttack_2();
+        yield return EnemyIdle();
+        yield return EnemyAttack_1();
+        yield return EnemyIdle();
     }
 
     IEnumerator Pattern_2()
@@ -123,7 +143,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     public IEnumerator EnemyTrace()
     {
-        print("Trace");
+        //print("Trace");
         while (GetDistanceB2WPlayer() > attackRange)
         {
             if(GetDistanceB2WPlayer() > teleportingDist)
@@ -134,6 +154,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
             }
             FlipCheck();
             anim.SetBool("ToWalk", true);
+            yield return null;
             transform.Translate(Vector2.right * flipValue * moveSpeed * 2.25f * Time.deltaTime);
             yield return null;
         }
@@ -145,9 +166,14 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         yield return StartCoroutine(EnemyTrace());
         FlipCheck();
 
-        print("Attack_1");
+        //print("Attack_1");
         anim.SetTrigger("ToAttack_1");
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.35f);
+        yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.46f);
+        attackCols[0].enabled = true;
+        //(PolygonCollider2D)attackCols[0].
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.53f);
+        attackCols[0].enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Shaman_Idle"));
     }
@@ -157,9 +183,17 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         yield return StartCoroutine(EnemyTrace());
         FlipCheck();
 
-        print("Attack_2");
         anim.SetTrigger("ToAttack_2");
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.35f);
+        yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.36f);
+        attackCols[1].enabled = true;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.41f);
+        attackCols[1].enabled = false;
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.56f);
+        attackCols[1].enabled = true;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.61f);
+        attackCols[1].enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Shaman_Idle"));
     }
@@ -169,16 +203,28 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         FlipCheck();
         yield return null;
 
-        print("Skill_Dart");
+        //print("Skill_Dart");
         anim.SetTrigger("ToSkill_Dart");
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.35f);
+        yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.625f);
+        GameObject dartClone = HCH.Pool.PopObjectFromPool(skillEffects_PoisonDart);
+        dartClone.transform.position = dartFirePos.position;
+        dartClone.GetComponent<Rigidbody2D>().velocity = new Vector2(flipValue * dartSpeed, 0);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Shaman_Idle"));
+        yield return new WaitForSeconds(dartDelayTime);
     }
 
     public IEnumerator EnemySkill_2()
     {
+        print("Skill_Area");
+        anim.SetBool("ToSkill_Area", true);
+        anim.SetTrigger("SkillStart");
         yield return null;
+
+        yield return Area_2();
+
+        anim.SetBool("ToSkill_Area", false);
     }
 
     public IEnumerator EnemySkill_3()
@@ -186,9 +232,42 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         yield return null;
     }
 
-    public IEnumerator Death()
+    public IEnumerator Area_1()
     {
-        yield return null;
+        for (int i = 0; i < poisonArea.Length; i++)
+        {
+            poisonArea[i].gameObject.SetActive(true);
+            poisonArea[i].TogglePoisonArea();
+        }
+        yield return new WaitForSeconds(3);
+
+        for (int i = 0; i < poisonArea.Length; i++)
+        {
+            poisonArea[i].TogglePoisonArea();
+        }
+        yield return new WaitForSeconds(2);
+
+        for (int i = 0; i < poisonArea.Length; i++)
+        {
+            poisonArea[i].TogglePoisonArea();
+        }
+        yield return new WaitForSeconds(3);
+
+        for (int i = 0; i < poisonArea.Length; i++)
+        {
+            poisonArea[i].TogglePoisonArea();
+            poisonArea[i].gameObject.SetActive(false);
+        }
+    }
+
+    public IEnumerator Area_2()
+    {
+        for (int i = 0; i < poisonArea.Length; i++)
+        {
+            poisonArea[i].gameObject.SetActive(!poisonArea[i].gameObject.activeInHierarchy);
+            poisonArea[i].TogglePoisonArea();
+        }
+        yield return new WaitForSeconds(1);
     }
 
     #endregion

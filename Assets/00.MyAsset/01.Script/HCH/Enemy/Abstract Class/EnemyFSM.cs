@@ -33,6 +33,11 @@ public abstract class EnemyFSM : MonoBehaviour
     [SerializeField] protected float gravityScale = 9.81f;
     #endregion
 
+    [Header(" - Flip Objects")]
+    #region flip objects
+    [SerializeField] GameObject[] flipObjects;
+    #endregion
+
     #endregion
 
     #region HideInInspector
@@ -101,6 +106,12 @@ public abstract class EnemyFSM : MonoBehaviour
         else
         {
             spriteRenderer.flipX = playerPos.x > transform.position.x ? true : false;
+        }
+
+        if (flipObjects.Length == 0) return;
+        for (int i = 0; i < flipObjects.Length; i++)
+        {
+            flipObjects[i].transform.eulerAngles = new Vector3(0, spriteRenderer.flipX ? 180 : 0, 0);
         }
     }
 

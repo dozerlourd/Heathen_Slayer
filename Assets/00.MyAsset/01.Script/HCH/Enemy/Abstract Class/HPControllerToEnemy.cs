@@ -10,22 +10,28 @@ public abstract class HPControllerToEnemy : MonoBehaviour
 
     protected float currHP;
 
+    protected EnemyFSM enemyFSM;
+    protected Animator animator;
+
     #endregion
 
     #region Property
     public float MaxHP => maxHP;
 
-
     public float CurrHP { get => currHP;
         protected set
         {
-            currHP = value;
-            EnemyDamaged();
+            currHP = value < 0 ? 0 : value;
             RefreshUI(value);
+            if (NormalizedCurrHP <= 0) Animator.SetTrigger("ToDie");
+            else EnemyDamaged();
         }
     }
 
     public float NormalizedCurrHP => CurrHP / MaxHP;
+
+    protected EnemyFSM EnemyFSM => enemyFSM = enemyFSM ? enemyFSM : GetComponent<EnemyFSM>();
+    protected Animator Animator => animator = animator ? animator : GetComponent<Animator>();
 
     #endregion
 

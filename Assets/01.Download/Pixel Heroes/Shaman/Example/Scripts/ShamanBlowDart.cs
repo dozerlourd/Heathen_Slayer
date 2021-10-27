@@ -14,7 +14,7 @@ public class ShamanBlowDart : MonoBehaviour
 
     void Vanish()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     IEnumerator VanishAfterSetTime()

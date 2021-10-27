@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1, IDeath
+public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 {
     #region Variable
 
@@ -211,11 +211,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1,
     {
         FlipCheck();
         anim.SetTrigger("ToDamaged");
-        yield return null;
-    }
-
-    public IEnumerator Death()
-    {
         yield return null;
     }
 
