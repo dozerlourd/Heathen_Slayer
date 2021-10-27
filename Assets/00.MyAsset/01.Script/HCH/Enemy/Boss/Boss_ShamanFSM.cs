@@ -128,7 +128,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         {
             if(GetDistanceB2WPlayer() > teleportingDist)
             {
-                transform.position = playerPos + Vector2.up;
+                transform.position = playerPos + Vector2.up * 2f;
                 yield return StartCoroutine(EnemyAttack_1());
                 break;
             }

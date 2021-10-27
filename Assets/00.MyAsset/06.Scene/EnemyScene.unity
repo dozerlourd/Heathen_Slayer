@@ -409,7 +409,7 @@ MonoBehaviour:
   maxSkillEffectPoolCounts: 0500000014000000
   skillEffectTiming: 0
   IdleDelayTime: 0.3
-  teleportingDist: 15
+  teleportingDist: 17
 --- !u!114 &456456662
 MonoBehaviour:
   m_ObjectHideFlags: 0
