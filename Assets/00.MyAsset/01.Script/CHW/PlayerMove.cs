@@ -61,11 +61,12 @@ public class PlayerMove : PlayerStat
         { 
             // 사망 애니메이션 출력
         }
+
+        Move();
     }
 
     private void FixedUpdate()
     {
-        Move();
         Jump();
     }
 

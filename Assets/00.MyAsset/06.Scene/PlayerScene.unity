@@ -148,12 +148,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249844058}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1865382671}
-  m_RootOrder: 1
+  m_Father: {fileID: 911768459}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &249844060
 BoxCollider2D:
@@ -204,7 +204,6 @@ GameObject:
   m_Component:
   - component: {fileID: 911768459}
   - component: {fileID: 911768461}
-  - component: {fileID: 911768460}
   m_Layer: 7
   m_Name: HeroGFX
   m_TagString: Untagged
@@ -222,29 +221,11 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 249844059}
   m_Father: {fileID: 1865382671}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &911768460
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 911768458}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c8bef4ed1ed840d4ea9a938a7dc2bb7e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &911768461
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -882,8 +863,10 @@ GameObject:
   - component: {fileID: 1865382671}
   - component: {fileID: 1865382669}
   - component: {fileID: 1865382670}
+  - component: {fileID: 1865382675}
   - component: {fileID: 1865382672}
   - component: {fileID: 1865382673}
+  - component: {fileID: 1865382674}
   m_Layer: 7
   m_Name: Hero
   m_TagString: Untagged
@@ -950,7 +933,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 911768459}
-  - {fileID: 249844059}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -988,3 +970,37 @@ MonoBehaviour:
   attackSpeed: 0.5
   atkCollider: {fileID: 249844060}
   skillFactor: 1.5
+--- !u!114 &1865382674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865382668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e73355ce4f3b3a449bf3f73499fe617, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animController:
+  - {fileID: 9100000, guid: c8bef4ed1ed840d4ea9a938a7dc2bb7e, type: 2}
+  - {fileID: 9100000, guid: e330e7918e94fab468282da1643f7fa4, type: 2}
+--- !u!95 &1865382675
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865382668}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
