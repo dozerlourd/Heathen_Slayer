@@ -1483,14 +1483,6 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.75
       objectReference: {fileID: 0}
@@ -1533,18 +1525,6 @@ PrefabInstance:
     - target: {fileID: 4091500940329929343, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
       propertyPath: m_Name
       value: Shaman_Poison Area_21
-      objectReference: {fileID: 0}
-    - target: {fileID: 4346455959039936627, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
-      propertyPath: m_Size.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4346455959039936627, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4346455959039936627, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
@@ -2186,14 +2166,6 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1948556557364465588, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.75
       objectReference: {fileID: 0}
@@ -2236,18 +2208,6 @@ PrefabInstance:
     - target: {fileID: 1948556557364465594, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
       propertyPath: m_Name
       value: Shaman_Poison Area_3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8253310639417203409, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
-      propertyPath: m_Size.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8253310639417203409, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8253310639417203409, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce20d5b0e8b5b9d459ef1d71d2009a2d, type: 3}

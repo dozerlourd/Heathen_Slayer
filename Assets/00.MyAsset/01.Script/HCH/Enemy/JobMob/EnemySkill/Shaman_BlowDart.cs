@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShamanBlowDart : MonoBehaviour
+public class Shaman_BlowDart : MonoBehaviour
 {
     public float Duration;
     public Rigidbody2D Body;
@@ -14,7 +14,7 @@ public class ShamanBlowDart : MonoBehaviour
 
     void Vanish()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     IEnumerator VanishAfterSetTime()
