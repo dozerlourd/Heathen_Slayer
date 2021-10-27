@@ -11,9 +11,9 @@ public class WeaponColCheck : MonoBehaviour
     {
         // 만약 충돌 대상의 태그가 Enemy면
         if (col.gameObject.CompareTag("Enemy"))
-        { 
+        {
             // Enemy 체력 감소
-
+            col.GetComponent<HPControllerToEnemy>()?.TakeDamage(attackDamage);
         }
     }
 }
