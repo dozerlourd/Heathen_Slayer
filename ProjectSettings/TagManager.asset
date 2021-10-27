@@ -3,16 +3,22 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SpecialAttack
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
+<<<<<<< HEAD
   - Ground
   - 
+=======
+  - Enemy
+  - Player
+>>>>>>> main
   - 
   - 
   - 

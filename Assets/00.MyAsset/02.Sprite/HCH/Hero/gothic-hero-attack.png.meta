@@ -1,7 +1,25 @@
 fileFormatVersion: 2
 guid: a6b50d680f6fad84c85d663dad7cd2d7
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6543683806485202196
+    second: gothic-hero-attack_0
+  - first:
+      213: 4031765538473228261
+    second: gothic-hero-attack_1
+  - first:
+      213: 1518346569251276849
+    second: gothic-hero-attack_2
+  - first:
+      213: 6544159311391134502
+    second: gothic-hero-attack_3
+  - first:
+      213: -8205635420568287911
+    second: gothic-hero-attack_4
+  - first:
+      213: 5365348509512086814
+    second: gothic-hero-attack_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -113,7 +131,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: gothic-hero-attack_0
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 0
+        width: 28
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 415c60880c5dfca50800000000000000
+      internalID: 6543683806485202196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gothic-hero-attack_1
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 0
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e7bb526565b3f730800000000000000
+      internalID: 4031765538473228261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gothic-hero-attack_2
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 81
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 138c7220920421510800000000000000
+      internalID: 1518346569251276849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gothic-hero-attack_3
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 0
+        width: 64
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6239805a83681da50800000000000000
+      internalID: 6544159311391134502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gothic-hero-attack_4
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 0
+        width: 36
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9550aa07f0abf1e80800000000000000
+      internalID: -8205635420568287911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gothic-hero-attack_5
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 0
+        width: 31
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e15b3a5ea0c857a40800000000000000
+      internalID: 5365348509512086814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
