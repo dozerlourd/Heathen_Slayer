@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IAttack_1
 {
-    void Attack_1();
+    IEnumerator EnemyAttack_1();
 }

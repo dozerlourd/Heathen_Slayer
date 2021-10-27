@@ -20,7 +20,6 @@ public class CameraFollow : MonoBehaviour
 
     #endregion
 
-
     #region Unity Life Cycle
 
     void Start() => StartCoroutine(FindPlayerWithTag());
@@ -34,17 +33,6 @@ public class CameraFollow : MonoBehaviour
         initVec.y += downPadding;
         transform.position = initVec;
     }
-
-    //private void LateUpdate()
-    //{
-    //    if (player == null) return;
-    //    if (Vector2.Distance(transform.position, player.transform.position) > paddingRadius)
-    //    {
-    //        Vector3 resultVec = Vector3.Lerp(transform.position, player.transform.position, followSpeed * Time.deltaTime);
-    //        resultVec.z = -10;
-    //        transform.position = resultVec;
-    //    }
-    //}
 
     private void LateUpdate()
     {

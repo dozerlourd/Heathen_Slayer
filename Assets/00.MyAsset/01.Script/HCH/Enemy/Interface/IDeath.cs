@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDeath
 {
-    void Death();
+    IEnumerator Death();
 }

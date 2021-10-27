@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface ISkill_3
 {
-    void Skill_3();
+    IEnumerator EnemySkill_3();
 }

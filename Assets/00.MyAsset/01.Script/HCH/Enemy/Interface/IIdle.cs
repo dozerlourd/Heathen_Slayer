@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IIdle
 {
-    void Idle();
+    IEnumerator EnemyIdle();
 }

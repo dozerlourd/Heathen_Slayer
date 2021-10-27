@@ -952,7 +952,7 @@ MonoBehaviour:
   jumpPower: 5
   jumpCount: 2
   dashCount: 2
-  dashCoolDown: 1.2
+  dashCoolDown: 3
   maxHP: 100
   currentHP: 0
 --- !u!114 &1865382673
