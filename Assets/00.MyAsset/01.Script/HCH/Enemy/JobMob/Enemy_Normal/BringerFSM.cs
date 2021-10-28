@@ -17,11 +17,14 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     [SerializeField] int maxSkillEffectPoolCount;
     [SerializeField, Range(0f, 1f)] float skillEffectTiming;
 
-    GameObject[] skillEffects;
+    [Header(" - Related to Bringer's attack")]
+    [SerializeField] Collider2D attackCol;
 
     [Space(15)]
     [Tooltip("Max Aggro Duration: After end duration, change to patrol")]
     [SerializeField] float aggroDuration = 10;
+
+    GameObject[] skillEffects;
 
     WaitForSeconds waitToPatrol, waitToTrace, waitToAttack, waitToSkill;
 
@@ -37,6 +40,9 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     #region Unity Life Cycle
 
+    /// <summary>
+    /// 
+    /// </summary>
     new void Awake()
     {
         base.Awake();
@@ -170,7 +176,13 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         anim.SetFloat("AttackSpeed", 0.85f);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.35f);
-        anim.SetFloat("AttackSpeed", 1.2f);
+        anim.SetFloat("AttackSpeed", 1.35f);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.43f);
+        attackCol.enabled = true;
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.48f);
+        attackCol.enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f);
         anim.SetFloat("AttackSpeed", 0.85f);

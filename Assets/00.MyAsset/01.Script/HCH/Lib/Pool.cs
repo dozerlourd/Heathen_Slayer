@@ -42,6 +42,10 @@ namespace HCH
             return returnObjs;
         }
 
+        /// <summary>   </summary>
+        /// <param name="_objectPool"></param>
+        /// <param name="isActive"></param>
+        /// <returns></returns>
         public static GameObject PopObjectFromPool(GameObject[] _objectPool, bool isActive = true)
         {
             for (int i = 0; i < _objectPool.Length; i++)
@@ -53,6 +57,11 @@ namespace HCH
             return null;
         }
 
+        /// <summary>  </summary>
+        /// <param name="_objectPool"></param>
+        /// <param name="initPos"></param>
+        /// <param name="isActive"></param>
+        /// <returns></returns>
         public static GameObject PopObjectFromPool(GameObject[] _objectPool, Vector3 initPos, bool isActive = true)
         {
             for (int i = 0; i < _objectPool.Length; i++)
@@ -65,6 +74,11 @@ namespace HCH
             return null;
         }
 
+        /// <summary>  </summary>
+        /// <param name="_objectPool"></param>
+        /// <param name="count"></param>
+        /// <param name="isActive"></param>
+        /// <returns></returns>
         public static GameObject[] PopObjectsFromPool(GameObject[] _objectPool, int count, bool isActive = true)
         {
             GameObject[] returnObjs = new GameObject[count];
@@ -81,6 +95,12 @@ namespace HCH
             return returnObjs;
         }
 
+        /// <summary>  </summary>
+        /// <param name="_objectPool"></param>
+        /// <param name="count"></param>
+        /// <param name="initPos"></param>
+        /// <param name="isActive"></param>
+        /// <returns></returns>
         public static GameObject[] PopObjectsFromPool(GameObject[] _objectPool, int count, Vector3[] initPos, bool isActive = true)
         {
             GameObject[] returnObjs = new GameObject[count];
