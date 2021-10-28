@@ -16,7 +16,7 @@ public class PlayerClassChange : MonoBehaviour
         // Space 키를 누르면 클래스가 변경
         if (Input.GetKey(KeyCode.Space))
         {
-
+            
         }
     }
 
@@ -26,7 +26,7 @@ public class PlayerClassChange : MonoBehaviour
         {
             if (gameObject.transform.GetChild(i).gameObject.activeSelf)
             {
-                GetComponent<Animator>().runtimeAnimatorController = animController[i];
+                GetComponentInChildren<Animator>().runtimeAnimatorController = animController[i];
             }
         }
     }

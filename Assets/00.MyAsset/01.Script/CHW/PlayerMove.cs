@@ -5,25 +5,34 @@ using UnityEngine;
 public class PlayerMove : PlayerStat
 {
     Rigidbody2D rb;
+    Animator anim;
     bool isJumping = false;
     bool isDash = false;
-    bool isDamaged = false;
+    public bool isDamaged = false;
     Vector3 moveDir;
 
     float dashTime = 0.3f;
     float curTime = 0;
-    float lerpSpeed = 4;
-    float dashCountTime = 1;
+    [Tooltip("대쉬 속도 조절")]
+    [SerializeField]float lerpSpeed = 4;
+    [Tooltip("대쉬 카운트 감소 시간")]
+    [SerializeField] float dashCountTime = 1;
     float dashCountCurTime = 0;
     float damagedTime = 0.5f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Die"))
+            return;
+
+        Move();
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             isJumping = true;   
@@ -57,12 +66,11 @@ public class PlayerMove : PlayerStat
             }
         }
 
-        if (currentHP == 0)
-        { 
+        if (currentHP <= 0)
+        {
             // 사망 애니메이션 출력
+            anim.SetTrigger("Die");
         }
-
-        Move();
     }
 
     private void FixedUpdate()
@@ -78,8 +86,17 @@ public class PlayerMove : PlayerStat
 
         moveDir = Vector3.zero;
 
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            // 대기 애니메이션 실행
+            anim.SetBool("Move", false);
+
+            // 멈춘다.
+            moveDir = Vector3.zero;
+            
+        }
         // 왼쪽 방향키를 부르면
-        if (Input.GetKey(KeyCode.LeftArrow))
+        else if (Input.GetKey(KeyCode.LeftArrow))
         {
             // 왼쪽으로 움직인다.
             moveDir = Vector3.left;
@@ -88,16 +105,16 @@ public class PlayerMove : PlayerStat
         // 오른쪽 방향키를 누르면
         else if (Input.GetKey(KeyCode.RightArrow))
         {
+
             // 오른쪽으로 움직인다.
             moveDir = Vector3.right;
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
 
-        // 왼쪽 방향키와 오른쪽 방향키를 둘 다 누르면
-        if (Input.GetKey(KeyCode.LeftArrow) && Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
         {
-            // 멈춘다.
-            moveDir = Vector3.zero;
+            // 이동 애니메이션 실행
+            anim.SetBool("Move", true);
         }
 
         transform.position += moveDir * moveSpeed * Time.deltaTime;
@@ -170,6 +187,8 @@ public class PlayerMove : PlayerStat
         // SpecialAttack 태그를 가진 오브젝트에게 부딪히면
         if (col.gameObject.CompareTag("SpecialAttack"))
         {
+            anim.SetTrigger("GetHit");
+
             Vector2 damagedVelocity = Vector2.zero;
 
             if (col.gameObject.transform.position.x > transform.position.x)
@@ -182,7 +201,6 @@ public class PlayerMove : PlayerStat
             }
 
             StartCoroutine(DamagedMove(damagedTime, damagedVelocity));
-
             StartCoroutine(SetGracePeriod(damagedTime));
         }
     }
