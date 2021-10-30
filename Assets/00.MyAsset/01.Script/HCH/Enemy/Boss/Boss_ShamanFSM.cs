@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 [System.Serializable]
 public class Shaman_Variable
 {
@@ -47,6 +44,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     [Space(30)]
     [SerializeField] Shaman_Variable shaman_Variable;
+
     #endregion
 
     #region Property
@@ -64,7 +62,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         {
             shaman_Variable.attackCols[i].enabled = false;
         }
-
+        
         #region Generate ObjectPool
         shaman_Variable.skillEffects_PoisonDart = new GameObject[shaman_Variable.maxSkillEffectPoolCounts[0]];
         shaman_Variable.skillEffects_PoisonExplosion = new GameObject[shaman_Variable.maxSkillEffectPoolCounts[1]];
@@ -85,6 +83,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
         StartCoroutine(Co_Pattern());
     }
+
     #endregion
 
     #region Implementation Place 
@@ -259,6 +258,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         for (int i = 0; i < shaman_Variable.poisonArea.Length; i++)
         {
             shaman_Variable.poisonArea[i].TogglePoisonArea();
+            shaman_Variable.poisonArea[i].gameObject.SetActive(false);
         }
         yield return new WaitForSeconds(1);
     }
@@ -267,7 +267,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
     {
         for (int i = 0; i < shaman_Variable.poisonArea.Length; i++)
         {
-            shaman_Variable.poisonArea[i].gameObject.SetActive(!shaman_Variable.poisonArea[i].gameObject.activeInHierarchy);
+            shaman_Variable.poisonArea[i].gameObject.SetActive(true);
             shaman_Variable.poisonArea[i].TogglePoisonArea();
         }
         yield return new WaitForSeconds(1);

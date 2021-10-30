@@ -157,7 +157,7 @@ public class PlayerMove : PlayerStat
     private void OnCollisionEnter2D(Collision2D col)
     {
         // Ground Layer에 부딪히면 점프 가능 횟수 초기화
-        if (col.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (col.gameObject.layer == LayerMask.NameToLayer("L_Ground"))
         {
             jumpCount = 2;
         }

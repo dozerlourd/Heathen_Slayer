@@ -117,7 +117,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected void GroundCheck(float dist)
     {
-        isGround = Physics2D.Raycast(transform.position + Vector3.up * boxCol2D.offset.y, -transform.up, boxCol2D.size.y / 2 + dist, LayerMask.GetMask("Ground")) ? true : false;
+        isGround = Physics2D.Raycast(transform.position + Vector3.up * boxCol2D.offset.y, -transform.up, boxCol2D.size.y / 2 + dist, LayerMask.GetMask("L_Ground")) ? true : false;
     }
 
     protected float GetDistanceB2WPlayer() => Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position);

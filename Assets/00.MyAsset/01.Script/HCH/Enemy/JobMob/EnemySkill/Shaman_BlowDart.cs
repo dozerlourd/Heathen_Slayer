@@ -22,4 +22,13 @@ public class Shaman_BlowDart : MonoBehaviour
         yield return new WaitForSeconds(Duration);
         Vanish();
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.CompareTag("Player"))
+        {
+            col.GetComponent<PlayerStat>()?.SetHP(8, 0.7f);
+            Vanish();
+        }
+    }
 }
