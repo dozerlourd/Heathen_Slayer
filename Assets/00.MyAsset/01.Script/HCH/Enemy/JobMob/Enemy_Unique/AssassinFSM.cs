@@ -6,15 +6,12 @@ using UnityEngine;
 public class Assassin_Variable
 {
     [Header(" - Related to Assassin's Skill")]
-    [SerializeField] internal GameObject Skill_PoisonDart;
-    [SerializeField] internal GameObject Skill_PoisonExplosion;
-    [SerializeField] internal GameObject[] Skill_PoisonArea;
+    //[SerializeField] internal GameObject Skill_;
 
     [Header(" - Related to Assassin's attack")]
     [SerializeField] internal Collider2D[] attackCols;
-    [SerializeField] internal Transform dartFirePos;
 
-    [SerializeField] internal int[] maxSkillEffectPoolCounts;
+    //[SerializeField] internal int[] maxSkillEffectPoolCounts;
     [SerializeField, Range(0f, 1f)] internal float effectTiming;
 
     [Header(" - Check Distance")]
@@ -32,6 +29,7 @@ public class AssassinFSM : EnemyFSM
 {
     #region Variable
 
+    [SerializeField]
     Assassin_Variable assassin_Variable;
 
     #endregion
@@ -40,12 +38,13 @@ public class AssassinFSM : EnemyFSM
 
     private new void Awake()
     {
-        
+        base.Awake();
+        anim.SetTrigger("ToArise");
     }
 
     private new void Start()
     {
-        
+        base.Start();
     }
 
     #endregion

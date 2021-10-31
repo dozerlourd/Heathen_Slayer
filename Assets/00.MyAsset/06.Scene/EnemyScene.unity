@@ -394,7 +394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &456456657
 Transform:
   m_ObjectHideFlags: 0
@@ -2562,7 +2562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1474737497
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2711,6 +2711,10 @@ MonoBehaviour:
   gravityScale: 9.81
   flipObjects: []
   originFlipIsRight: 0
+  assassin_Variable:
+    attackCols: []
+    effectTiming: 0
+    blinkDist: 0
 --- !u!1 &1542721030
 GameObject:
   m_ObjectHideFlags: 0
