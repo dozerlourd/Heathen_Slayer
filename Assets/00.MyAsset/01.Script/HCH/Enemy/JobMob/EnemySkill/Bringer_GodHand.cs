@@ -59,7 +59,7 @@ public class Bringer_GodHand : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             print("데미지!");
-            // 데미지 준다
+            col.GetComponent<PlayerStat>().SetHP(6, 0.1f);
         }
     }
 

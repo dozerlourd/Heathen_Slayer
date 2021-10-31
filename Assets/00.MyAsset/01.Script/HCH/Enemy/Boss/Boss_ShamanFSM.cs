@@ -2,47 +2,54 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Shaman_Variable
+{
+    [Header(" - Related to Shaman's Skill")]
+    [SerializeField] internal GameObject Skill_PoisonDart;
+    [SerializeField] internal GameObject Skill_PoisonExplosion;
+    [SerializeField] internal GameObject[] Skill_PoisonArea;
+
+    [Header(" - Related to Shaman's attack")]
+    [SerializeField] internal Collider2D[] attackCols;
+    [SerializeField] internal Transform dartFirePos;
+
+    [Tooltip("0 => Dart \n 1 => Explosion")]
+    [SerializeField] internal int[] maxSkillEffectPoolCounts;
+    [SerializeField, Range(0f, 1f)] internal float[] skillEffectTiming;
+    [Tooltip("The speed of moving darts")]
+    [SerializeField] internal float dartSpeed;
+
+    [Header(" - Elapsed Time For State Change"), Min(0.0f)]
+    [SerializeField] internal float IdleDelayTime;
+    [SerializeField] internal float dartDelayTime;
+    [SerializeField] internal float areaSkillTime;
+
+    [Header(" - Check Distance")]
+    [SerializeField] internal float teleportingDist;
+
+    internal Shaman_PoisonArea[] poisonArea;
+
+    internal GameObject[] skillEffects_PoisonDart;
+    internal GameObject[] skillEffects_PoisonExplosion;
+
+    internal BossHP bossHP;
+
+    internal Coroutine Co_Patterns;
+}
+
 public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1, ISkill_2, ISkill_3
 {
     #region Variable
 
-    [Header(" - Related to Shaman's Skill")]
-    [SerializeField] GameObject Skill_PoisonDart;
-    [SerializeField] GameObject Skill_PoisonExplosion;
-    [SerializeField] GameObject[] Skill_PoisonArea;
-
-    [Tooltip("0 => Dart \n 1 => Explosion")]
-    [SerializeField] int[] maxSkillEffectPoolCounts;
-    [SerializeField, Range(0f, 1f)] float[] skillEffectTiming;
-    [Tooltip("The speed of moving darts")]
-    [SerializeField] float dartSpeed;
-
-    [Header(" - Elapsed Time For State Change"), Min(0.0f)]
-    [SerializeField] float IdleDelayTime;
-    [SerializeField] float dartDelayTime;
-    [SerializeField] float areaSkillTime;
-
-    [Header(" - Check Distance")]
-    [SerializeField] float teleportingDist;
-
-    [Header(" - Variable objects for attack")]
-    [SerializeField] Collider2D[] attackCols;
-    [SerializeField] Transform dartFirePos;
-
-    ShamanPoisonArea[] poisonArea;
-
-    GameObject[] skillEffects_PoisonDart;
-    GameObject[] skillEffects_PoisonExplosion;
-
-    BossHP bossHP;
-
-    Coroutine Co_Patterns;
+    [Space(30)]
+    [SerializeField] Shaman_Variable shaman_Variable;
 
     #endregion
 
     #region Property
 
-    BossHP BossHP => bossHP = bossHP ? bossHP : GetComponent<BossHP>();
+    BossHP BossHP => shaman_Variable.bossHP = shaman_Variable.bossHP ? shaman_Variable.bossHP : GetComponent<BossHP>();
 
     #endregion
 
@@ -51,31 +58,32 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
     private new void Start()
     {
         base.Start();
-        for (int i = 0; i < attackCols.Length; i++)
+        for (int i = 0; i < shaman_Variable.attackCols.Length; i++)
         {
-            attackCols[i].enabled = false;
+            shaman_Variable.attackCols[i].enabled = false;
         }
-
+        
         #region Generate ObjectPool
-        skillEffects_PoisonDart = new GameObject[maxSkillEffectPoolCounts[0]];
-        skillEffects_PoisonExplosion = new GameObject[maxSkillEffectPoolCounts[1]];
-        poisonArea = new ShamanPoisonArea[Skill_PoisonArea.Length];
+        shaman_Variable.skillEffects_PoisonDart = new GameObject[shaman_Variable.maxSkillEffectPoolCounts[0]];
+        shaman_Variable.skillEffects_PoisonExplosion = new GameObject[shaman_Variable.maxSkillEffectPoolCounts[1]];
+        shaman_Variable.poisonArea = new Shaman_PoisonArea[shaman_Variable.Skill_PoisonArea.Length];
 
-        skillEffects_PoisonDart = HCH.Pool.GeneratePool(Skill_PoisonDart, maxSkillEffectPoolCounts[0], FolderSystem.Instance.Shaman_SkillPool);
-        skillEffects_PoisonExplosion = HCH.Pool.GeneratePool(Skill_PoisonExplosion, maxSkillEffectPoolCounts[1], FolderSystem.Instance.Shaman_SkillPool);
+        shaman_Variable.skillEffects_PoisonDart = HCH.Pool.GeneratePool(shaman_Variable.Skill_PoisonDart, shaman_Variable.maxSkillEffectPoolCounts[0], FolderSystem.Instance.Shaman_SkillPool);
+        shaman_Variable.skillEffects_PoisonExplosion = HCH.Pool.GeneratePool(shaman_Variable.Skill_PoisonExplosion, shaman_Variable.maxSkillEffectPoolCounts[1], FolderSystem.Instance.Shaman_SkillPool);
 
         // Poison Area
-        for (int i = 0; i < Skill_PoisonArea.Length; i++)
+        for (int i = 0; i < shaman_Variable.Skill_PoisonArea.Length; i++)
         {
-            Skill_PoisonArea[i].transform.SetParent(FolderSystem.Instance.Shaman_SkillPool);
-            Skill_PoisonArea[i].SetActive(false);
+            shaman_Variable.Skill_PoisonArea[i].transform.SetParent(FolderSystem.Instance.Shaman_SkillPool);
+            shaman_Variable.Skill_PoisonArea[i].SetActive(false);
 
-            poisonArea[i] = Skill_PoisonArea[i].GetComponent<ShamanPoisonArea>();
+            shaman_Variable.poisonArea[i] = shaman_Variable.Skill_PoisonArea[i].GetComponent<Shaman_PoisonArea>();
         }
         #endregion
 
         StartCoroutine(Co_Pattern());
     }
+
     #endregion
 
     #region Implementation Place 
@@ -113,13 +121,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         yield return EnemyAttack_1();
         yield return EnemyIdle();
         yield return EnemySkill_1();
-        yield return EnemySkill_2();
-        yield return EnemyAttack_2();
-        yield return EnemyIdle();
-        yield return EnemyAttack_2();
-        yield return EnemyIdle();
-        yield return EnemyAttack_1();
-        yield return EnemyIdle();
+        yield return EnemySkill_2(Area_1(5));
     }
 
     IEnumerator Pattern_2()
@@ -138,7 +140,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
     {
         print("Idle");
         anim.SetTrigger("ToIdle");
-        yield return new WaitForSeconds(IdleDelayTime);
+        yield return new WaitForSeconds(shaman_Variable.IdleDelayTime);
     }
 
     public IEnumerator EnemyTrace()
@@ -146,7 +148,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         //print("Trace");
         while (GetDistanceB2WPlayer() > attackRange)
         {
-            if(GetDistanceB2WPlayer() > teleportingDist)
+            if(GetDistanceB2WPlayer() > shaman_Variable.teleportingDist)
             {
                 transform.position = playerPos + Vector2.up * 2f;
                 yield return StartCoroutine(EnemyAttack_1());
@@ -170,10 +172,10 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         anim.SetTrigger("ToAttack_1");
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.46f);
-        attackCols[0].enabled = true;
+        shaman_Variable.attackCols[0].enabled = true;
         //(PolygonCollider2D)attackCols[0].
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.53f);
-        attackCols[0].enabled = false;
+        shaman_Variable.attackCols[0].enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Shaman_Idle"));
     }
@@ -186,14 +188,14 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         anim.SetTrigger("ToAttack_2");
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.36f);
-        attackCols[1].enabled = true;
+        shaman_Variable.attackCols[1].enabled = true;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.41f);
-        attackCols[1].enabled = false;
+        shaman_Variable.attackCols[1].enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.56f);
-        attackCols[1].enabled = true;
+        shaman_Variable.attackCols[1].enabled = true;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.61f);
-        attackCols[1].enabled = false;
+        shaman_Variable.attackCols[1].enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Shaman_Idle"));
     }
@@ -207,12 +209,12 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         anim.SetTrigger("ToSkill_Dart");
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.625f);
-        GameObject dartClone = HCH.Pool.PopObjectFromPool(skillEffects_PoisonDart);
-        dartClone.transform.position = dartFirePos.position;
-        dartClone.GetComponent<Rigidbody2D>().velocity = new Vector2(flipValue * dartSpeed, 0);
+        GameObject dartClone = HCH.Pool.PopObjectFromPool(shaman_Variable.skillEffects_PoisonDart);
+        dartClone.transform.position = shaman_Variable.dartFirePos.position;
+        dartClone.GetComponent<Rigidbody2D>().velocity = new Vector2(flipValue * shaman_Variable.dartSpeed, 0);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Shaman_Idle"));
-        yield return new WaitForSeconds(dartDelayTime);
+        yield return new WaitForSeconds(shaman_Variable.dartDelayTime);
     }
 
     public IEnumerator EnemySkill_2()
@@ -227,45 +229,46 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         anim.SetBool("ToSkill_Area", false);
     }
 
+    public IEnumerator EnemySkill_2(IEnumerator Co)
+    {
+        print("Skill_Area");
+        anim.SetBool("ToSkill_Area", true);
+        anim.SetTrigger("SkillStart");
+        yield return null;
+
+        yield return Co;
+
+        anim.SetBool("ToSkill_Area", false);
+    }
+
     public IEnumerator EnemySkill_3()
     {
         yield return null;
     }
 
-    public IEnumerator Area_1()
+    public IEnumerator Area_1(float duration)
     {
-        for (int i = 0; i < poisonArea.Length; i++)
+        for (int i = 0; i < shaman_Variable.poisonArea.Length; i++)
         {
-            poisonArea[i].gameObject.SetActive(true);
-            poisonArea[i].TogglePoisonArea();
+            shaman_Variable.poisonArea[i].gameObject.SetActive(true);
+            shaman_Variable.poisonArea[i].TogglePoisonArea();
         }
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(duration);
 
-        for (int i = 0; i < poisonArea.Length; i++)
+        for (int i = 0; i < shaman_Variable.poisonArea.Length; i++)
         {
-            poisonArea[i].TogglePoisonArea();
+            shaman_Variable.poisonArea[i].TogglePoisonArea();
+            shaman_Variable.poisonArea[i].gameObject.SetActive(false);
         }
-        yield return new WaitForSeconds(2);
-
-        for (int i = 0; i < poisonArea.Length; i++)
-        {
-            poisonArea[i].TogglePoisonArea();
-        }
-        yield return new WaitForSeconds(3);
-
-        for (int i = 0; i < poisonArea.Length; i++)
-        {
-            poisonArea[i].TogglePoisonArea();
-            poisonArea[i].gameObject.SetActive(false);
-        }
+        yield return new WaitForSeconds(1);
     }
 
     public IEnumerator Area_2()
     {
-        for (int i = 0; i < poisonArea.Length; i++)
+        for (int i = 0; i < shaman_Variable.poisonArea.Length; i++)
         {
-            poisonArea[i].gameObject.SetActive(!poisonArea[i].gameObject.activeInHierarchy);
-            poisonArea[i].TogglePoisonArea();
+            shaman_Variable.poisonArea[i].gameObject.SetActive(true);
+            shaman_Variable.poisonArea[i].TogglePoisonArea();
         }
         yield return new WaitForSeconds(1);
     }
