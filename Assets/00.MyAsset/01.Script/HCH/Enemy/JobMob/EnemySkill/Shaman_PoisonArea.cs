@@ -9,6 +9,8 @@ public class Shaman_PoisonArea : MonoBehaviour
     bool isPlayerDamaged = false;
     Collider2D col2D;
 
+    Coroutine Co_PoisonArea;
+
     public List<Animator> PoisonAnimators;
     public bool IsActive = false;
     public bool Busy = false;
@@ -21,8 +23,8 @@ public class Shaman_PoisonArea : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!col2D) return;
-        StartCoroutine(PoisonArea());
+        col2D.enabled = true;
+        isPlayerDamaged = false;
     }
 
     private void Update()
@@ -72,16 +74,17 @@ public class Shaman_PoisonArea : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerStay2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
         {
             col.TryGetComponent(out PlayerStat playerStat);
-            if (playerStat != null)
+            if (playerStat != null && !isPlayerDamaged)
             {
                 playerStat.SetHP(tickDamage, 0);
-                isPlayerDamaged = true;
                 col2D.enabled = false;
+                isPlayerDamaged = true;
+                Co_PoisonArea = StartCoroutine(PoisonArea());
             }
         }
     }
@@ -90,10 +93,10 @@ public class Shaman_PoisonArea : MonoBehaviour
     {
         while (true)
         {
-            col2D.enabled = true;
-            yield return new WaitUntil(() => isPlayerDamaged);
-            isPlayerDamaged = false;
             yield return waitForTick;
+            col2D.enabled = true;
+            isPlayerDamaged = false;
+            StopCoroutine(Co_PoisonArea);
         }
     }
 }
