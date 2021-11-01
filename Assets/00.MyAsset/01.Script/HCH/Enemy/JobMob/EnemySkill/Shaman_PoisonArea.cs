@@ -15,7 +15,7 @@ public class Shaman_PoisonArea : MonoBehaviour
     public bool IsActive = false;
     public bool Busy = false;
 
-    private void Start()
+    private void Awake()
     {
         waitForTick = new WaitForSeconds(tickTime);
         col2D = GetComponent<Collider2D>();
