@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 944185327}
   m_Layer: 6
   m_Name: Square
-  m_TagString: SpecialAttack
+  m_TagString: SpecialAttack_Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
