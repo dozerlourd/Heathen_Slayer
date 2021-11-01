@@ -9,7 +9,6 @@ public class WeaponColCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        print("da");
         // 만약 충돌 대상의 태그가 Enemy면
         if (col.gameObject.CompareTag("Enemy"))
         {

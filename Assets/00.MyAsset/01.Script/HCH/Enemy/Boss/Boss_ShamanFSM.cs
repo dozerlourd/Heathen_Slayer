@@ -33,7 +33,7 @@ public class Shaman_Variable
     internal GameObject[] skillEffects_PoisonDart;
     internal GameObject[] skillEffects_PoisonExplosion;
 
-    internal BossHP bossHP;
+    internal BossHP_Shaman bossHP;
 
     internal Coroutine Co_Patterns;
 }
@@ -49,15 +49,15 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     #region Property
 
-    BossHP BossHP => shaman_Variable.bossHP = shaman_Variable.bossHP ? shaman_Variable.bossHP : GetComponent<BossHP>();
+    BossHP_Shaman BossHP => shaman_Variable.bossHP = shaman_Variable.bossHP ? shaman_Variable.bossHP : GetComponent<BossHP_Shaman>();
 
     #endregion
 
     #region Unity Life Cycle
 
-    private new void Start()
+    private new void Awake()
     {
-        base.Start();
+        base.Awake();   
         for (int i = 0; i < shaman_Variable.attackCols.Length; i++)
         {
             shaman_Variable.attackCols[i].enabled = false;
@@ -80,7 +80,11 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
             shaman_Variable.poisonArea[i] = shaman_Variable.Skill_PoisonArea[i].GetComponent<Shaman_PoisonArea>();
         }
         #endregion
+    }
 
+    private new void OnEnable()
+    {
+        base.OnEnable();
         StartCoroutine(Co_Pattern());
     }
 
@@ -157,7 +161,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
             FlipCheck();
             anim.SetBool("ToWalk", true);
             yield return null;
-            transform.Translate(Vector2.right * flipValue * moveSpeed * 2.25f * Time.deltaTime);
+            transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
             yield return null;
         }
         anim.SetBool("ToWalk", false);

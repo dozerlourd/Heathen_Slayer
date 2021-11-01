@@ -23,7 +23,14 @@ public abstract class HPControllerToEnemy : MonoBehaviour
         {
             currHP = value < 0 ? 0 : value;
             RefreshUI(value);
-            if (NormalizedCurrHP <= 0) Animator.SetTrigger("ToDie");
+
+            
+            if (NormalizedCurrHP <= 0)
+            {
+                EnemyFSM.StopAllCoroutines();
+                Animator.SetTrigger("ToDie");
+                StartCoroutine(EnemyDead());
+            }
             else EnemyDamaged();
         }
     }
@@ -52,6 +59,8 @@ public abstract class HPControllerToEnemy : MonoBehaviour
 
     /// <summary> When Enemy Taking Damage, Generate this method </summary>
     protected abstract void EnemyDamaged();
+
+    protected abstract IEnumerator EnemyDead();
 
     #endregion
 }

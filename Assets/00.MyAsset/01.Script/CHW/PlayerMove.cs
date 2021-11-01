@@ -149,6 +149,7 @@ public class PlayerMove : PlayerStat
         // 대쉬 카운트가 0 이상이면
         if (dashCount >= 0)
         {
+            anim.speed = 3.5f;
             // dashCurTime 동안 대쉬를 실행한다.
             while (curTime <= dashTime)
             {
@@ -166,7 +167,8 @@ public class PlayerMove : PlayerStat
             }
 
             curTime = 0;
-            rb.gravityScale = 1;
+            rb.gravityScale = 3;
+            anim.speed = 1;
         }
     }
 
