@@ -185,7 +185,7 @@ public class PlayerMove : PlayerStat
     private void OnTriggerEnter2D(Collider2D col)
     {
         // SpecialAttack 태그를 가진 오브젝트에게 부딪히면
-        if (col.gameObject.CompareTag("SpecialAttack"))
+        if (col.gameObject.CompareTag("SpecialAttack_Enemy"))
         {
             anim.SetTrigger("GetHit");
 
