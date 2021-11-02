@@ -25,6 +25,7 @@ public class FolderSystem : MonoBehaviour
     [SerializeField] Transform skillPoolFolder;
     [SerializeField] Transform bringer_SkillPool;
     [SerializeField] Transform shaman_SkillPool;
+    [SerializeField] Transform rogue_SkillPool;
 
     #endregion
 
@@ -58,6 +59,16 @@ public class FolderSystem : MonoBehaviour
             shaman_SkillPool = shaman_SkillPool ? shaman_SkillPool : new GameObject("Shaman's_SkillPool").transform;
             shaman_SkillPool.transform.SetParent(SkillPoolFolder);
             return shaman_SkillPool;
+        }
+    }
+
+    public Transform Rogue_SkillPool
+    {
+        get
+        {
+            rogue_SkillPool = rogue_SkillPool ? rogue_SkillPool : new GameObject("Rogue's_SkillPool").transform;
+            rogue_SkillPool.transform.SetParent(SkillPoolFolder);
+            return rogue_SkillPool;
         }
     }
 

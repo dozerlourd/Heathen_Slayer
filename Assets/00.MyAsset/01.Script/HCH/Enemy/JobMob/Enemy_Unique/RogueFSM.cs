@@ -7,12 +7,15 @@ using UnityEngine;
 public class Rogue_Variable
 {
     [Header(" - Related to Assassin's Skill")]
-    //[SerializeField] internal GameObject Skill_;
+    [SerializeField] internal GameObject Skill_Shuriken;
+    [SerializeField] internal int shurikenCount;
+    [SerializeField] internal Transform shurikenTr;
+    [SerializeField] internal float shurikenSpeed;
+    [SerializeField] internal float shurikenDelayTime;
 
     [Header(" - Related to Assassin's attack")]
     [SerializeField] internal Collider2D[] attackCols;
 
-    //[SerializeField] internal int[] maxSkillEffectPoolCounts;
     [SerializeField, Range(0f, 1f)] internal float effectTiming;
 
     [Header(" - Check Distance")]
@@ -22,8 +25,7 @@ public class Rogue_Variable
 
     internal int pace;
 
-    internal GameObject[] skillEffects_1;
-    internal GameObject[] skillEffects_2;
+    internal GameObject[] skillEffects_Shuriken;
 
     internal EnemyHP enemyHP;
 
@@ -53,6 +55,10 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
     private new void Awake()
     {
         base.Awake();
+
+        rogue_Variable.skillEffects_Shuriken = new GameObject[rogue_Variable.shurikenCount];
+
+        rogue_Variable.skillEffects_Shuriken = HCH.Pool.GeneratePool(rogue_Variable.Skill_Shuriken, rogue_Variable.shurikenCount, FolderSystem.Instance.Rogue_SkillPool);
     }
 
     private new void OnEnable()
@@ -87,6 +93,8 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
     protected override IEnumerator Co_Pattern()
     {
+        yield return null;
+
         while (EnemyHP.NormalizedCurrHP >= 0.7f)
         {
             yield return StartCoroutine(Pattern_1());
@@ -115,6 +123,8 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         yield return EnemyIdle();
         yield return EnemyAttack_1();
         yield return EnemyIdle();
+        yield return EnemySkill_2();
+        yield return EnemyIdle();
         yield return EnemyAttack_2();
         yield return EnemyIdle();
         yield return EnemyAttack_1();
@@ -122,6 +132,10 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         yield return EnemySkill_1();
         yield return EnemyIdle();
         yield return EnemyAttack_2();
+        yield return EnemyIdle();
+        yield return EnemySkill_2();
+        yield return EnemyIdle();
+        yield return EnemySkill_2();
         yield return EnemyIdle();
         yield return EnemyAttack_2();
         yield return EnemyIdle();
@@ -194,6 +208,7 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
     public IEnumerator EnemySkill_1()
     {
         anim.SetTrigger("ToSkill_VanishAttack");
+        yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f);
         transform.position = PlayerSystem.Instance.Player.transform.position + Vector3.up * 3f;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.65f);
@@ -206,7 +221,18 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
     public IEnumerator EnemySkill_2()
     {
-        throw new NotImplementedException();
+        anim.SetTrigger("ToSkill_Shuriken");
+        yield return null;
+        FlipCheck();
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f);
+        GameObject shuriken = HCH.Pool.PopObjectFromPool(rogue_Variable.skillEffects_Shuriken, rogue_Variable.shurikenTr.position);
+        shuriken.transform.position = rogue_Variable.shurikenTr.position;
+        shuriken.GetComponent<Rigidbody2D>().velocity = new Vector2(flipValue * rogue_Variable.shurikenSpeed, 0);
+        shuriken.TryGetComponent(out SpriteRenderer spRenderer);
+        if (spRenderer) spRenderer.flipX = spriteRenderer.flipX;
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Idle"));
+        yield return new WaitForSeconds(rogue_Variable.shurikenDelayTime);
     }
 
     public IEnumerator EnemySkill_3()

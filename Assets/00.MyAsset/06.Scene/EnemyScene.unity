@@ -364,12 +364,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 660018288}
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_Father: {fileID: 456456657}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 17.75, y: 6.25}
+  m_AnchoredPosition: {x: 0.099998474, y: 2.4099998}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &285420886
@@ -381,7 +381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 285420887}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirePos_Shuriken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -396,7 +396,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285420886}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.75, y: 0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 372746677}
@@ -411,7 +411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 372746677}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FlipTr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &456456657
 Transform:
   m_ObjectHideFlags: 0
@@ -472,6 +472,7 @@ Transform:
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children:
   - {fileID: 1180261262}
+  - {fileID: 282551143}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -969,7 +970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &540764540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1248,6 +1249,7 @@ MonoBehaviour:
   skillPoolFolder: {fileID: 1463858896}
   bringer_SkillPool: {fileID: 0}
   shaman_SkillPool: {fileID: 0}
+  rogue_SkillPool: {fileID: 0}
 --- !u!1 &727699618
 GameObject:
   m_ObjectHideFlags: 0
@@ -3241,13 +3243,13 @@ GameObject:
   - component: {fileID: 1849376665}
   - component: {fileID: 1849376662}
   - component: {fileID: 1849376664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rogue
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1849376660
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3332,7 +3334,7 @@ MonoBehaviour:
   - 0
   - 0
   attackSpeed: 2
-  moveSpeed: 18
+  moveSpeed: 26
   detectRange: 18
   attackRange: 1.75
   groundCheckRayDist: 0.03
@@ -3341,6 +3343,11 @@ MonoBehaviour:
   - {fileID: 372746676}
   originFlipIsRight: 1
   rogue_Variable:
+    Skill_Shuriken: {fileID: 5184397803832032976, guid: 5d43840f9bbdcaa4e8fa5d84bb1bf5b8, type: 3}
+    shurikenCount: 10
+    shurikenTr: {fileID: 285420887}
+    shurikenSpeed: 18
+    shurikenDelayTime: 0.1
     attackCols:
     - {fileID: 637026058}
     - {fileID: 2077896362}
