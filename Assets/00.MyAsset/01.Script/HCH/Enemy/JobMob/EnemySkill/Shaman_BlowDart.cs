@@ -7,7 +7,7 @@ public class Shaman_BlowDart : MonoBehaviour
     public float Duration;
     public Rigidbody2D Body;
     
-    void Start()
+    void OnEnable()
     {
         StartCoroutine(VanishAfterSetTime());
     }
@@ -28,7 +28,7 @@ public class Shaman_BlowDart : MonoBehaviour
         if(col.gameObject.CompareTag("Player"))
         {
             col.GetComponent<PlayerStat>()?.SetHP(8, 0.7f);
-            Vanish();
         }
+        Vanish();
     }
 }

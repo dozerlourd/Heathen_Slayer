@@ -46,7 +46,8 @@ public abstract class HPControllerToEnemy : MonoBehaviour
 
     protected void OnEnable()
     {
-        CurrHP = MaxHP;
+        currHP = MaxHP;
+        GetComponent<Collider2D>().enabled = true;
     }
 
     #endregion

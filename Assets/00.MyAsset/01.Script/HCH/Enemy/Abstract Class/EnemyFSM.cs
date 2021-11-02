@@ -126,5 +126,16 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected float GetDistanceB2WPlayer() => Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position);
 
+
+    public IEnumerator Stun(float stunTime)
+    {
+        StopAllCoroutines();
+        Co_Gravity = StartCoroutine(Grivaty());
+        anim.SetBool("IsStunned", true);
+        yield return new WaitForSeconds(stunTime);
+        anim.SetBool("IsStunned", false);
+        StartCoroutine(Co_Pattern());
+    }
+
     #endregion
 }

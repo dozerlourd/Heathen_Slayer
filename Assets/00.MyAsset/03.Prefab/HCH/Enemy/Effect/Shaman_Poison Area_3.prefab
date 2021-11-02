@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1948556555857020416}
   - component: {fileID: 1948556555857020417}
   - component: {fileID: 1948556555857020418}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 1948556556403522269}
   - component: {fileID: 1948556556403522210}
   - component: {fileID: 1948556556403522271}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 1948556557176718840}
   - component: {fileID: 1948556557176718841}
   - component: {fileID: 1948556557176718842}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,9 +356,9 @@ GameObject:
   - component: {fileID: 1948556557364465588}
   - component: {fileID: 8253310639417203409}
   - component: {fileID: 3876706043773155049}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman_Poison Area_3
-  m_TagString: Untagged
+  m_TagString: SpecialAttack_Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
