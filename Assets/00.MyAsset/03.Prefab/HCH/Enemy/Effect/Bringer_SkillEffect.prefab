@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5723722605407805118}
   - component: {fileID: -6940265782750724331}
   - component: {fileID: -7433820919114173412}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bringer_SkillEffect
-  m_TagString: Untagged
+  m_TagString: SpecialAttack_Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
