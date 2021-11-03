@@ -14,4 +14,10 @@ public class EnemyHP : HPControllerToEnemy
     {
         
     }
+
+    protected override IEnumerator EnemyDead()
+    {
+        yield return new WaitForSeconds(5.0f);
+        gameObject.SetActive(false);
+    }
 }

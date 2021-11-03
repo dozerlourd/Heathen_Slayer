@@ -14,6 +14,11 @@ public class PlayerAttack : MonoBehaviour
     Animator anim;
     PlayerMove pm;
 
+    Coroutine Co_attack;
+
+    bool isAttack = false;
+    public int attackCount = 0;
+
     void Start()
     {
         FindAttackCollider();
@@ -29,8 +34,12 @@ public class PlayerAttack : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
-                StartCoroutine(Attack());
-                print("플레이어 공격");
+                attackCount++;
+
+                if (!isAttack)
+                {
+                    Co_attack = StartCoroutine(Attack1());
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.A))
@@ -50,15 +59,63 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    IEnumerator Attack()
+    IEnumerator Attack1()
     {
-        atkCollider.enabled = true;
+        attackCount = 0;
+        isAttack = true;
         anim.SetTrigger("Attack1");
 
-        attackSpeed = AnimationTime(AnimationName.Attack1);
-
-        yield return new WaitForSeconds(attackSpeed);
+        yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.4f);
+        atkCollider.enabled = true;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f);
         atkCollider.enabled = false;
+
+        if (attackCount > 0)
+        {
+            Co_attack = StartCoroutine(Attack2());
+        }
+        else
+        {
+            isAttack = false;
+        }
+    }
+
+    IEnumerator Attack2()
+    {
+        attackCount = 0;
+        isAttack = true;
+        anim.SetTrigger("Attack2");
+
+        yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.4f);
+        atkCollider.enabled = true;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f);
+        atkCollider.enabled = false;
+
+        if (attackCount > 0)
+        {
+            Co_attack = StartCoroutine(Attack3());
+        }
+        else
+        {
+            isAttack = false;
+        }
+    }
+
+    IEnumerator Attack3()
+    {
+        attackCount = 0;
+        isAttack = true;
+        anim.SetTrigger("Attack3");
+
+        yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.55f);
+        atkCollider.enabled = true;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f);
+        atkCollider.enabled = false;
+
+        isAttack = false;
     }
 
     public void FindAttackCollider()
@@ -76,7 +133,9 @@ public class PlayerAttack : MonoBehaviour
 
     public enum AnimationName
     { 
-        Attack1
+        Attack1,
+        Attack2,
+        Attack3
     }
 
     public float AnimationTime(AnimationName animationName)
@@ -87,6 +146,12 @@ public class PlayerAttack : MonoBehaviour
         {
             case AnimationName.Attack1:
                 animName = "Attack1";
+                break;
+            case AnimationName.Attack2:
+                animName = "Attack2";
+                break;
+            case AnimationName.Attack3:
+                animName = "Attack3";
                 break;
             default:
                 break;
@@ -105,5 +170,14 @@ public class PlayerAttack : MonoBehaviour
         }
 
         return time;
+    }
+
+
+    // 코루틴 종료와 초기화
+    public void StopAttack()
+    {
+        StopCoroutine(Co_attack);
+        isAttack = false;
+        attackCount = 0;
     }
 }

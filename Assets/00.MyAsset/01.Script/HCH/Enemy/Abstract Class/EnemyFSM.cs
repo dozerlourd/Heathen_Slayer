@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,13 +25,14 @@ public abstract class EnemyFSM : MonoBehaviour
     [Header(" - Check Distance")]
     #region Distance Variables
     [SerializeField] protected float detectRange = 10f;
+
     [SerializeField] protected float attackRange = 3;
-    [SerializeField] protected float groundCheckRayDist = 5;
+    [SerializeField] protected float groundCheckRayDist = 0.03f;
     #endregion
 
     [Header(" - Gravity")]
     #region gravity
-    [SerializeField] protected float gravityScale = 9.81f;
+    [SerializeField] protected float gravityScale = 1.00f;
     #endregion
 
     [Header(" - Flip Objects")]
@@ -72,7 +74,7 @@ public abstract class EnemyFSM : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    protected void Start()
+    protected void OnEnable()
     {
         Co_Gravity = StartCoroutine(Grivaty());
     }
@@ -99,6 +101,8 @@ public abstract class EnemyFSM : MonoBehaviour
 
     public void FlipCheck()
     {
+        if (!spriteRenderer) return;
+
         if (originFlipIsRight)
         {
             spriteRenderer.flipX = playerPos.x < transform.position.x ? true : false;
@@ -121,6 +125,17 @@ public abstract class EnemyFSM : MonoBehaviour
     }
 
     protected float GetDistanceB2WPlayer() => Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position);
+
+
+    public IEnumerator Stun(float stunTime)
+    {
+        StopAllCoroutines();
+        Co_Gravity = StartCoroutine(Grivaty());
+        anim.SetBool("IsStunned", true);
+        yield return new WaitForSeconds(stunTime);
+        anim.SetBool("IsStunned", false);
+        StartCoroutine(Co_Pattern());
+    }
 
     #endregion
 }
