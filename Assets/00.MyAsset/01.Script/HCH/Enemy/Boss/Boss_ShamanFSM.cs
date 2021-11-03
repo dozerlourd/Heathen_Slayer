@@ -90,12 +90,6 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         #endregion
     }
 
-    private new void OnEnable()
-    {
-        base.OnEnable();
-        StartCoroutine(Co_Pattern());
-    }
-
     private void Start()
     {
         expInterval = new WaitForSeconds(shaman_Variable.explosionInterval);
@@ -107,8 +101,9 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     protected override IEnumerator Co_Pattern()
     {
-        yield return null;
-        while(true)
+        yield return new WaitForSeconds(waitStart);
+
+        while (true)
         {
             if(BossHP.NormalizedCurrHP >= 0.7f)
                 yield return StartCoroutine(Pattern_1());

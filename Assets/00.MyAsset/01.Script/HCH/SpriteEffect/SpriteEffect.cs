@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rogue_Shuriken : MonoBehaviour
+public class SpriteEffect : MonoBehaviour
 {
     #region Variable
 
     [SerializeField] float Duration;
-    [SerializeField] Rigidbody2D Body;
 
     #endregion
 
@@ -21,24 +20,11 @@ public class Rogue_Shuriken : MonoBehaviour
 
     IEnumerator VanishAfterSetTime()
     {
-        yield return new WaitForSeconds(Duration);
+        yield return new WaitUntil(() => GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f);
         Vanish();
     }
 
     void Vanish() => gameObject.SetActive(false);
-
-    #region Callback Method
-
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            col.GetComponent<PlayerStat>()?.SetHP(8, 0.7f);
-            Vanish();
-        }
-    }
-
-    #endregion
 
     #endregion
 }

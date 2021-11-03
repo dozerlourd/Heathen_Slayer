@@ -8,6 +8,8 @@ public abstract class HPControllerToEnemy : MonoBehaviour
 
     [SerializeField] protected float maxHP;
 
+    protected bool isDead = false;
+
     protected float currHP;
 
     protected EnemyFSM enemyFSM;
@@ -18,20 +20,24 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     #region Property
     public float MaxHP => maxHP;
 
-    public float CurrHP { get => currHP;
+    public float CurrHP
+    {
+        get => currHP;
         protected set
         {
             currHP = value < 0 ? 0 : value;
             RefreshUI(value);
 
-            
-            if (NormalizedCurrHP <= 0)
+            if (!isDead)
             {
-                EnemyFSM.StopAllCoroutines();
-                Animator.SetTrigger("ToDie");
-                StartCoroutine(EnemyDead());
+                if (NormalizedCurrHP <= 0)
+                {
+                    EnemyFSM.StopAllCoroutines();
+                    Animator.SetTrigger("ToDie");
+                    StartCoroutine(EnemyDead());
+                }
+                else EnemyDamaged();
             }
-            else EnemyDamaged();
         }
     }
 
@@ -44,6 +50,11 @@ public abstract class HPControllerToEnemy : MonoBehaviour
 
     #region Unity Life Cycle
 
+    protected void Awake()
+    {
+        currHP = MaxHP;
+    }
+
     protected void OnEnable()
     {
         currHP = MaxHP;
@@ -55,7 +66,7 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     #region Implementation Place
 
     public void TakeDamage(float _damage) => CurrHP -= _damage;
-    
+
     protected abstract void RefreshUI(float _val);
 
     /// <summary> When Enemy Taking Damage, Generate this method </summary>

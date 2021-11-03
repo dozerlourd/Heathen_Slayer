@@ -6,7 +6,12 @@ using UnityEngine;
 [System.Serializable]
 public class Rogue_Variable
 {
-    [Header(" - Related to Assassin's Skill")]
+    [Header(" - Related to Assassin's Skill ----- VanishAttack")]
+    [SerializeField] internal GameObject effect_VanishAttack;
+    [SerializeField] internal int vanishCount;
+    [SerializeField] internal Transform vanishEffectTr;
+
+    [Header(" - Related to Assassin's Skill ----- Shuriken")]
     [SerializeField] internal GameObject Skill_Shuriken;
     [SerializeField] internal int shurikenCount;
     [SerializeField] internal Transform shurikenTr;
@@ -23,13 +28,19 @@ public class Rogue_Variable
 
     [SerializeField] internal float IdleDelayTime;
 
-    internal int pace;
+    internal EnemyHP enemyHP;
 
     internal GameObject[] skillEffects_Shuriken;
 
-    internal EnemyHP enemyHP;
+    internal GameObject[] effect_VanishAttacks;
 
     internal Coroutine Co_Patterns;
+
+    internal float tempVelocityY = 0;
+
+    internal int pace;
+
+    internal bool isFall = false;
 }
 
 public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1, ISkill_2, ISkill_3
@@ -38,9 +49,6 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
     [SerializeField]
     Rogue_Variable rogue_Variable;
-
-    float tempVelocityY = 0;
-    bool isFall = false;
 
     #endregion
 
@@ -57,34 +65,31 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         base.Awake();
 
         rogue_Variable.skillEffects_Shuriken = new GameObject[rogue_Variable.shurikenCount];
+        rogue_Variable.effect_VanishAttacks = new GameObject[rogue_Variable.vanishCount];
 
         rogue_Variable.skillEffects_Shuriken = HCH.Pool.GeneratePool(rogue_Variable.Skill_Shuriken, rogue_Variable.shurikenCount, FolderSystem.Instance.Rogue_SkillPool);
-    }
 
-    private new void OnEnable()
-    {
-        base.OnEnable();
-        StartCoroutine(Co_Pattern());
+        rogue_Variable.effect_VanishAttacks = HCH.Pool.GeneratePool(rogue_Variable.effect_VanishAttack, rogue_Variable.vanishCount, FolderSystem.Instance.Rogue_SkillPool);
     }
 
     private void Update()
     {
         anim.SetBool("IsGround", isGround);
 
-        if (!isFall && !isGround && anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Jump") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Run"))
+        if (!rogue_Variable.isFall && !isGround && anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Jump") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Run"))
         {
-            isFall = true;
+            rogue_Variable.isFall = true;
             anim.SetTrigger("ToFall");
         }
 
-        float tempY = transform.position.y - tempVelocityY;
+        float tempY = transform.position.y - rogue_Variable.tempVelocityY;
         if (Mathf.Abs(tempY) <= 0.01f) tempY = 0;
         anim.SetFloat("VelocityY", tempY);
 
         if (!isGround)
-            tempVelocityY = transform.position.y;
+            rogue_Variable.tempVelocityY = transform.position.y;
         else
-            isFall = false;
+            rogue_Variable.isFall = false;
     }
 
     #endregion
@@ -93,21 +98,18 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
     protected override IEnumerator Co_Pattern()
     {
-        yield return null;
+        yield return new WaitForSeconds(waitStart);
 
-        while (EnemyHP.NormalizedCurrHP >= 0.7f)
-        {
-            yield return StartCoroutine(Pattern_1());
-        }
-        yield return new WaitForSeconds(2.0f);
-        while (EnemyHP.NormalizedCurrHP >= 0.4f)
-        {
-            yield return StartCoroutine(Pattern_2());
-        }
-        yield return new WaitForSeconds(2.0f);
         while (true)
         {
-            yield return StartCoroutine(Pattern_3());
+            if (EnemyHP.NormalizedCurrHP >= 0.7f)
+                yield return StartCoroutine(Pattern_1());
+
+            else if (EnemyHP.NormalizedCurrHP >= 0.3f)
+                yield return StartCoroutine(Pattern_2());
+
+            else
+                yield return StartCoroutine(Pattern_3());
         }
     }
 
@@ -182,10 +184,10 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         anim.SetTrigger("ToAttack_1");
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.56f);
-        rogue_Variable.attackCols[0].enabled = true;
+        //rogue_Variable.attackCols[0].enabled = true;
         //(PolygonCollider2D)attackCols[0].
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.67f);
-        rogue_Variable.attackCols[0].enabled = false;
+        //rogue_Variable.attackCols[0].enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Idle"));
     }
@@ -198,24 +200,34 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         anim.SetTrigger("ToAttack_2");
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.56f);
-        rogue_Variable.attackCols[1].enabled = true;
+        rogue_Variable.attackCols[0].enabled = true;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.67f);
-        rogue_Variable.attackCols[1].enabled = false;
+        rogue_Variable.attackCols[0].enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Idle"));
     }
 
     public IEnumerator EnemySkill_1()
     {
+        anim.SetBool("IsAirOpensive", true);
         anim.SetTrigger("ToSkill_VanishAttack");
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f);
         transform.position = PlayerSystem.Instance.Player.transform.position + Vector3.up * 3f;
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.65f);
-        rogue_Variable.attackCols[1].enabled = true;
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.72f);
-        rogue_Variable.attackCols[1].enabled = false;
         FlipCheck();
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.75f);
+        rogue_Variable.attackCols[1].enabled = true;
+
+        HCH.Pool.PopObjectFromPool(rogue_Variable.effect_VanishAttacks, rogue_Variable.vanishEffectTr.position);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.82f);
+        rogue_Variable.attackCols[1].enabled = false;
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Idle"));
+        anim.SetBool("IsAirOpensive", false);
         yield return null;
     }
 
@@ -225,8 +237,8 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         yield return null;
         FlipCheck();
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f);
+
         GameObject shuriken = HCH.Pool.PopObjectFromPool(rogue_Variable.skillEffects_Shuriken, rogue_Variable.shurikenTr.position);
-        shuriken.transform.position = rogue_Variable.shurikenTr.position;
         shuriken.GetComponent<Rigidbody2D>().velocity = new Vector2(flipValue * rogue_Variable.shurikenSpeed, 0);
         shuriken.TryGetComponent(out SpriteRenderer spRenderer);
         if (spRenderer) spRenderer.flipX = spriteRenderer.flipX;

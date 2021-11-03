@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class Shaman_BlowDart : MonoBehaviour
 {
+    #region Variable
+
     public float Duration;
     public Rigidbody2D Body;
-    
-    void OnEnable()
-    {
-        StartCoroutine(VanishAfterSetTime());
-    }
 
-    void Vanish()
-    {
-        gameObject.SetActive(false);
-    }
+    #endregion
+
+    #region Unity Life Cycle
+
+    void OnEnable() => StartCoroutine(VanishAfterSetTime());
+
+    #endregion
+
+    #region Implementation Place
 
     IEnumerator VanishAfterSetTime()
     {
         yield return new WaitForSeconds(Duration);
         Vanish();
     }
+
+    void Vanish() => gameObject.SetActive(false);
+
+    #region Callback Method
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -31,4 +37,8 @@ public class Shaman_BlowDart : MonoBehaviour
             Vanish();
         }
     }
+
+    #endregion
+
+    #endregion
 }
