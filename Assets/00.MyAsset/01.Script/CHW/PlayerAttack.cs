@@ -172,11 +172,14 @@ public class PlayerAttack : MonoBehaviour
         return time;
     }
 
-
     // 코루틴 종료와 초기화
     public void StopAttack()
     {
-        StopCoroutine(Co_attack);
+        if (Co_attack != null)
+        {
+            StopCoroutine(Co_attack);
+        }
+
         isAttack = false;
         attackCount = 0;
     }
