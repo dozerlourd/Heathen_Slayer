@@ -58,19 +58,14 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         skillEffects = HCH.Pool.GeneratePool(skill_GodHand, maxSkillEffectPoolCount, FolderSystem.Instance.Bringer_SkillPool, false);
     }
 
-    private new void OnEnable()
-    {
-        base.OnEnable();
-        StartCoroutine(Co_Pattern());
-    }
-
     #endregion
 
     #region Implementation Place 
 
     protected override IEnumerator Co_Pattern()
     {
-        yield return StartCoroutine(EnemyIdle());
+        yield return new WaitForSeconds(waitStart);
+
         while (true)
         {
             Co_Patrol = StartCoroutine(EnemyPatrol());

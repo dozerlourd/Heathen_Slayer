@@ -45,6 +45,8 @@ public abstract class EnemyFSM : MonoBehaviour
     #region HideInInspector
 
     protected bool isGround = false;
+    protected float waitStart = 0.7f;
+
     protected BoxCollider2D boxCol2D;
     protected Animator anim;
     protected SpriteRenderer spriteRenderer;
@@ -77,6 +79,7 @@ public abstract class EnemyFSM : MonoBehaviour
     protected void OnEnable()
     {
         Co_Gravity = StartCoroutine(Grivaty());
+        StartCoroutine(Co_Pattern());
     }
 
     #endregion
@@ -87,7 +90,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     IEnumerator Grivaty()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(Mathf.Max(waitStart / 2, 0.3f));
         while (true)
         {
             GroundCheck(groundCheckRayDist);

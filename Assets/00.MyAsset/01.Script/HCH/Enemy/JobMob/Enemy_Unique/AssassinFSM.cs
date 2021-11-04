@@ -42,18 +42,13 @@ public class AssassinFSM : EnemyFSM
         anim.SetTrigger("ToArise");
     }
 
-    private new void OnEnable()
-    {
-        base.OnEnable();
-    }
-
     #endregion
 
     #region Implementation Place
 
     protected override IEnumerator Co_Pattern()
     {
-        yield return null;
+        yield return new WaitForSeconds(waitStart);
     }
 
     #endregion

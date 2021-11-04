@@ -14,19 +14,19 @@ public class BossHP_Shaman : HPControllerToEnemy
     SpriteRenderer SpriteRenderer => spriteRenderer = spriteRenderer ? spriteRenderer : GetComponent<SpriteRenderer>();
 
     // 배열로 특정 체력 비율을 뺴놓고 비교해서 피격 상태로 변경한다
-    protected override void EnemyDamaged()
+    protected override IEnumerator EnemyDamaged()
     {
         if(damageColor != null) StopCoroutine(damageColor);
         damageColor = StartCoroutine(DamageColor());
 
         if (NormalizedCurrHP < 0.7f && paze == 1)
         {
-            StartCoroutine(EnemyFSM.Stun(stunTime));
+            yield return StartCoroutine(EnemyFSM.Stun(stunTime));
             paze++;
         }
         else if (NormalizedCurrHP < 0.3f && paze == 2)
         {
-            StartCoroutine(EnemyFSM.Stun(stunTime));
+            yield return StartCoroutine(EnemyFSM.Stun(stunTime));
             paze++;
         }
     }
