@@ -11,7 +11,7 @@ public class WeaponColCheck : MonoBehaviour
 
     // playerAttack = playerAttack ? playerAttack : GetComponent<PlayerAttack>();
     // playerAttack이 있으면 playerAttack을 가져오고 없으면 GetComponent를 해서 가져오는 삼항연산자
-    PlayerAttack PlayerAttack => playerAttack = playerAttack ? playerAttack : GetComponent<PlayerAttack>();
+    PlayerAttack PlayerAttack => playerAttack = playerAttack ? playerAttack : transform.parent.GetComponent<PlayerAttack>();
 
     private void OnTriggerEnter2D(Collider2D col)
     {
