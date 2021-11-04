@@ -9,12 +9,29 @@ public class EnemyHP : HPControllerToEnemy
 
     [SerializeField] Image hpBar;
 
+    [SerializeField] float hardnessDuration;
+
+    WaitForSeconds hardnessTime;
+
     #endregion
 
-    protected override void EnemyDamaged()
+    #region Unity Life Cycle
+
+    private void Start()
+    {
+        hardnessTime = new WaitForSeconds(hardnessDuration);
+    }
+
+    #endregion
+
+    #region Implementation Place
+
+    protected override IEnumerator EnemyDamaged()
     {
         EnemyFSM.FlipCheck();
         Animator.SetTrigger("ToDamaged");
+
+        yield return hardnessTime;
     }
 
     protected override void RefreshUI(float _val)
@@ -28,4 +45,6 @@ public class EnemyHP : HPControllerToEnemy
         yield return new WaitForSeconds(5.0f);
         gameObject.SetActive(false);
     }
+
+    #endregion
 }

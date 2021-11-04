@@ -36,7 +36,7 @@ public abstract class HPControllerToEnemy : MonoBehaviour
                     Animator.SetTrigger("ToDie");
                     StartCoroutine(EnemyDead());
                 }
-                else EnemyDamaged();
+                else StartCoroutine(EnemyDamaged());
             }
         }
     }
@@ -70,7 +70,7 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     protected abstract void RefreshUI(float _val);
 
     /// <summary> When Enemy Taking Damage, Generate this method </summary>
-    protected abstract void EnemyDamaged();
+    protected abstract IEnumerator EnemyDamaged();
 
     protected abstract IEnumerator EnemyDead();
 

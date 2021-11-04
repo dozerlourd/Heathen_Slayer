@@ -2634,6 +2634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 1200
   hpBar: {fileID: 0}
+  hardnessDuration: 0
 --- !u!114 &1474737502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3114,6 +3115,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6488827415251801923, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
+      propertyPath: hardnessDuration
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6488827415251801929, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
       propertyPath: m_Name
       value: Rogue
@@ -3251,6 +3256,10 @@ PrefabInstance:
     - target: {fileID: 8689224006875875939, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: maxHP
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875939, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: hardnessDuration
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875944, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_FlipX
