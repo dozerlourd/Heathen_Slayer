@@ -37,9 +37,9 @@ public class PlayerStat : MonoBehaviour
     // 해당 시간만큼 게임 오브젝트를 무적 상태로 설정
     public IEnumerator SetGracePeriod(float gracePeriod)
     {
-        Physics2D.IgnoreLayerCollision(6, 7, true);
+        Physics2D.IgnoreLayerCollision(7, 10, true);
 
         yield return new WaitForSeconds(gracePeriod);
-        Physics2D.IgnoreLayerCollision(6, 7, false);
+        Physics2D.IgnoreLayerCollision(7, 10, false);
     }
 }

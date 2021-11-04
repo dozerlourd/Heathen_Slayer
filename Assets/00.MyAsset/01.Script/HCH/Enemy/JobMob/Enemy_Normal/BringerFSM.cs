@@ -52,13 +52,15 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         waitToSkill = new WaitForSeconds(waitToSkillTime);
     }
 
-    private new void Start()
+    private void Start()
     {
-        base.Start();
-
         skillEffects = new GameObject[maxSkillEffectPoolCount];
         skillEffects = HCH.Pool.GeneratePool(skill_GodHand, maxSkillEffectPoolCount, FolderSystem.Instance.Bringer_SkillPool, false);
+    }
 
+    private new void OnEnable()
+    {
+        base.OnEnable();
         StartCoroutine(Co_Pattern());
     }
 
@@ -144,7 +146,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
                 }
 
                 traceCount = 0;
-                transform.Translate(Vector2.right * flipValue * moveSpeed * 2.25f * Time.deltaTime);
+                transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
             }
             else
             {
@@ -157,7 +159,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
                 if (traceCount <= aggroDuration)
                 {
-                    transform.Translate(Vector2.right * flipValue * moveSpeed * 2.25f * Time.deltaTime);
+                    transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
                     traceCount += Time.deltaTime;
                 }
                 else break;

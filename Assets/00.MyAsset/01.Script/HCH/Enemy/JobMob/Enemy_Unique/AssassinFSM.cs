@@ -42,9 +42,9 @@ public class AssassinFSM : EnemyFSM
         anim.SetTrigger("ToArise");
     }
 
-    private new void Start()
+    private new void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
     }
 
     #endregion

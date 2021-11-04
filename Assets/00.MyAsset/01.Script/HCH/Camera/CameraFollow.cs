@@ -7,11 +7,11 @@ public class CameraFollow : MonoBehaviour
     #region Variable
 
     [Header("Value for camera movement")]
-    [SerializeField, Range(0.1f, 10f)] float followSpeed = 1.0f;
+    [SerializeField, Range(0.01f, 5f)] float followSpeed = 1.0f;
     [SerializeField] float downPadding = 3;
     [SerializeField, Tooltip("The radius of the extent to which Camera Follow does not work")] float paddingRadius = 0f;
 
-
+    private bool isFollow = true;
     GameObject player;
 
     #endregion
@@ -22,11 +22,14 @@ public class CameraFollow : MonoBehaviour
 
     #region Unity Life Cycle
 
-    void Start() => StartCoroutine(FindPlayerWithTag());
+    void Start()
+    {
+        StartCoroutine(FindPlayerWithTag());
+        StartCoroutine(Co_Follow());
+    }
 
     IEnumerator FindPlayerWithTag()
     {
-
         yield return new WaitUntil(() => player = GameObject.FindGameObjectWithTag("Player"));
         Vector3 initVec = player.transform.position;
         initVec.z = -10;
@@ -39,7 +42,7 @@ public class CameraFollow : MonoBehaviour
         if (player == null || Vector2.Distance(transform.position, player.transform.position + Vector3.up * downPadding) <= paddingRadius) {
             return;
         }
-        StartCoroutine(Co_Follow());
+        //StartCoroutine(Co_Follow());
     }
 
     #endregion
@@ -48,14 +51,20 @@ public class CameraFollow : MonoBehaviour
 
     IEnumerator Co_Follow()
     {
-        while(Vector2.Distance(transform.position, player.transform.position + Vector3.up * downPadding) > 0.05f)
+        yield return new WaitUntil(() => player);
+        while(true)
         {
-            Vector3 resultVec = Vector3.Lerp(transform.position, player.transform.position + Vector3.up * downPadding, followSpeed * Time.deltaTime);
-            resultVec.z = -10;
-            transform.position = resultVec;
+            if(isFollow)
+            {
+                Vector3 resultVec = Vector3.Lerp(transform.position, player.transform.position + Vector3.up * downPadding, followSpeed * Time.deltaTime);
+                resultVec.z = -10;
+                transform.position = resultVec;
+            }
             yield return null;
         }
     }
+
+    public void SetCameraFollow(bool _isFollow = true) => isFollow = _isFollow;
 
     #endregion
 }

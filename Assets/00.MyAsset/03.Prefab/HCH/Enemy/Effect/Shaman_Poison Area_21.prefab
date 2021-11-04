@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4091500938421006946}
   - component: {fileID: 4091500938421006945}
   - component: {fileID: 4091500938421006948}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 4091500938467277975}
   - component: {fileID: 4091500938467277974}
   - component: {fileID: 4091500938467277961}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 4091500938496228214}
   - component: {fileID: 4091500938496228213}
   - component: {fileID: 4091500938496228200}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 4091500938723276945}
   - component: {fileID: 4091500938723276944}
   - component: {fileID: 4091500938723276947}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 4091500938817209285}
   - component: {fileID: 4091500938817209284}
   - component: {fileID: 4091500938817209287}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 4091500938919986659}
   - component: {fileID: 4091500938919986658}
   - component: {fileID: 4091500938919986661}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,7 +702,7 @@ GameObject:
   - component: {fileID: 4091500939011051766}
   - component: {fileID: 4091500939011051765}
   - component: {fileID: 4091500939011051752}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 4091500939071368137}
   - component: {fileID: 4091500939071368136}
   - component: {fileID: 4091500939071368139}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -932,7 +932,7 @@ GameObject:
   - component: {fileID: 4091500939097447294}
   - component: {fileID: 4091500939097447293}
   - component: {fileID: 4091500939097447280}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 4091500939378032408}
   - component: {fileID: 4091500939378032487}
   - component: {fileID: 4091500939378032410}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1162,7 +1162,7 @@ GameObject:
   - component: {fileID: 4091500939474566870}
   - component: {fileID: 4091500939474566869}
   - component: {fileID: 4091500939474566856}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1277,7 +1277,7 @@ GameObject:
   - component: {fileID: 4091500939544306853}
   - component: {fileID: 4091500939544306852}
   - component: {fileID: 4091500939544306855}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1392,7 +1392,7 @@ GameObject:
   - component: {fileID: 4091500939598812728}
   - component: {fileID: 4091500939598812679}
   - component: {fileID: 4091500939598812730}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1507,7 +1507,7 @@ GameObject:
   - component: {fileID: 4091500939901333337}
   - component: {fileID: 4091500939901333336}
   - component: {fileID: 4091500939901333339}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1622,7 +1622,7 @@ GameObject:
   - component: {fileID: 4091500939918051638}
   - component: {fileID: 4091500939918051637}
   - component: {fileID: 4091500939918051624}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1737,7 +1737,7 @@ GameObject:
   - component: {fileID: 4091500940034430387}
   - component: {fileID: 4091500940034430386}
   - component: {fileID: 4091500940034430389}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1852,7 +1852,7 @@ GameObject:
   - component: {fileID: 4091500940139357072}
   - component: {fileID: 4091500940139357087}
   - component: {fileID: 4091500940139357074}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1967,7 +1967,7 @@ GameObject:
   - component: {fileID: 4091500940148572221}
   - component: {fileID: 4091500940148572220}
   - component: {fileID: 4091500940148572223}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2082,7 +2082,7 @@ GameObject:
   - component: {fileID: 4091500940153333498}
   - component: {fileID: 4091500940153333497}
   - component: {fileID: 4091500940153333500}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2197,7 +2197,7 @@ GameObject:
   - component: {fileID: 4091500940187168401}
   - component: {fileID: 4091500940187168400}
   - component: {fileID: 4091500940187168403}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2311,9 +2311,9 @@ GameObject:
   - component: {fileID: 4091500940329929329}
   - component: {fileID: 4346455959039936627}
   - component: {fileID: 6849922495809880974}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman_Poison Area_21
-  m_TagString: Untagged
+  m_TagString: SpecialAttack_Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2429,7 +2429,7 @@ GameObject:
   - component: {fileID: 4091500940377764661}
   - component: {fileID: 4091500940377764660}
   - component: {fileID: 4091500940377764663}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Shaman-Poison_5 (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
