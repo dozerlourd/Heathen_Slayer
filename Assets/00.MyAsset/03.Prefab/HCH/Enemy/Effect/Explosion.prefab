@@ -132,3 +132,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20830900955b73d4c993f9f3967e518a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDamage: 6
+  gracePeriod: 0.05

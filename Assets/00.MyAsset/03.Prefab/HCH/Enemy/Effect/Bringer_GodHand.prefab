@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6940265782750724331}
   - component: {fileID: -7433820919114173412}
   m_Layer: 10
-  m_Name: Bringer_SkillEffect
+  m_Name: Bringer_GodHand
   m_TagString: SpecialAttack_Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

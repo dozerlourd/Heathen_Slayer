@@ -28,6 +28,16 @@ public class CameraFollow : MonoBehaviour
         StartCoroutine(Co_Follow());
     }
 
+    private void LateUpdate()
+    {
+        if (isFollow && player != null && Vector2.Distance(transform.position, player.transform.position + Vector3.up * downPadding) >= paddingRadius)
+        {
+            Vector3 resultVec = Vector3.Lerp(transform.position, player.transform.position + Vector3.up * downPadding, followSpeed * Time.deltaTime);
+            resultVec.z = -10;
+            transform.position = resultVec;
+        }
+    }
+
     IEnumerator FindPlayerWithTag()
     {
         yield return new WaitUntil(() => player = GameObject.FindGameObjectWithTag("Player"));
@@ -37,14 +47,6 @@ public class CameraFollow : MonoBehaviour
         transform.position = initVec;
     }
 
-    private void LateUpdate()
-    {
-        if (player == null || Vector2.Distance(transform.position, player.transform.position + Vector3.up * downPadding) <= paddingRadius) {
-            return;
-        }
-        //StartCoroutine(Co_Follow());
-    }
-
     #endregion
 
     #region Implementation Place
@@ -52,16 +54,6 @@ public class CameraFollow : MonoBehaviour
     IEnumerator Co_Follow()
     {
         yield return new WaitUntil(() => player);
-        while(true)
-        {
-            if(isFollow)
-            {
-                Vector3 resultVec = Vector3.Lerp(transform.position, player.transform.position + Vector3.up * downPadding, followSpeed * Time.deltaTime);
-                resultVec.z = -10;
-                transform.position = resultVec;
-            }
-            yield return null;
-        }
     }
 
     public void SetCameraFollow(bool _isFollow = true) => isFollow = _isFollow;

@@ -11,7 +11,12 @@ public class EnemyHP : HPControllerToEnemy
 
     [SerializeField] float hardnessDuration;
 
+    [SerializeField] AudioClip[] deadEffectClips;
+
+    bool isAbsolute = false;
+
     WaitForSeconds hardnessTime;
+
 
     #endregion
 
@@ -28,10 +33,14 @@ public class EnemyHP : HPControllerToEnemy
 
     protected override IEnumerator EnemyDamaged()
     {
-        EnemyFSM.FlipCheck();
-        Animator.SetTrigger("ToDamaged");
+        if (!isAbsolute)
+        {
+            EnemyFSM.FlipCheck();
+            Animator.SetTrigger("ToDamaged");
 
-        yield return hardnessTime;
+            yield return hardnessTime;
+        }
+        else yield return null;
     }
 
     protected override void RefreshUI(float _val)
@@ -42,9 +51,13 @@ public class EnemyHP : HPControllerToEnemy
 
     protected override IEnumerator EnemyDead()
     {
+        SoundManager.Instance.PlayVoiceOneShot(deadEffectClips);
+        isDead = true;
         yield return new WaitForSeconds(5.0f);
         gameObject.SetActive(false);
     }
+
+    public void Absolute(bool value) => isAbsolute = value;
 
     #endregion
 }

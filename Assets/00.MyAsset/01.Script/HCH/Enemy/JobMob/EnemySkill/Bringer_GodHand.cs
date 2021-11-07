@@ -29,8 +29,8 @@ public class Bringer_GodHand : MonoBehaviour
 
     private void OnEnable()
     {
+        print("ha");
         Co_SkillShot = StartCoroutine(SkillShot());
-        BoxCol2D.enabled = false;
     }
 
     #endregion 
@@ -39,6 +39,7 @@ public class Bringer_GodHand : MonoBehaviour
 
     IEnumerator SkillShot()
     {
+        BoxCol2D.enabled = false;
         yield return new WaitUntil(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= attackTiming);
         BoxCol2D.enabled = true;    
         yield return new WaitUntil(() => Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= attackTiming + attackDuration);
@@ -58,8 +59,8 @@ public class Bringer_GodHand : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            //print("µ¥¹ÌÁö!");
             col.GetComponent<PlayerStat>().SetHP(6, 0.1f);
+            BoxCol2D.enabled = false;
         }
     }
 

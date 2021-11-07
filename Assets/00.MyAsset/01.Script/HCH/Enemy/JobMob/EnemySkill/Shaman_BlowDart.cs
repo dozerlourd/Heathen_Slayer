@@ -6,8 +6,9 @@ public class Shaman_BlowDart : MonoBehaviour
 {
     #region Variable
 
-    public float Duration;
-    public Rigidbody2D Body;
+    [SerializeField] float damage = 7;
+    [SerializeField] float Duration;
+    [SerializeField] Rigidbody2D Body;
 
     #endregion
 
@@ -33,7 +34,7 @@ public class Shaman_BlowDart : MonoBehaviour
     {
         if(col.gameObject.CompareTag("Player"))
         {
-            col.GetComponent<PlayerStat>()?.SetHP(8, 0.7f);
+            col.GetComponent<PlayerStat>()?.SetHP(damage, 0.7f);
             Vanish();
         }
     }

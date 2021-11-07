@@ -2,39 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Bringer_Variable
+{
+    [Header(" - Elapsed Time For State Change"), Min(0.0f)]
+    [SerializeField] internal float waitToPatrolTime;
+    [SerializeField] internal float waitToTraceTime;
+    [SerializeField] internal float waitToAttackTime;
+    [SerializeField] internal float waitToSkillTime;
+
+    [Header(" - Related to Bringer's skill")]
+    [SerializeField] internal GameObject skill_GodHand;
+    [SerializeField] internal int maxSkillEffectPoolCount;
+    [SerializeField, Range(0f, 1f)] internal float skillEffectTiming;
+
+    [Header(" - Related to Bringer's attack")]
+    [SerializeField] internal Collider2D attackCol;
+
+    [Space(15)]
+    [Tooltip("Max Aggro Duration: After end duration, change to patrol")]
+    [SerializeField] internal float aggroDuration = 10;
+
+    [Header(" - Sound")]
+    [SerializeField] internal AudioClip[] attackVoiceClips;
+    [SerializeField] internal AudioClip[] skillEffectClips_GodHand;
+
+    internal GameObject[] skillEffects;
+
+    internal WaitForSeconds waitToPatrol, waitToTrace, waitToAttack, waitToSkill;
+
+    internal Coroutine Co_Patrol, Co_Trace;
+
+    internal EnemyHP enemyHP;
+}
+
 public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 {
     #region Variable
 
-    [Header(" - Elapsed Time For State Change"), Min(0.0f)]
-    [SerializeField] float waitToPatrolTime;
-    [SerializeField] float waitToTraceTime;
-    [SerializeField] float waitToAttackTime;
-    [SerializeField] float waitToSkillTime;
-
-    [Header(" - Related to Bringer's skill")]
-    [SerializeField] GameObject skill_GodHand;
-    [SerializeField] int maxSkillEffectPoolCount;
-    [SerializeField, Range(0f, 1f)] float skillEffectTiming;
-
-    [Header(" - Related to Bringer's attack")]
-    [SerializeField] Collider2D attackCol;
-
-    [Space(15)]
-    [Tooltip("Max Aggro Duration: After end duration, change to patrol")]
-    [SerializeField] float aggroDuration = 10;
-
-    GameObject[] skillEffects;
-
-    WaitForSeconds waitToPatrol, waitToTrace, waitToAttack, waitToSkill;
-
-    Coroutine Co_Patrol, Co_Trace;
+    [SerializeField] Bringer_Variable bringer_Variable;
 
     #endregion
 
     #region Property
-
-
+    EnemyHP EnemyHP => bringer_Variable.enemyHP = bringer_Variable.enemyHP ? bringer_Variable.enemyHP : GetComponent<EnemyHP>();
 
     #endregion
 
@@ -46,16 +57,16 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     new void Awake()
     {
         base.Awake();
-        waitToPatrol = new WaitForSeconds(waitToPatrolTime);
-        waitToTrace = new WaitForSeconds(waitToTraceTime);
-        waitToAttack = new WaitForSeconds(waitToAttackTime);
-        waitToSkill = new WaitForSeconds(waitToSkillTime);
+        bringer_Variable.waitToPatrol = new WaitForSeconds(bringer_Variable.waitToPatrolTime);
+        bringer_Variable.waitToTrace = new WaitForSeconds(bringer_Variable.waitToTraceTime);
+        bringer_Variable.waitToAttack = new WaitForSeconds(bringer_Variable.waitToAttackTime);
+        bringer_Variable.waitToSkill = new WaitForSeconds(bringer_Variable.waitToSkillTime);
     }
 
     private void Start()
     {
-        skillEffects = new GameObject[maxSkillEffectPoolCount];
-        skillEffects = HCH.Pool.GeneratePool(skill_GodHand, maxSkillEffectPoolCount, FolderSystem.Instance.Bringer_SkillPool, false);
+        bringer_Variable.skillEffects = new GameObject[bringer_Variable.maxSkillEffectPoolCount];
+        bringer_Variable.skillEffects = HCH.Pool.GeneratePool(bringer_Variable.skill_GodHand, bringer_Variable.maxSkillEffectPoolCount, FolderSystem.Instance.Bringer_SkillPool, false);
     }
 
     #endregion
@@ -68,10 +79,10 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
         while (true)
         {
-            Co_Patrol = StartCoroutine(EnemyPatrol());
+            bringer_Variable.Co_Patrol = StartCoroutine(EnemyPatrol());
             yield return new WaitUntil(() => GetDistanceB2WPlayer() <= detectRange);
-            StopCoroutine(Co_Patrol);
-            yield return Co_Trace = StartCoroutine(EnemyTrace());
+            StopCoroutine(bringer_Variable.Co_Patrol);
+            yield return bringer_Variable.Co_Trace = StartCoroutine(EnemyTrace());
         }
     }
 
@@ -152,7 +163,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
                     continue;
                 }
 
-                if (traceCount <= aggroDuration)
+                if (traceCount <= bringer_Variable.aggroDuration)
                 {
                     transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
                     traceCount += Time.deltaTime;
@@ -169,28 +180,32 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         print("나 너 때린다!");
         anim.SetTrigger("ToAttack");
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Attack"));
-
         anim.SetFloat("AttackSpeed", 0.85f);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
+        SoundManager.Instance.PlayVoiceOneShot(bringer_Variable.attackVoiceClips);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.35f);
         anim.SetFloat("AttackSpeed", 1.35f);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.43f);
-        attackCol.enabled = true;
+        bringer_Variable.attackCol.enabled = true;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.48f);
-        attackCol.enabled = false;
+        bringer_Variable.attackCol.enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f);
         anim.SetFloat("AttackSpeed", 0.85f);
 
 
-        yield return waitToAttack;
+        yield return bringer_Variable.waitToAttack;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Idle"));
     }
 
     public IEnumerator EnemySkill_1()
     {
+        EnemyHP.Absolute(true);
+
         FlipCheck();
         //print("이거 아프다!");
 
@@ -199,13 +214,15 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
         anim.SetFloat("AttackSpeed", 0.65f);
 
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= skillEffectTiming);
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= bringer_Variable.skillEffectTiming);
         GodHand();
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.75f);
         anim.SetFloat("AttackSpeed", 0.3f);
 
-        yield return waitToSkill;
+        EnemyHP.Absolute(false);
+
+        yield return bringer_Variable.waitToSkill;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Idle"));
     }
 
@@ -214,7 +231,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     public void SetAttackSpeed() => anim.SetFloat("AttackSpeed", attackSpeed);
 
     /// <summary> Use Bringer's Skill </summary>
-    void GodHand() => HCH.Pool.PopObjectFromPool(skillEffects, PlayerSystem.Instance.Player.transform.position + Vector3.up * 2.5f);
+    void GodHand() => HCH.Pool.PopObjectFromPool(bringer_Variable.skillEffects, PlayerSystem.Instance.Player.transform.position + Vector3.up * 2.5f);
 
     public IEnumerator Damaged()
     {

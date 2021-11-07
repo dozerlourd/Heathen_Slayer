@@ -6,6 +6,7 @@ public class Rogue_Shuriken : MonoBehaviour
 {
     #region Variable
 
+    [SerializeField] float damage = 8;
     [SerializeField] float Duration;
     [SerializeField] Rigidbody2D Body;
 
@@ -33,7 +34,7 @@ public class Rogue_Shuriken : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            col.GetComponent<PlayerStat>()?.SetHP(8, 0.7f);
+            col.GetComponent<PlayerStat>()?.SetHP(damage, 0.7f);
             Vanish();
         }
     }

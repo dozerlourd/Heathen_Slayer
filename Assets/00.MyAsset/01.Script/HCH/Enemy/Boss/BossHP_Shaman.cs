@@ -33,6 +33,7 @@ public class BossHP_Shaman : HPControllerToEnemy
 
     protected override IEnumerator EnemyDead()
     {
+        isDead = true;
         GetComponent<Collider2D>().enabled = false;
         yield return new WaitForSeconds(5.0f);
         gameObject.SetActive(false);

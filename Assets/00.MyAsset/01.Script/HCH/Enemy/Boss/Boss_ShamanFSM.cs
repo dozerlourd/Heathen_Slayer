@@ -112,7 +112,10 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
                 yield return StartCoroutine(Pattern_2());
 
             else
+            {
+                yield return EnemySkill_2(ActivateArea(false));
                 yield return StartCoroutine(Pattern_3());
+            }
         }
     }
 
@@ -142,8 +145,8 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     IEnumerator Pattern_3()
     {
-        yield return EnemySkill_2(ActivateArea(false));
         yield return EnemySkill_3(4, 10);
+        yield return EnemySkill_3(3, 8);
     }
 
     #endregion
@@ -317,9 +320,17 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     public IEnumerator ExplosionPattern_3(int _count)
     {
+        yield return new WaitForSeconds(1f);
         while (_count > 0)
         {
-            
+            for (int i = 0; i < Random.Range(1,4); i++)
+            {
+                Vector3 effectPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, 1921), Random.Range(0, 1081)));
+                effectPos.z = 0;
+                HCH.Pool.PopObjectFromPool(shaman_Variable.skillEffects_PoisonExplosion, effectPos);
+                yield return new WaitForSeconds(Random.Range(0.05f, 0.25f));
+            }
+            _count--;
             yield return expInterval;
         }
     }

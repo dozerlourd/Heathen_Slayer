@@ -28,6 +28,12 @@ public class Rogue_Variable
 
     [SerializeField] internal float IdleDelayTime;
 
+    [Header(" - Sound")]
+    [SerializeField] internal AudioClip[] voiceClips;
+    [SerializeField] internal AudioClip[] attackVoiceClips;
+    [SerializeField] internal AudioClip[] skillVoiceClips_Vanish;
+    [SerializeField] internal AudioClip[] skillVoiceClips_Shuriken;
+
     internal EnemyHP enemyHP;
 
     internal GameObject[] skillEffects_Shuriken;
@@ -183,6 +189,9 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         //print("Attack_1");
         anim.SetTrigger("ToAttack_1");
         yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
+        SoundManager.Instance.PlayVoiceOneShot(rogue_Variable.attackVoiceClips);
+
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.56f);
         //rogue_Variable.attackCols[0].enabled = true;
         //(PolygonCollider2D)attackCols[0].
@@ -195,10 +204,13 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
     public IEnumerator EnemyAttack_2()
     {
         yield return StartCoroutine(EnemyTrace());
-        FlipCheck();
 
         anim.SetTrigger("ToAttack_2");
         yield return null;
+        FlipCheck();
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
+        SoundManager.Instance.PlayVoiceOneShot(rogue_Variable.attackVoiceClips);
+
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.56f);
         rogue_Variable.attackCols[0].enabled = true;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.67f);
@@ -209,10 +221,13 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
     public IEnumerator EnemySkill_1()
     {
+        EnemyHP.Absolute(true);
         anim.SetBool("IsAirOpensive", true);
         anim.SetTrigger("ToSkill_VanishAttack");
         yield return null;
+
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f);
+        SoundManager.Instance.PlayVoiceOneShot(rogue_Variable.skillVoiceClips_Vanish);
         transform.position = PlayerSystem.Instance.Player.transform.position + Vector3.up * 3f;
         FlipCheck();
 
@@ -226,6 +241,8 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f);
 
+        EnemyHP.Absolute(false);
+
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Idle"));
         anim.SetBool("IsAirOpensive", false);
         yield return null;
@@ -233,15 +250,20 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
     public IEnumerator EnemySkill_2()
     {
+        EnemyHP.Absolute(true);
         anim.SetTrigger("ToSkill_Shuriken");
         yield return null;
         FlipCheck();
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
+        SoundManager.Instance.PlayVoiceOneShot(rogue_Variable.skillVoiceClips_Shuriken);
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f);
 
         GameObject shuriken = HCH.Pool.PopObjectFromPool(rogue_Variable.skillEffects_Shuriken, rogue_Variable.shurikenTr.position);
         shuriken.GetComponent<Rigidbody2D>().velocity = new Vector2(flipValue * rogue_Variable.shurikenSpeed, 0);
         shuriken.TryGetComponent(out SpriteRenderer spRenderer);
         if (spRenderer) spRenderer.flipX = spriteRenderer.flipX;
+
+        EnemyHP.Absolute(false);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Idle"));
         yield return new WaitForSeconds(rogue_Variable.shurikenDelayTime);

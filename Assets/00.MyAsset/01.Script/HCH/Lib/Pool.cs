@@ -14,10 +14,10 @@ namespace HCH
         public static GameObject[] GeneratePool(GameObject _object, int count, bool isActive = false)
         {
             GameObject[] returnObjs = new GameObject[count];
-            for (int i = 1; i <= count; i++)
+            for (int i = 0; i <= count; i++)
             {
                 returnObjs[i] = Instantiate(_object);
-                returnObjs[i].name = _object.name + "_" + i;
+                returnObjs[i].name = _object.name + "_" + (i + 1);
                 returnObjs[i].SetActive(isActive);
             }
             return returnObjs;
@@ -35,7 +35,7 @@ namespace HCH
             for (int i = 0; i < count; i++)
             {
                 returnObjs[i] = Instantiate(_object);
-                returnObjs[i].name = _object.name + "_" + i + 1;
+                returnObjs[i].name = _object.name + "_" + (i + 1);
                 returnObjs[i].transform.SetParent(parent);
                 returnObjs[i].SetActive(isActive);
             }
