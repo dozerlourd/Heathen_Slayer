@@ -12,12 +12,17 @@ public class PlayerAttack : MonoBehaviour
     public float skillFactor = 1.5f;
 
     Animator anim;
-    PlayerMove pm;
+    PlayerMove playerMove;
+    Rigidbody2D rb;
 
     Coroutine Co_attack;
 
-    bool isAttack = false;
+    public bool isAttack = false;
+    bool isSkill_1 = false;
     public int attackCount = 0;
+
+    float dashTime = 0.3f;
+    float lerpSpeed = 4;
 
     void Start()
     {
@@ -25,12 +30,13 @@ public class PlayerAttack : MonoBehaviour
         atkCollider.enabled = false;
 
         anim = GetComponentInChildren<Animator>();
-        pm = GetComponent<PlayerMove>();
+        playerMove = GetComponent<PlayerMove>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        if (!pm.isDamaged)
+        if (!playerMove.isDamaged)
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
@@ -42,19 +48,28 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.A))
+            if (!isAttack)
             {
-                // 스킬공격 1
-            }
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    if (!isSkill_1)
+                    {
+                        // 스킬 공격 1
+                        StartCoroutine(SkillAttack1());
+                    }
 
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                // 스킬공격 2
-            }
+                    StartCoroutine(Skill1CoolDown());
+                }
 
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                // 스킬공격 3
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    // 스킬공격 2
+                }
+
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    // 스킬공격 3
+                }
             }
         }
     }
@@ -116,6 +131,42 @@ public class PlayerAttack : MonoBehaviour
         atkCollider.enabled = false;
 
         isAttack = false;
+    }
+
+    IEnumerator SkillAttack1()
+    {
+        float curTime = 0;
+        anim.speed = 3.5f;
+        playerMove.isMove = false;
+
+        // dashCurTime 동안 대쉬를 실행한다.
+        while (curTime <= dashTime)
+        {
+            curTime += Time.deltaTime;
+
+            float lerpspeed = Mathf.Lerp(lerpSpeed, 0, curTime / dashTime);
+            transform.position += transform.right * playerMove.moveSpeed * lerpspeed * Time.deltaTime;
+
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0;
+
+            StartCoroutine(playerMove.SetGracePeriod(dashTime));
+
+            yield return null;
+        }
+
+        rb.gravityScale = 3;
+        anim.speed = 1;
+        playerMove.isMove = true;
+    }
+
+    IEnumerator Skill1CoolDown()
+    {
+        isSkill_1 = true;
+
+        yield return new WaitForSeconds(10);
+
+        isSkill_1 = false;
     }
 
     public void FindAttackCollider()
@@ -181,6 +232,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         isAttack = false;
+        atkCollider.enabled = false;
         attackCount = 0;
     }
 }
