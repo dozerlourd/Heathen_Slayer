@@ -15,6 +15,7 @@ public class Bringer_Variable
     [SerializeField] internal GameObject skill_GodHand;
     [SerializeField] internal int maxSkillEffectPoolCount;
     [SerializeField, Range(0f, 1f)] internal float skillEffectTiming;
+    [SerializeField] internal float skillWeight = 800;
 
     [Header(" - Related to Bringer's attack")]
     [SerializeField] internal Collider2D attackCol;
@@ -66,7 +67,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     private void Start()
     {
         bringer_Variable.skillEffects = new GameObject[bringer_Variable.maxSkillEffectPoolCount];
-        bringer_Variable.skillEffects = HCH.Pool.GeneratePool(bringer_Variable.skill_GodHand, bringer_Variable.maxSkillEffectPoolCount, FolderSystem.Instance.Bringer_SkillPool, false);
+        bringer_Variable.skillEffects = HCH.GameObjectPool.GeneratePool(bringer_Variable.skill_GodHand, bringer_Variable.maxSkillEffectPoolCount, FolderSystem.Instance.Bringer_SkillPool, false);
     }
 
     #endregion
@@ -135,7 +136,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
             {
                 anim.SetBool("ToWalk", false);
                 traceCount = 0;
-                if (HCH.Well512.Next() > HCH.Well512.Next())
+                if (HCH.MersenneTwister.Genrand_Int32(3) > bringer_Variable.skillWeight)
                     yield return StartCoroutine(EnemyAttack_1());
                 else
                     yield return StartCoroutine(EnemySkill_1());
@@ -231,7 +232,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     public void SetAttackSpeed() => anim.SetFloat("AttackSpeed", attackSpeed);
 
     /// <summary> Use Bringer's Skill </summary>
-    void GodHand() => HCH.Pool.PopObjectFromPool(bringer_Variable.skillEffects, PlayerSystem.Instance.Player.transform.position + Vector3.up * 2.5f);
+    void GodHand() => HCH.GameObjectPool.PopObjectFromPool(bringer_Variable.skillEffects, PlayerSystem.Instance.Player.transform.position + Vector3.up * 2.5f);
 
     public IEnumerator Damaged()
     {

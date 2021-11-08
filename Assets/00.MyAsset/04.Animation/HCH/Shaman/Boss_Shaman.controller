@@ -292,55 +292,55 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ToAttack_1
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ToAttack_2
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: SkillStart
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ToSkill_Dart
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ToSkill_Explosion
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ToSkill_Area
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsStunned
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ToDie
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -418,34 +418,34 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -4664112452596282761}
-    m_Position: {x: 300, y: 390, z: 0}
+    m_Position: {x: 910, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6218871935219866449}
-    m_Position: {x: 270, y: 620, z: 0}
+    m_Position: {x: 760, y: 670, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8818534540175436350}
-    m_Position: {x: 300, y: 310, z: 0}
+    m_Position: {x: 660, y: 250, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4249885980649858939}
-    m_Position: {x: 670, y: 620, z: 0}
+    m_Position: {x: 890, y: 510, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2513796087500959372}
-    m_Position: {x: 470, y: 620, z: 0}
+    m_Position: {x: 820, y: 590, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1243613268685873319}
-    m_Position: {x: 1070, y: 620, z: 0}
+    m_Position: {x: 1090, y: 350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6247581051511180827}
-    m_Position: {x: 870, y: 620, z: 0}
+    m_Position: {x: 980, y: 430, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6470938842511024288}
-    m_Position: {x: 890, y: 340, z: 0}
+    m_Position: {x: 410, y: 630, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2703180925699645521}
-    m_Position: {x: 890, y: 420, z: 0}
+    m_Position: {x: 410, y: 760, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3261839687691680301}
-    m_Position: {x: 70, y: 620, z: 0}
+    m_Position: {x: 680, y: 750, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -902839831252024680}
@@ -458,9 +458,9 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 600, y: 340, z: 0}
-  m_EntryPosition: {x: 60, y: 390, z: 0}
-  m_ExitPosition: {x: 610, y: 810, z: 0}
+  m_AnyStatePosition: {x: 430, y: 360, z: 0}
+  m_EntryPosition: {x: 930, y: 180, z: 0}
+  m_ExitPosition: {x: 1320, y: 810, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -4664112452596282761}
 --- !u!1102 &1243613268685873319

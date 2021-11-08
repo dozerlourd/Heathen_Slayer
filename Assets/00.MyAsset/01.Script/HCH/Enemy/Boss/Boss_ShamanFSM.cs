@@ -76,8 +76,8 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         shaman_Variable.skillEffects_PoisonExplosion = new GameObject[shaman_Variable.maxSkillEffectPoolCounts[1]];
         shaman_Variable.poisonArea = new Shaman_PoisonArea[shaman_Variable.Skill_PoisonArea.Length];
 
-        shaman_Variable.skillEffects_PoisonDart = HCH.Pool.GeneratePool(shaman_Variable.Skill_PoisonDart, shaman_Variable.maxSkillEffectPoolCounts[0], FolderSystem.Instance.Shaman_SkillPool);
-        shaman_Variable.skillEffects_PoisonExplosion = HCH.Pool.GeneratePool(shaman_Variable.Skill_PoisonExplosion, shaman_Variable.maxSkillEffectPoolCounts[1], FolderSystem.Instance.Shaman_SkillPool);
+        shaman_Variable.skillEffects_PoisonDart = HCH.GameObjectPool.GeneratePool(shaman_Variable.Skill_PoisonDart, shaman_Variable.maxSkillEffectPoolCounts[0], FolderSystem.Instance.Shaman_SkillPool);
+        shaman_Variable.skillEffects_PoisonExplosion = HCH.GameObjectPool.GeneratePool(shaman_Variable.Skill_PoisonExplosion, shaman_Variable.maxSkillEffectPoolCounts[1], FolderSystem.Instance.Shaman_SkillPool);
 
         // Poison Area
         for (int i = 0; i < shaman_Variable.Skill_PoisonArea.Length; i++)
@@ -226,7 +226,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         anim.SetTrigger("ToSkill_Dart");
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.625f);
-        GameObject dartClone = HCH.Pool.PopObjectFromPool(shaman_Variable.skillEffects_PoisonDart);
+        GameObject dartClone = HCH.GameObjectPool.PopObjectFromPool(shaman_Variable.skillEffects_PoisonDart);
         dartClone.transform.position = shaman_Variable.dartFirePos.position;
         dartClone.GetComponent<Rigidbody2D>().velocity = new Vector2(flipValue * shaman_Variable.dartSpeed, 0);
         dartClone.TryGetComponent(out SpriteRenderer spRenderer);
@@ -327,7 +327,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
             {
                 Vector3 effectPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, 1921), Random.Range(0, 1081)));
                 effectPos.z = 0;
-                HCH.Pool.PopObjectFromPool(shaman_Variable.skillEffects_PoisonExplosion, effectPos);
+                HCH.GameObjectPool.PopObjectFromPool(shaman_Variable.skillEffects_PoisonExplosion, effectPos);
                 yield return new WaitForSeconds(Random.Range(0.05f, 0.25f));
             }
             _count--;
@@ -342,7 +342,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         {
             Vector3 effectPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, 1921), Random.Range(0, 1081)));
             effectPos.z = 0;
-            HCH.Pool.PopObjectFromPool(shaman_Variable.skillEffects_PoisonExplosion, effectPos);
+            HCH.GameObjectPool.PopObjectFromPool(shaman_Variable.skillEffects_PoisonExplosion, effectPos);
             _count--;
             yield return expInterval;
         }

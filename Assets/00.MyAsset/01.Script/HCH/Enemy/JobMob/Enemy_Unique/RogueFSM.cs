@@ -73,9 +73,9 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         rogue_Variable.skillEffects_Shuriken = new GameObject[rogue_Variable.shurikenCount];
         rogue_Variable.effect_VanishAttacks = new GameObject[rogue_Variable.vanishCount];
 
-        rogue_Variable.skillEffects_Shuriken = HCH.Pool.GeneratePool(rogue_Variable.Skill_Shuriken, rogue_Variable.shurikenCount, FolderSystem.Instance.Rogue_SkillPool);
+        rogue_Variable.skillEffects_Shuriken = HCH.GameObjectPool.GeneratePool(rogue_Variable.Skill_Shuriken, rogue_Variable.shurikenCount, FolderSystem.Instance.Rogue_SkillPool);
 
-        rogue_Variable.effect_VanishAttacks = HCH.Pool.GeneratePool(rogue_Variable.effect_VanishAttack, rogue_Variable.vanishCount, FolderSystem.Instance.Rogue_SkillPool);
+        rogue_Variable.effect_VanishAttacks = HCH.GameObjectPool.GeneratePool(rogue_Variable.effect_VanishAttack, rogue_Variable.vanishCount, FolderSystem.Instance.Rogue_SkillPool);
     }
 
     private void Update()
@@ -234,7 +234,7 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.75f);
         rogue_Variable.attackCols[1].enabled = true;
 
-        HCH.Pool.PopObjectFromPool(rogue_Variable.effect_VanishAttacks, rogue_Variable.vanishEffectTr.position);
+        HCH.GameObjectPool.PopObjectFromPool(rogue_Variable.effect_VanishAttacks, rogue_Variable.vanishEffectTr.position);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.82f);
         rogue_Variable.attackCols[1].enabled = false;
@@ -258,7 +258,7 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         SoundManager.Instance.PlayVoiceOneShot(rogue_Variable.skillVoiceClips_Shuriken);
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.5f);
 
-        GameObject shuriken = HCH.Pool.PopObjectFromPool(rogue_Variable.skillEffects_Shuriken, rogue_Variable.shurikenTr.position);
+        GameObject shuriken = HCH.GameObjectPool.PopObjectFromPool(rogue_Variable.skillEffects_Shuriken, rogue_Variable.shurikenTr.position);
         shuriken.GetComponent<Rigidbody2D>().velocity = new Vector2(flipValue * rogue_Variable.shurikenSpeed, 0);
         shuriken.TryGetComponent(out SpriteRenderer spRenderer);
         if (spRenderer) spRenderer.flipX = spriteRenderer.flipX;

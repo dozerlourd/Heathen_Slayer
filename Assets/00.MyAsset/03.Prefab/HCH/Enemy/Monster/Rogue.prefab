@@ -160,6 +160,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 10
   hpBar: {fileID: 997665915014050663}
+  hardnessDuration: 0.1
+  deadVoiceClips:
+  - {fileID: 8300000, guid: c52d41de9d068234eaf3bfa61ca4dce8, type: 3}
+  - {fileID: 8300000, guid: 41591e9916339f1429ed99a3cddef8d8, type: 3}
 --- !u!114 &6488827415251801932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +205,23 @@ MonoBehaviour:
     effectTiming: 0.264
     blinkDist: 0
     IdleDelayTime: 0.1
+    voiceClips: []
+    attackVoiceClips:
+    - {fileID: 8300000, guid: ef81364e6807d544f95d7a5d73515429, type: 3}
+    - {fileID: 8300000, guid: 261a2f68be4d28a4ba2a94111a023cfe, type: 3}
+    - {fileID: 8300000, guid: 3dffad8dc25147141863d5567a9daf9a, type: 3}
+    - {fileID: 8300000, guid: 8802e9025dc95a746b1cdf2730acea00, type: 3}
+    - {fileID: 8300000, guid: 1aae798cf721c8f4abd24e99af2428f9, type: 3}
+    - {fileID: 8300000, guid: c67e70b4dea3d95469f5eb2ae5ddd780, type: 3}
+    - {fileID: 8300000, guid: 1cca6f3a242ab064f808e721a892ac57, type: 3}
+    - {fileID: 8300000, guid: cf05278cda265e34ca0d8fa8d3c14048, type: 3}
+    - {fileID: 8300000, guid: 391b455493893b246a5b6e0b5f1a5e37, type: 3}
+    - {fileID: 8300000, guid: 015410488eda60843b3674df851978c8, type: 3}
+    skillVoiceClips_Vanish:
+    - {fileID: 8300000, guid: 0127eba00adf93c42be0c9adbeab0a2a, type: 3}
+    - {fileID: 8300000, guid: 77346e5da42709d4a8562e3a398880b8, type: 3}
+    skillVoiceClips_Shuriken:
+    - {fileID: 8300000, guid: bed673d230ca2f14b9b0bd6e18e06c63, type: 3}
 --- !u!95 &6488827415251801922
 Animator:
   serializedVersion: 3
@@ -231,7 +252,7 @@ GameObject:
   - component: {fileID: 6488827415455286898}
   - component: {fileID: 6488827415455286899}
   - component: {fileID: 6488827415455286896}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: SkillAttack_1
   m_TagString: SpecialAttack_Enemy
   m_Icon: {fileID: 0}
@@ -264,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aeb562e6d32bc244adab37322178884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 2
+  attackDamage: 12
   gracePeriod: 0.4
 --- !u!61 &6488827415455286896
 BoxCollider2D:
@@ -366,7 +387,7 @@ GameObject:
   - component: {fileID: 6488827416430335954}
   - component: {fileID: 6488827416430335955}
   - component: {fileID: 6488827416430335952}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Attack_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,7 +420,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aeb562e6d32bc244adab37322178884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 5
+  attackDamage: 3
   gracePeriod: 0.1
 --- !u!61 &6488827416430335952
 BoxCollider2D:
@@ -534,7 +555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

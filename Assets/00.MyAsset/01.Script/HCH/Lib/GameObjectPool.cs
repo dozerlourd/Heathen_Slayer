@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace HCH
 {
-    public class Pool : MonoBehaviour
+    public class GameObjectPool : MonoBehaviour
     {
         /// <summary> Method for Generate Object Pool </summary>
         /// <param name="_object"> Object to pool </param>
@@ -14,7 +14,7 @@ namespace HCH
         public static GameObject[] GeneratePool(GameObject _object, int count, bool isActive = false)
         {
             GameObject[] returnObjs = new GameObject[count];
-            for (int i = 0; i <= count; i++)
+            for (int i = 0; i < count; i++)
             {
                 returnObjs[i] = Instantiate(_object);
                 returnObjs[i].name = _object.name + "_" + (i + 1);

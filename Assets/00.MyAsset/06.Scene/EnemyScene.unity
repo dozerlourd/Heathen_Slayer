@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1816841}
   - component: {fileID: 1816842}
   - component: {fileID: 1816843}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Attack_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ Transform:
   m_Children:
   - {fileID: 1180261262}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &456456658
 SpriteRenderer:
@@ -463,8 +463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 327290734ad13f6458ff788f94a6351f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 12
-  stunTime: 5
+  maxHP: 120
+  stunTime: 3.5
 --- !u!1 &463633447
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,8 +863,9 @@ RectTransform:
   - {fileID: 1774234169}
   - {fileID: 2077372958}
   - {fileID: 1661303387}
+  - {fileID: 677652357}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -918,6 +919,42 @@ MonoBehaviour:
   bringer_SkillPool: {fileID: 0}
   shaman_SkillPool: {fileID: 0}
   rogue_SkillPool: {fileID: 0}
+  damageText_UIPool: {fileID: 677652357}
+--- !u!1 &677652356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 677652357}
+  m_Layer: 5
+  m_Name: Transform_DamageText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &677652357
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677652356}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 540764543}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &727699618
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +966,7 @@ GameObject:
   - component: {fileID: 727699619}
   - component: {fileID: 727699620}
   - component: {fileID: 727699621}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Attack_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1051,11 +1088,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760926809}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1064963963}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &761989985
@@ -1439,8 +1476,10 @@ Transform:
   m_Children:
   - {fileID: 665191575}
   - {fileID: 251741177}
+  - {fileID: 760926812}
+  - {fileID: 1716990754}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1079241806
 GameObject:
@@ -2477,7 +2516,7 @@ Transform:
   - {fileID: 1261830693}
   - {fileID: 1026194206}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1474737496
 GameObject:
@@ -2563,7 +2602,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1474737499
 Animator:
@@ -2625,7 +2664,7 @@ MonoBehaviour:
   maxHP: 1200
   hpBar: {fileID: 0}
   hardnessDuration: 0
-  deadEffectClips: []
+  deadVoiceClips: []
 --- !u!114 &1474737502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2823,6 +2862,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1661303386}
   m_CullTransparentMesh: 1
+--- !u!1 &1716990753
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1716990754}
+  - component: {fileID: 1716990755}
+  m_Layer: 0
+  m_Name: DamageUISystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1716990754
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716990753}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1064963963}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1716990755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716990753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c51cde0f25c44c74eb14879d91d82e2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTextArray: []
 --- !u!1 &1774234168
 GameObject:
   m_ObjectHideFlags: 0
@@ -3106,22 +3189,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6488827415251801923, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: hardnessDuration
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801923, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: deadEffectClips.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801923, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: deadEffectClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: c52d41de9d068234eaf3bfa61ca4dce8, type: 3}
-    - target: {fileID: 6488827415251801923, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: deadEffectClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 41591e9916339f1429ed99a3cddef8d8, type: 3}
     - target: {fileID: 6488827415251801929, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
       propertyPath: m_Name
       value: Rogue
@@ -3130,193 +3197,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.voiceClips.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.voiceClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: ef81364e6807d544f95d7a5d73515429, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.voiceClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 0127eba00adf93c42be0c9adbeab0a2a, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.voiceClips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 77346e5da42709d4a8562e3a398880b8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: ef81364e6807d544f95d7a5d73515429, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 261a2f68be4d28a4ba2a94111a023cfe, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3dffad8dc25147141863d5567a9daf9a, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 8802e9025dc95a746b1cdf2730acea00, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1aae798cf721c8f4abd24e99af2428f9, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: c67e70b4dea3d95469f5eb2ae5ddd780, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1cca6f3a242ab064f808e721a892ac57, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[7]
-      value: 
-      objectReference: {fileID: 8300000, guid: cf05278cda265e34ca0d8fa8d3c14048, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[8]
-      value: 
-      objectReference: {fileID: 8300000, guid: 391b455493893b246a5b6e0b5f1a5e37, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackVoiceClips.Array.data[9]
-      value: 
-      objectReference: {fileID: 8300000, guid: 015410488eda60843b3674df851978c8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: d80ce19adb778c74eb58abc29f1786ba, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 0127eba00adf93c42be0c9adbeab0a2a, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 77346e5da42709d4a8562e3a398880b8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: ef81364e6807d544f95d7a5d73515429, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 261a2f68be4d28a4ba2a94111a023cfe, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 3dffad8dc25147141863d5567a9daf9a, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 8802e9025dc95a746b1cdf2730acea00, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1aae798cf721c8f4abd24e99af2428f9, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: c67e70b4dea3d95469f5eb2ae5ddd780, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: 1cca6f3a242ab064f808e721a892ac57, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[7]
-      value: 
-      objectReference: {fileID: 8300000, guid: cf05278cda265e34ca0d8fa8d3c14048, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[8]
-      value: 
-      objectReference: {fileID: 8300000, guid: 391b455493893b246a5b6e0b5f1a5e37, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[9]
-      value: 
-      objectReference: {fileID: 8300000, guid: 015410488eda60843b3674df851978c8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[10]
-      value: 
-      objectReference: {fileID: 8300000, guid: 015410488eda60843b3674df851978c8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[11]
-      value: 
-      objectReference: {fileID: 8300000, guid: 015410488eda60843b3674df851978c8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.attackEffectClips.Array.data[12]
-      value: 
-      objectReference: {fileID: 8300000, guid: 015410488eda60843b3674df851978c8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillVoiceClips_Vanish.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips_Vanish.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillVoiceClips_Shuriken.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips_Shuriken.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillVoiceClips_Vanish.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 0127eba00adf93c42be0c9adbeab0a2a, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillVoiceClips_Vanish.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 77346e5da42709d4a8562e3a398880b8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillVoiceClips_Vanish.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 77346e5da42709d4a8562e3a398880b8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips_Vanish.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 0127eba00adf93c42be0c9adbeab0a2a, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips_Vanish.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 77346e5da42709d4a8562e3a398880b8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips_Vanish.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 77346e5da42709d4a8562e3a398880b8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips_Vanish.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 77346e5da42709d4a8562e3a398880b8, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillVoiceClips_Shuriken.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: bed673d230ca2f14b9b0bd6e18e06c63, type: 3}
-    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
-      propertyPath: rogue_Variable.skillEffectClips_Shuriken.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: bed673d230ca2f14b9b0bd6e18e06c63, type: 3}
     - target: {fileID: 6488827415251801935, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6488827415251801935, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3369,7 +3252,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7964452285988426786, guid: 51d43b0cccaffb34b9051a33fc36b533, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7964452285988426786, guid: 51d43b0cccaffb34b9051a33fc36b533, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3424,165 +3307,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4514911253778437421, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_Name
-      value: Attack_1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4514911253778437421, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6011242937552956245, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6930022818874510464, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875939, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: maxHP
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875939, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: hardnessDuration
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875939, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: deadEffectClips.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875939, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: deadEffectClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 4abab8fa42f82594081b3013ed1040d8, type: 3}
-    - target: {fileID: 8689224006875875944, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875944, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -750047184722822154, guid: 1914d95466e3d4341a618c35a56d5f82, type: 3}
-    - target: {fileID: 8689224006875875944, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_SortingLayer
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875944, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -2071377787
-      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_Name
       value: Bringer
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875948, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: attackCol
-      value: 
-      objectReference: {fileID: 8689224006473635823}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: moveSpeed
-      value: 6.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: originIsFlip
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: flipObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: flipObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 8689224006473635820}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.attackCol
-      value: 
-      objectReference: {fileID: 8689224006473635823}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.aggroDuration
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.skill_GodHand
-      value: 
-      objectReference: {fileID: 5723722605407805117, guid: 99a24cd6f49384941abc0faa511f35dd, type: 3}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.waitToSkillTime
-      value: 1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.waitToTraceTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.waitToAttackTime
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.waitToPatrolTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.skillEffectTiming
-      value: 0.375
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.maxSkillEffectPoolCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.attackVoiceClips.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.attackEffectClips.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.attackVoiceClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: e27f50f725600624f88427a841fd9596, type: 3}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.attackVoiceClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 8e4851963e3ebde4b948020b48d7cd78, type: 3}
-    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: bringer_Variable.attackEffectClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 8e4851963e3ebde4b948020b48d7cd78, type: 3}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3626,32 +3361,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
---- !u!1 &8689224006473635820 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6011242937552956245, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-  m_PrefabInstance: {fileID: 8689224006473635819}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8689224006473635821 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4514911253778437421, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-  m_PrefabInstance: {fileID: 8689224006473635819}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8689224006473635822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8689224006473635821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aeb562e6d32bc244adab37322178884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDamage: 5
-  gracePeriod: 0.1
---- !u!60 &8689224006473635823 stripped
-PolygonCollider2D:
-  m_CorrespondingSourceObject: {fileID: 8016015614558165628, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
-  m_PrefabInstance: {fileID: 8689224006473635819}
-  m_PrefabAsset: {fileID: 0}

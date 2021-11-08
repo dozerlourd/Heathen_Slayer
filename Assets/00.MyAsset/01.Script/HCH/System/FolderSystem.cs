@@ -14,6 +14,7 @@ public class FolderSystem : MonoBehaviour
         if (!instance) instance = this;
         else Destroy(gameObject);
     }
+
     #endregion
 
     #region Variable
@@ -26,6 +27,7 @@ public class FolderSystem : MonoBehaviour
     [SerializeField] Transform bringer_SkillPool;
     [SerializeField] Transform shaman_SkillPool;
     [SerializeField] Transform rogue_SkillPool;
+    [SerializeField] Transform damageText_UIPool;
 
     #endregion
 
@@ -71,6 +73,8 @@ public class FolderSystem : MonoBehaviour
             return rogue_SkillPool;
         }
     }
+
+    public Transform DamageText_UIPool => damageText_UIPool;
 
     #endregion
 

@@ -11,7 +11,7 @@ public class EnemyHP : HPControllerToEnemy
 
     [SerializeField] float hardnessDuration;
 
-    [SerializeField] AudioClip[] deadEffectClips;
+    [SerializeField] AudioClip[] deadVoiceClips;
 
     bool isAbsolute = false;
 
@@ -25,6 +25,12 @@ public class EnemyHP : HPControllerToEnemy
     private void Start()
     {
         hardnessTime = new WaitForSeconds(hardnessDuration);
+    }
+
+    new void OnEnable()
+    {
+        base.OnEnable();
+        if(Co_Dead != null) StopCoroutine(Co_Dead);
     }
 
     #endregion
@@ -51,7 +57,7 @@ public class EnemyHP : HPControllerToEnemy
 
     protected override IEnumerator EnemyDead()
     {
-        SoundManager.Instance.PlayVoiceOneShot(deadEffectClips);
+        SoundManager.Instance.PlayVoiceOneShot(deadVoiceClips);
         isDead = true;
         yield return new WaitForSeconds(5.0f);
         gameObject.SetActive(false);

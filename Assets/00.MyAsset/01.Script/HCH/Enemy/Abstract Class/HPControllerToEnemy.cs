@@ -15,6 +15,8 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     protected EnemyFSM enemyFSM;
     protected Animator animator;
 
+    protected Coroutine Co_Dead;
+
     #endregion
 
     #region Property
@@ -25,6 +27,7 @@ public abstract class HPControllerToEnemy : MonoBehaviour
         get => currHP;
         protected set
         {
+            float damage = currHP - value;
             currHP = value < 0 ? 0 : value;
             RefreshUI(value);
 
@@ -34,9 +37,9 @@ public abstract class HPControllerToEnemy : MonoBehaviour
                 {
                     EnemyFSM.StopAllCoroutines();
                     Animator.SetTrigger("ToDie");
-                    StartCoroutine(EnemyDead());
+                    Co_Dead = StartCoroutine(EnemyDead());
                 }
-                else StartCoroutine(EnemyDamaged());
+                else if(damage > 0) StartCoroutine(EnemyDamaged());
             }
         }
     }
@@ -52,12 +55,12 @@ public abstract class HPControllerToEnemy : MonoBehaviour
 
     protected void Awake()
     {
-        currHP = MaxHP;
+        CurrHP = MaxHP;
     }
 
     protected void OnEnable()
     {
-        currHP = MaxHP;
+        CurrHP = MaxHP;
         GetComponent<Collider2D>().enabled = true;
     }
 
@@ -65,7 +68,11 @@ public abstract class HPControllerToEnemy : MonoBehaviour
 
     #region Implementation Place
 
-    public void TakeDamage(float _damage) => CurrHP -= _damage;
+    public void TakeDamage(float _damage)
+    {
+        DamageUISystem.Instance.DisplayDamageText(_damage, transform);
+        CurrHP -= _damage;
+    }
 
     protected abstract void RefreshUI(float _val);
 
