@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animController:
-  - {fileID: 9100000, guid: b4abbb2d892f53442bc9b4e753aad96b, type: 2}
+  - {fileID: 9100000, guid: d1cd75ff15822eb48aeda6bfaf6fe8ad, type: 2}
   - {fileID: 9100000, guid: c9c3f4c896448b043a0c1e127f19c9c5, type: 2}
 --- !u!1 &7964452286125892113
 GameObject:
