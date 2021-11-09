@@ -29,7 +29,6 @@ public class Bringer_GodHand : MonoBehaviour
 
     private void OnEnable()
     {
-        print("ha");
         Co_SkillShot = StartCoroutine(SkillShot());
     }
 

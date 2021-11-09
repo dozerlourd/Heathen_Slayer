@@ -136,7 +136,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
             {
                 anim.SetBool("ToWalk", false);
                 traceCount = 0;
-                if (HCH.MersenneTwister.Genrand_Int32(3) > bringer_Variable.skillWeight)
+                if (new HCH_Random.MersenneTwister().Genrand_Int32(3) < bringer_Variable.skillWeight)
                     yield return StartCoroutine(EnemyAttack_1());
                 else
                     yield return StartCoroutine(EnemySkill_1());
@@ -178,7 +178,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     public IEnumerator EnemyAttack_1()
     {
         FlipCheck();
-        print("나 너 때린다!");
+        //print("나 너 때린다!");
         anim.SetTrigger("ToAttack");
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Attack"));
         anim.SetFloat("AttackSpeed", 0.85f);
@@ -205,7 +205,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     public IEnumerator EnemySkill_1()
     {
-        EnemyHP.Absolute(true);
+        EnemyHP.SetAbsolute(true);
 
         FlipCheck();
         //print("이거 아프다!");
@@ -221,13 +221,13 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.75f);
         anim.SetFloat("AttackSpeed", 0.3f);
 
-        EnemyHP.Absolute(false);
+        EnemyHP.SetAbsolute(false);
 
         yield return bringer_Variable.waitToSkill;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Idle"));
     }
 
-    Vector2 RandomVec() => HCH.Well512.Next() > HCH.Well512.Next() ? Vector2.right : Vector2.left;
+    Vector2 RandomVec() => new HCH_Random.MersenneTwister().Genrand_Int32(1) % 2 == 0 ? Vector2.right : Vector2.left;
 
     public void SetAttackSpeed() => anim.SetFloat("AttackSpeed", attackSpeed);
 

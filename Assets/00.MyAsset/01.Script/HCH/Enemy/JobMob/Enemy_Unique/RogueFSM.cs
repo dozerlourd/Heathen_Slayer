@@ -221,7 +221,7 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
     public IEnumerator EnemySkill_1()
     {
-        EnemyHP.Absolute(true);
+        EnemyHP.SetAbsolute(true);
         anim.SetBool("IsAirOpensive", true);
         anim.SetTrigger("ToSkill_VanishAttack");
         yield return null;
@@ -241,7 +241,7 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.98f);
 
-        EnemyHP.Absolute(false);
+        EnemyHP.SetAbsolute(false);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Idle"));
         anim.SetBool("IsAirOpensive", false);
@@ -250,7 +250,7 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
 
     public IEnumerator EnemySkill_2()
     {
-        EnemyHP.Absolute(true);
+        EnemyHP.SetAbsolute(true);
         anim.SetTrigger("ToSkill_Shuriken");
         yield return null;
         FlipCheck();
@@ -263,7 +263,7 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         shuriken.TryGetComponent(out SpriteRenderer spRenderer);
         if (spRenderer) spRenderer.flipX = spriteRenderer.flipX;
 
-        EnemyHP.Absolute(false);
+        EnemyHP.SetAbsolute(false);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Idle"));
         yield return new WaitForSeconds(rogue_Variable.shurikenDelayTime);

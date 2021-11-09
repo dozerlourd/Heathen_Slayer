@@ -31,9 +31,9 @@ public class DamageUISystem : MonoBehaviour
 
     public void DisplayDamageText(float dmg, Transform enemyTr)
     {
-        print(damageTextArray.Length);
+        //print(damageTextArray.Length);
         GameObject text = HCH.GameObjectPool.PopObjectFromPool(damageTextArray, enemyTr.position + Vector3.up, true);
-        print(text.name);
+        //print(text.name);
         text.TryGetComponent(out DamagedText damagedText);
         if (damagedText) damagedText.SetDamagedText(dmg);
         else print("DamageText 스크립트 참조 불가");

@@ -145,8 +145,23 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     IEnumerator Pattern_3()
     {
-        yield return EnemySkill_3(4, 10);
-        yield return EnemySkill_3(3, 8);
+        yield return EnemySkill_3(4, 6);
+        yield return EnemySkill_3(3, 4);
+        yield return EnemyAttack_2();
+        yield return EnemySkill_2(ActivateArea(true));
+
+        yield return EnemyAttack_2();
+        yield return EnemySkill_1();
+        yield return EnemyAttack_1();
+
+        yield return EnemySkill_3(3, 6);
+        yield return EnemyAttack_2();
+        yield return EnemyAttack_1();
+        yield return EnemySkill_2(ActivateArea(false));
+
+        yield return EnemyAttack_1();
+        yield return EnemyAttack_2();
+        yield return EnemySkill_1();
     }
 
     #endregion
@@ -225,7 +240,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
         //print("Skill_Dart");
         anim.SetTrigger("ToSkill_Dart");
         yield return null;
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.625f);
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= shaman_Variable.skillEffectTiming[0]);
         GameObject dartClone = HCH.GameObjectPool.PopObjectFromPool(shaman_Variable.skillEffects_PoisonDart);
         dartClone.transform.position = shaman_Variable.dartFirePos.position;
         dartClone.GetComponent<Rigidbody2D>().velocity = new Vector2(flipValue * shaman_Variable.dartSpeed, 0);
@@ -243,7 +258,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     public IEnumerator EnemySkill_2(IEnumerator Co)
     {
-        print("Skill_Area");
+        //print("Skill_Area");
         anim.SetBool("ToSkill_Area", true);
         anim.SetTrigger("SkillStart");
         yield return null;
@@ -255,6 +270,8 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     public IEnumerator FiniteActivateArea(float _duration)
     {
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Shaman_Skill_Area"));
+
         for (int i = 0; i < shaman_Variable.poisonArea.Length; i++)
         {
             shaman_Variable.poisonArea[i].gameObject.SetActive(true);
@@ -272,6 +289,8 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     public IEnumerator ActivateArea(bool _isActive = true)
     {
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Shaman_Skill_Area"));
+
         for (int i = 0; i < shaman_Variable.poisonArea.Length; i++)
         {
             shaman_Variable.poisonArea[i].gameObject.SetActive(_isActive);
@@ -287,7 +306,7 @@ public class Boss_ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISk
 
     public IEnumerator EnemySkill_3(int _patternNum, int skillCount = 5)
     {
-        print("Skill_Explosion");
+        //print("Skill_Explosion");
         anim.SetBool("ToSkill_Explosion", true);
         anim.SetTrigger("SkillStart");
 
