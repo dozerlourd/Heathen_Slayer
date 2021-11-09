@@ -8,6 +8,7 @@ TagManager:
   - SpecialAttack_Player
   - SpecialAttack_Enemy
   - Poison_Enemy
+  - Corpse
   layers:
   - Default
   - TransparentFX
