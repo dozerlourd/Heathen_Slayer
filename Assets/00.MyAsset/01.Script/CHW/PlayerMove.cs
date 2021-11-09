@@ -10,6 +10,7 @@ public class PlayerMove : PlayerStat
     bool isJumping = false;
     bool isDash = false;
     public bool isDamaged = false;
+    public bool isMove = true;
     Vector3 moveDir;
 
     float dashTime = 0.3f;
@@ -22,11 +23,13 @@ public class PlayerMove : PlayerStat
 
     Coroutine Co_StatusEffect;
 
+    public GameObject posionEffect;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
         playerAttack = GetComponent<PlayerAttack>();
     }
 
@@ -35,7 +38,10 @@ public class PlayerMove : PlayerStat
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("Die"))
             return;
 
-        Move();
+        if (isMove)
+        {
+            Move();
+        }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -49,7 +55,7 @@ public class PlayerMove : PlayerStat
             dashCount--;
 
             // 대쉬 카운트가 0 이하일때
-            if (dashCount <= 0 && isDash == false)
+            if (dashCount <= 0 && !isDash)
             {
                 // 대쉬 쿨타임 적용
                 StartCoroutine(DashCoolTime());
@@ -69,6 +75,16 @@ public class PlayerMove : PlayerStat
                 // 대쉬 쿨타임 적용
                 StartCoroutine(DashCoolTime());
             }
+        }
+
+        // 독 상태라면
+        if (isPoison)
+        {
+            posionEffect.SetActive(true);
+        }
+        else
+        {
+            posionEffect.SetActive(false);
         }
 
         if (currentHP <= 0)
@@ -141,6 +157,8 @@ public class PlayerMove : PlayerStat
         {
             rb.velocity = Vector2.zero;
 
+            anim.SetTrigger("Jump");
+
             rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
             jumpCount--;
         }
@@ -156,6 +174,7 @@ public class PlayerMove : PlayerStat
         {
             float curTime = 0;
             anim.speed = 3.5f;
+            isMove = false;
 
             // dashCurTime 동안 대쉬를 실행한다.
             while (curTime <= dashTime)
@@ -175,9 +194,9 @@ public class PlayerMove : PlayerStat
 
             rb.gravityScale = 3;
             anim.speed = 1;
+            isMove = true;
         }
     }
-
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -247,7 +266,6 @@ public class PlayerMove : PlayerStat
     {
         float curTime = 0;
         float time = 0;
-
 
         // 총 시간 계산
         while (time <= statusEffectTime)

@@ -6,6 +6,8 @@ public class WeaponColCheck : MonoBehaviour
 {
     [Tooltip("공격력")]
     public float attackDamage = 5f;
+    [Tooltip("스킬 계수")]
+    public float skillFactor = 1.5f;
 
     PlayerAttack playerAttack;
 

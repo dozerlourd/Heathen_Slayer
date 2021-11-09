@@ -2871,7 +2871,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     - target: {fileID: 5027538850014820009, guid: 90e2ef2b53d5fd64f94a0e48284c3890, type: 3}
+=======
+    - target: {fileID: 7964452285988426791, guid: 51d43b0cccaffb34b9051a33fc36b533, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7964452285988426795, guid: 51d43b0cccaffb34b9051a33fc36b533, type: 3}
+>>>>>>> CHW
       propertyPath: m_Name
       value: Boss_Shaman
       objectReference: {fileID: 0}
