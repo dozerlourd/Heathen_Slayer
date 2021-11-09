@@ -21,6 +21,8 @@ public class PlayerStat : MonoBehaviour
     [Tooltip("현재 체력")]
     public float currentHP = 0;
 
+    public bool isPoison = false;
+
     private void Awake()
     {
         currentHP = maxHP;
@@ -41,5 +43,10 @@ public class PlayerStat : MonoBehaviour
 
         yield return new WaitForSeconds(gracePeriod);
         Physics2D.IgnoreLayerCollision(7, 10, false);
+    }
+
+    public void PoisonStatus(bool isCheck)
+    {
+        isPoison = isCheck;
     }
 }

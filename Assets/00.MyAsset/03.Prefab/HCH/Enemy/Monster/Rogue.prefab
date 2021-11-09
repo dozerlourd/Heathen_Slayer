@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 6488827415251801933}
   - component: {fileID: 6488827415251801923}
   - component: {fileID: 6488827415251801932}
+  - component: {fileID: 7232238850777220734}
   - component: {fileID: 6488827415251801922}
   - component: {fileID: 1849376660}
   m_Layer: 8
@@ -159,9 +160,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc36f9beff76f6f49a15f7ac1ade933c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 80
+  maxHP: 10
   hpBar: {fileID: 997665915014050663}
   hardnessDuration: 0.1
+  corpseTime: 100
   deadVoiceClips:
   - {fileID: 8300000, guid: c52d41de9d068234eaf3bfa61ca4dce8, type: 3}
   - {fileID: 8300000, guid: 41591e9916339f1429ed99a3cddef8d8, type: 3}
@@ -223,6 +225,32 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 77346e5da42709d4a8562e3a398880b8, type: 3}
     skillVoiceClips_Shuriken:
     - {fileID: 8300000, guid: bed673d230ca2f14b9b0bd6e18e06c63, type: 3}
+--- !u!114 &7232238850777220734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6488827415251801929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b27caa472afdad478df69e3315edf7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootingRate_Normal: 25
+  lootItems_Normal:
+  - item: {fileID: 2114985047887112293, guid: b44a9e5f2c4b46e4390feffd55c9e025, type: 3}
+    weight: 5
+  lootingRate_Rare: 16
+  lootItems_Rare:
+  - item: {fileID: 2114985047887112293, guid: b44a9e5f2c4b46e4390feffd55c9e025, type: 3}
+    weight: 3
+  lootingRate_Epic: 7
+  lootItems_Epic:
+  - item: {fileID: 2114985047887112293, guid: b44a9e5f2c4b46e4390feffd55c9e025, type: 3}
+    weight: 1
+  lootingRate_Legendery: 0
+  lootItems_Legendery: []
 --- !u!95 &6488827415251801922
 Animator:
   serializedVersion: 3
