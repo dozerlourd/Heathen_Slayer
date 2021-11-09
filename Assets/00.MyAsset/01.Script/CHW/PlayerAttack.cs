@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [Tooltip("공격속도")]
-    public float attackSpeed = 0.5f;
     [Tooltip("공격 범위")]
     public BoxCollider2D atkCollider;
-    [Tooltip("스킬 계수")]
-    public float skillFactor = 1.5f;
 
     Animator anim;
     PlayerMove playerMove;
@@ -21,6 +17,9 @@ public class PlayerAttack : MonoBehaviour
     bool isSkill_1 = false;
     public int attackCount = 0;
 
+    public GameObject skillEffect;
+    public GameObject shuriken;
+
     float dashTime = 0.3f;
     float lerpSpeed = 4;
 
@@ -29,7 +28,7 @@ public class PlayerAttack : MonoBehaviour
         FindAttackCollider();
         atkCollider.enabled = false;
 
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
         playerMove = GetComponent<PlayerMove>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -52,13 +51,27 @@ public class PlayerAttack : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    if (!isSkill_1)
+                    // GhostWarrior
+                    if (transform.GetChild(0).gameObject.activeSelf)
                     {
-                        // 스킬 공격 1
-                        StartCoroutine(SkillAttack1());
+                        if (!isSkill_1)
+                        {
+                            // 스킬 공격 1
+                            StartCoroutine(GhostWarrior_SpecialAttack_1());
+                        }
+
+                    }
+                    // Rogue
+                    else if (transform.GetChild(1).gameObject.activeSelf)
+                    {
+                        if (!isSkill_1)
+                        {
+                            // 스킬 공격 1
+                            Rogue_SkillAttack_1();
+                        }
                     }
 
-                    StartCoroutine(Skill1CoolDown());
+                    StartCoroutine(SpecialAttack_1_CoolDown());
                 }
 
                 if (Input.GetKeyDown(KeyCode.S))
@@ -93,6 +106,7 @@ public class PlayerAttack : MonoBehaviour
         else
         {
             isAttack = false;
+            anim.Rebind();
         }
     }
 
@@ -115,6 +129,7 @@ public class PlayerAttack : MonoBehaviour
         else
         {
             isAttack = false;
+            anim.Rebind();
         }
     }
 
@@ -131,13 +146,16 @@ public class PlayerAttack : MonoBehaviour
         atkCollider.enabled = false;
 
         isAttack = false;
+        anim.Rebind();
     }
 
-    IEnumerator SkillAttack1()
+    IEnumerator GhostWarrior_SpecialAttack_1()
     {
         float curTime = 0;
         anim.speed = 3.5f;
         playerMove.isMove = false;
+
+        Instantiate(skillEffect, transform.position + (transform.right * 2) - transform.up, Quaternion.identity);
 
         // dashCurTime 동안 대쉬를 실행한다.
         while (curTime <= dashTime)
@@ -160,67 +178,41 @@ public class PlayerAttack : MonoBehaviour
         playerMove.isMove = true;
     }
 
-    IEnumerator Skill1CoolDown()
+    IEnumerator SpecialAttack_1_CoolDown()
     {
+        float time = 0;
         isSkill_1 = true;
 
-        yield return new WaitForSeconds(10);
+        if (transform.GetChild(0).gameObject.activeSelf)
+        {
+            time = 10;
+        }
+        else if (transform.GetChild(1).gameObject.activeSelf)
+        {
+            time = 5;
+        }
+
+        yield return new WaitForSeconds(time);
 
         isSkill_1 = false;
     }
 
+    void Rogue_SkillAttack_1()
+    {
+        Instantiate(shuriken, transform.position, Quaternion.identity);
+    }
+
     public void FindAttackCollider()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount - 1; i++)
         {
-            GameObject go = gameObject.transform.GetChild(i).gameObject;
+            GameObject go = transform.GetChild(i).gameObject;
 
             if (go.activeSelf)
             {
                 atkCollider = go.transform.GetChild(0).gameObject.GetComponent<BoxCollider2D>();
             }
         }
-    }
-
-    public enum AnimationName
-    { 
-        Attack1,
-        Attack2,
-        Attack3
-    }
-
-    public float AnimationTime(AnimationName animationName)
-    {
-        string animName = string.Empty;
-
-        switch (animationName)
-        {
-            case AnimationName.Attack1:
-                animName = "Attack1";
-                break;
-            case AnimationName.Attack2:
-                animName = "Attack2";
-                break;
-            case AnimationName.Attack3:
-                animName = "Attack3";
-                break;
-            default:
-                break;
-        }
-
-        float time = 0;
-
-        RuntimeAnimatorController ac = anim.runtimeAnimatorController;
-
-        for (int i = 0; i < ac.animationClips.Length; i++)
-        {
-            if (ac.animationClips[i].name == animName)
-            {
-                time = ac.animationClips[i].length;
-            }
-        }
-
-        return time;
     }
 
     // 코루틴 종료와 초기화

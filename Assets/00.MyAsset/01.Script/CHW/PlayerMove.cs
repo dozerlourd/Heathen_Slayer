@@ -23,11 +23,13 @@ public class PlayerMove : PlayerStat
 
     Coroutine Co_StatusEffect;
 
+    public GameObject posionEffect;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
         playerAttack = GetComponent<PlayerAttack>();
     }
 
@@ -73,6 +75,16 @@ public class PlayerMove : PlayerStat
                 // 대쉬 쿨타임 적용
                 StartCoroutine(DashCoolTime());
             }
+        }
+
+        // 독 상태라면
+        if (isPoison)
+        {
+            posionEffect.SetActive(true);
+        }
+        else
+        {
+            posionEffect.SetActive(false);
         }
 
         if (currentHP <= 0)
@@ -144,6 +156,8 @@ public class PlayerMove : PlayerStat
         if (jumpCount > 0)
         {
             rb.velocity = Vector2.zero;
+
+            anim.SetTrigger("Jump");
 
             rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
             jumpCount--;
@@ -252,7 +266,6 @@ public class PlayerMove : PlayerStat
     {
         float curTime = 0;
         float time = 0;
-
 
         // 총 시간 계산
         while (time <= statusEffectTime)
