@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FolderSystem : MonoBehaviour
 {
-    #region Singleton
+#region Singleton
 
     static FolderSystem instance;
     public static FolderSystem Instance => instance ? instance : new GameObject("FolderSystem").AddComponent<FolderSystem>();
@@ -15,9 +15,9 @@ public class FolderSystem : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    #endregion
+#endregion
 
-    #region Variable
+#region Variable
 
     Transform systemFolder;
 
@@ -29,9 +29,9 @@ public class FolderSystem : MonoBehaviour
     [SerializeField] Transform rogue_SkillPool;
     [SerializeField] Transform damageText_UIPool;
 
-    #endregion
+#endregion
 
-    #region Property
+#region Property
 
     public Transform SystemFolder => systemFolder = systemFolder ? systemFolder : GameObject.Find("-----SystemFolder") == null ? new GameObject("-----SystemFolder").transform : GameObject.Find("-----SystemFolder").transform;
     public Transform SkillPoolFolder
@@ -76,14 +76,15 @@ public class FolderSystem : MonoBehaviour
 
     public Transform DamageText_UIPool => damageText_UIPool;
 
-    #endregion
+#endregion
 
-    #region Unity Life Cycle
+#region Unity Life Cycle
 
     private void Start()
     {
+        print(DamageText_UIPool.name);
         transform.SetParent(SystemFolder);
     }
 
-    #endregion
+#endregion
 }

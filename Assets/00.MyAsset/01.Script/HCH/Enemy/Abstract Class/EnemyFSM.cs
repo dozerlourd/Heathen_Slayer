@@ -37,7 +37,12 @@ public abstract class EnemyFSM : MonoBehaviour
 
     [Header(" - Flip Objects")]
     #region flip objects
-    [SerializeField] GameObject[] flipObjects;
+    [SerializeField] protected GameObject[] flipObjects;
+    #endregion
+
+    [Header(" - Flip Objects")]
+    #region flip objects
+    [SerializeField] protected float waitStart = 0.7f;
     #endregion
 
     #endregion
@@ -45,13 +50,12 @@ public abstract class EnemyFSM : MonoBehaviour
     #region HideInInspector
 
     protected bool isGround = false;
-    protected float waitStart = 0.7f;
 
     protected BoxCollider2D boxCol2D;
     protected Animator anim;
     protected SpriteRenderer spriteRenderer;
 
-    Coroutine Co_Gravity;
+    protected Coroutine Co_Gravity;
 
     #endregion
 
@@ -90,7 +94,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     IEnumerator Grivaty()
     {
-        yield return new WaitForSeconds(Mathf.Max(waitStart / 2, 0.3f));
+        yield return new WaitForSeconds(waitStart);
         while (true)
         {
             GroundCheck(groundCheckRayDist);
