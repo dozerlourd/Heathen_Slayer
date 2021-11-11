@@ -37,21 +37,36 @@ public abstract class EnemyFSM : MonoBehaviour
 
     [Header(" - Flip Objects")]
     #region flip objects
-    [SerializeField] GameObject[] flipObjects;
+    [SerializeField] protected GameObject[] flipObjects;
+    #endregion
+
+    [Header(" - Flip Objects")]
+    #region flip objects
+    [SerializeField] protected float waitStart = 0.7f;
+
+    [Tooltip("니가 처음에 왼쪽을 보고있냐 아님 오른쪽을 보고있냐")]
+    [SerializeField] protected bool originFlipIsRight;
     #endregion
 
     #endregion
 
     #region HideInInspector
 
+    //[Header(" - Animation")]
+    #region
+    private float initAnimSpeed = 1;
+    #endregion
+
     protected bool isGround = false;
-    protected float waitStart = 0.7f;
+    private bool isFrozen = false;
 
     protected BoxCollider2D boxCol2D;
     protected Animator anim;
     protected SpriteRenderer spriteRenderer;
 
-    Coroutine Co_Gravity;
+    protected Coroutine Co_Gravity;
+    protected Coroutine Co_Freeze;
+    protected Coroutine Co_FreezeColor;
 
     #endregion
 
@@ -59,11 +74,17 @@ public abstract class EnemyFSM : MonoBehaviour
 
     #region Property
 
-    [Tooltip("니가 처음에 왼쪽을 보고있냐 아님 오른쪽을 보고있냐")]
-    [SerializeField] protected bool originFlipIsRight;
     protected Vector2 playerPos => PlayerSystem.Instance.Player.transform.position;
 
     protected float flipValue => originFlipIsRight ? spriteRenderer.flipX ? -1 : 1 : spriteRenderer.flipX ? 1 : -1;
+
+    public bool IsFrozen
+    {
+        get => isFrozen;
+        protected set => isFrozen = value;
+    }
+
+    protected float InitAnimSpeed => initAnimSpeed;
 
     #endregion
 
@@ -82,6 +103,11 @@ public abstract class EnemyFSM : MonoBehaviour
         StartCoroutine(Co_Pattern());
     }
 
+    private void Start()
+    {
+        initAnimSpeed = anim.GetFloat("AnimSpeed");
+    }
+
     #endregion
 
     #region Implementation Place 
@@ -90,7 +116,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     IEnumerator Grivaty()
     {
-        yield return new WaitForSeconds(Mathf.Max(waitStart / 2, 0.3f));
+        yield return new WaitForSeconds(waitStart);
         while (true)
         {
             GroundCheck(groundCheckRayDist);
@@ -129,6 +155,9 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected float GetDistanceB2WPlayer() => Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position);
 
+    #region Unusual Condition Method
+
+    #region Stun
 
     public IEnumerator Stun(float stunTime)
     {
@@ -139,6 +168,51 @@ public abstract class EnemyFSM : MonoBehaviour
         anim.SetBool("IsStunned", false);
         StartCoroutine(Co_Pattern());
     }
+
+    #endregion
+
+    #region Freeze
+
+    /// <summary>
+    /// The method for freezing enemy
+    /// </summary>
+    /// <param name="freezeDuration"> Freeze State Duration </param>
+    /// <param name="intensity"> Speed Deceleration value (As the value increases, more slower) [Range: 0 ~ 1] </param>
+    public void SetFreeze(float freezeDuration, float intensity)
+    {
+        intensity = Mathf.Clamp01(intensity);
+        if (Co_Freeze != null)
+        {
+            StopCoroutine(Co_Freeze);
+            StopCoroutine(Co_FreezeColor);
+        }
+
+        Co_Freeze = StartCoroutine(Freeze(freezeDuration, intensity));
+    }
+
+    protected IEnumerator Freeze(float freezeDuration, float intensity)
+    {
+        anim.SetFloat("AnimSpeed", InitAnimSpeed - intensity);
+        Co_FreezeColor = StartCoroutine(SetFrozenColor(freezeDuration));
+        IsFrozen = true;
+        yield return new WaitForSeconds(freezeDuration);
+        anim.SetFloat("AnimSpeed", InitAnimSpeed);
+        IsFrozen = false;
+        StopCoroutine(Co_Freeze);
+    }
+
+    private IEnumerator SetFrozenColor(float duration)
+    {
+        spriteRenderer.color = new Color(0.4117647f, 0.7333333f, 0.9176471f); // blue
+
+        yield return new WaitForSeconds(duration);
+
+        spriteRenderer.color = Color.white;
+    }
+
+    #endregion
+
+    #endregion
 
     #endregion
 }

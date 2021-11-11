@@ -26,7 +26,6 @@ public class DamageUISystem : MonoBehaviour
 
         transform.SetParent(FolderSystem.Instance.SystemFolder);
         damageTextArray = HCH.GameObjectPool.GeneratePool(Resources.Load("DamageText") as GameObject, 50, FolderSystem.Instance.DamageText_UIPool, false);
-
     }
 
     public void DisplayDamageText(float dmg, Transform enemyTr)

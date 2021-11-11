@@ -7,6 +7,7 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     #region Variable
 
     [SerializeField] protected float maxHP;
+    [SerializeField] protected float corpseTime;
 
     protected bool isDead = false;
 

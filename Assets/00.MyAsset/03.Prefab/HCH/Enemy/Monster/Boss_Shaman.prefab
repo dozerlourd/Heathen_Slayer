@@ -89,9 +89,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.46994907, y: 0.6795807}
-      - {x: 0.48097765, y: 0.19496232}
-      - {x: 1.8055066, y: 0.4158234}
+    - - {x: 0.5606046, y: 1.0422013}
+      - {x: 0.63206905, y: 0.25539944}
+      - {x: 2.4703119, y: 0.50647885}
 --- !u!114 &5027538849215078364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,10 +225,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.9187469, y: 0.8802364}
+    - - {x: 1.069839, y: 1.0917653}
       - {x: 0.5193626, y: 0.6691879}
       - {x: 0.5709765, y: 0.3228545}
-      - {x: 2.0738199, y: 0.27589047}
+      - {x: 2.4364402, y: 0.42698267}
 --- !u!114 &5027538849899001458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,9 +254,9 @@ GameObject:
   - component: {fileID: 5027538850014820008}
   - component: {fileID: 5027538850014820011}
   - component: {fileID: 5027538850014820010}
-  - component: {fileID: 5027538850014820013}
   - component: {fileID: 5027538850014820015}
-  - component: {fileID: 5027538850014820012}
+  - component: {fileID: 3271969495364680387}
+  - component: {fileID: 5027538850014820013}
   - component: {fileID: 5027538850014820014}
   m_Layer: 8
   m_Name: Boss_Shaman
@@ -350,6 +350,66 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5027538850014820015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5027538850014820009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 327290734ad13f6458ff788f94a6351f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 120
+  corpseTime: 0
+  stunTime: 3.5
+--- !u!114 &3271969495364680387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5027538850014820009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b850384a85f1a2428a156b80184edbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicAttackDmg: 6
+  skillAttackDmg:
+  - 8
+  - 2
+  - 12
+  attackSpeed: 1
+  moveSpeed: 16
+  detectRange: 100
+  attackRange: 3
+  groundCheckRayDist: 0
+  gravityScale: 3
+  flipObjects:
+  - {fileID: 5027538848863114484}
+  waitStart: 0.5
+  originFlipIsRight: 1
+  shaman_Variable:
+    attackCols:
+    - {fileID: 5027538849899001459}
+    - {fileID: 5027538849215078365}
+    dartFirePos: {fileID: 5027538849863758169}
+    Skill_PoisonDart: {fileID: 1767382099992524, guid: 66b528ec34724984d82415c15a399316, type: 3}
+    Skill_PoisonExplosion: {fileID: 2429981855725635277, guid: 0cd6db4a5072c8b48aa1d4a8db4f59d1, type: 3}
+    Skill_PoisonArea:
+    - {fileID: 0}
+    - {fileID: 0}
+    maxSkillEffectPoolCounts: 0a00000014000000
+    skillEffectTiming: []
+    dartSpeed: 20
+    explosionInterval: 0.2
+    IdleDelayTime: 0.7
+    dartDelayTime: 0.3
+    areaSkillTime: 5
+    dartDist: 15
 --- !u!61 &5027538850014820013
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -376,65 +436,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5027538850014820015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5027538850014820009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 327290734ad13f6458ff788f94a6351f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 120
-  stunTime: 3.5
---- !u!114 &5027538850014820012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5027538850014820009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35ed18eabcac831478237d51874277c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicAttackDmg: 10
-  skillAttackDmg:
-  - 10
-  - 0
-  - 0
-  attackSpeed: 1
-  moveSpeed: 18
-  detectRange: 0
-  attackRange: 1.75
-  groundCheckRayDist: 0.03
-  gravityScale: 2.5
-  flipObjects:
-  - {fileID: 5027538848863114484}
-  originFlipIsRight: 1
-  shaman_Variable:
-    attackCols:
-    - {fileID: 5027538849899001459}
-    - {fileID: 5027538849215078365}
-    dartFirePos: {fileID: 5027538849863758169}
-    Skill_PoisonDart: {fileID: 1767382099992524, guid: 66b528ec34724984d82415c15a399316, type: 3}
-    Skill_PoisonExplosion: {fileID: 2429981855725635277, guid: 0cd6db4a5072c8b48aa1d4a8db4f59d1, type: 3}
-    Skill_PoisonArea:
-    - {fileID: 0}
-    - {fileID: 0}
-    maxSkillEffectPoolCounts: 0500000014000000
-    skillEffectTiming:
-    - 0.625
-    dartSpeed: 16
-    explosionInterval: 0.7
-    IdleDelayTime: 0.8
-    dartDelayTime: 0.3
-    areaSkillTime: 1
-    dartDist: 18
 --- !u!50 &5027538850014820014
 Rigidbody2D:
   serializedVersion: 4
@@ -453,6 +454,6 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
