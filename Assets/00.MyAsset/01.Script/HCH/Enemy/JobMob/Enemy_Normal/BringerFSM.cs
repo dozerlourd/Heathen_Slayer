@@ -127,8 +127,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     {
         float traceCount = 0;
 
-        //print("나 너 쫒아간다!");
-        anim.SetFloat("WalkSpeed", 1.35f);
         while (true)
         {
             FlipCheck();
@@ -181,13 +179,13 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         //print("나 너 때린다!");
         anim.SetTrigger("ToAttack");
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Attack"));
-        anim.SetFloat("AttackSpeed", 0.85f);
+        //anim.SetFloat("AttackSpeed", 0.85f);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
         SoundManager.Instance.PlayVoiceOneShot(bringer_Variable.attackVoiceClips);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.35f);
-        anim.SetFloat("AttackSpeed", 1.35f);
+        //anim.SetFloat("AttackSpeed", 1.35f);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.43f);
         bringer_Variable.attackCol.enabled = true;
@@ -196,7 +194,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         bringer_Variable.attackCol.enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f);
-        anim.SetFloat("AttackSpeed", 0.85f);
+        //anim.SetFloat("AttackSpeed", 0.85f);
 
 
         yield return bringer_Variable.waitToAttack;

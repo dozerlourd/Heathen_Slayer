@@ -47,11 +47,11 @@ public class BossHP_Shaman : HPControllerToEnemy
 
     IEnumerator DamageColor()
     {
-        print("ChangeColor");
-        SpriteRenderer.color = new Color(0.9372549f, 0.4980392f, 0.4980392f);
+        Color originColor = SpriteRenderer.color;
+        SpriteRenderer.color = new Color(0.9372549f, 0.4980392f, 0.4980392f); //red
 
         yield return new WaitForSeconds(0.05f);
 
-        SpriteRenderer.color = Color.white;
+        SpriteRenderer.color = originColor;
     }
 }

@@ -299,7 +299,7 @@ MonoBehaviour:
   moveSpeed: 6.5
   detectRange: 8
   attackRange: 2.5
-  groundCheckRayDist: 0.03
+  groundCheckRayDist: 0
   gravityScale: 3
   flipObjects:
   - {fileID: 6011242937552956245}

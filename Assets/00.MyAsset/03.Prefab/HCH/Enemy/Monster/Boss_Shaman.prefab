@@ -264,7 +264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5027538850014820008
 Transform:
   m_ObjectHideFlags: 0
@@ -386,7 +386,7 @@ MonoBehaviour:
   moveSpeed: 16
   detectRange: 100
   attackRange: 3
-  groundCheckRayDist: 0.03
+  groundCheckRayDist: 0
   gravityScale: 3
   flipObjects:
   - {fileID: 5027538848863114484}
@@ -399,7 +399,9 @@ MonoBehaviour:
     dartFirePos: {fileID: 5027538849863758169}
     Skill_PoisonDart: {fileID: 1767382099992524, guid: 66b528ec34724984d82415c15a399316, type: 3}
     Skill_PoisonExplosion: {fileID: 2429981855725635277, guid: 0cd6db4a5072c8b48aa1d4a8db4f59d1, type: 3}
-    Skill_PoisonArea: []
+    Skill_PoisonArea:
+    - {fileID: 0}
+    - {fileID: 0}
     maxSkillEffectPoolCounts: 0a00000014000000
     skillEffectTiming: []
     dartSpeed: 20
