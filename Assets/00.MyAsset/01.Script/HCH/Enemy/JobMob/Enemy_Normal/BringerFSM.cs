@@ -43,6 +43,8 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     [SerializeField] Bringer_Variable bringer_Variable;
 
+    [SerializeField] float yValue = 6;
+
     #endregion
 
     #region Property
@@ -78,13 +80,10 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     {
         yield return new WaitForSeconds(waitStart);
 
-        while (true)
-        {
-            bringer_Variable.Co_Patrol = StartCoroutine(EnemyPatrol());
-            yield return new WaitUntil(() => GetDistanceB2WPlayer() <= detectRange);
+        bringer_Variable.Co_Patrol = StartCoroutine(EnemyPatrol());
+        yield return new WaitUntil(() => GetDistanceB2WPlayer() <= detectRange);
+            bringer_Variable.Co_Trace = StartCoroutine(EnemyTrace());
             StopCoroutine(bringer_Variable.Co_Patrol);
-            yield return bringer_Variable.Co_Trace = StartCoroutine(EnemyTrace());
-        }
     }
 
     public IEnumerator EnemyIdle()
@@ -96,7 +95,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     public IEnumerator EnemyPatrol()
     {
-        
         float randomDirTime = 0;
         Vector2 moveVec = RandomVec();
 
@@ -106,6 +104,12 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
         while (true)
         {
+            //if (GetDistanceB2WPlayer() <= detectRange)
+            //{
+            //    bringer_Variable.Co_Trace = StartCoroutine(EnemyTrace());
+            //    StopCoroutine(bringer_Variable.Co_Patrol);
+            //}
+
             spriteRenderer.flipX = moveVec == Vector2.right ? true : false;
 
             if (randomDirTime < Random.Range(3.5f, 5f))
@@ -129,6 +133,13 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
         while (true)
         {
+            //if(GetDistanceB2WPlayerYValue() > yValue)
+            //{
+            //    anim.SetBool("ToWalk", false);
+            //    if(bringer_Variable.Co_Trace != null) StopCoroutine(bringer_Variable.Co_Trace);
+            //    yield return new WaitForSeconds(2f);
+            //    bringer_Variable.Co_Patrol = StartCoroutine(EnemyPatrol());
+            //}
             FlipCheck();
             if (GetDistanceB2WPlayer() < attackRange)
             {

@@ -67,6 +67,7 @@ public class EnemyItemDrop : MonoBehaviour
             if (num <  _items[i].GetWeight())
             {
                 print("¾ÆÀÌÅÛ ³ª¿È" + _items[i].GetItem().name + i);
+                Instantiate(_items[i].GetItem(), transform.position, Quaternion.identity);
                 break;
             }
             else
