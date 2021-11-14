@@ -172,6 +172,10 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
     {
         while (GetDistanceB2WPlayer() > attackRange)
         {
+            if(GetDistanceB2WPlayerYValue() > 7)
+            {
+                yield return StartCoroutine(EnemySkill_1());
+            }
             FlipCheck();
             anim.SetBool("IsWalk", true);
             yield return null;

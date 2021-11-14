@@ -76,3 +76,6 @@ TagManager:
   - name: S_Front Props
     uniqueID: 87712221
     locked: 0
+  - name: S_WorldCanvas
+    uniqueID: 551533757
+    locked: 0

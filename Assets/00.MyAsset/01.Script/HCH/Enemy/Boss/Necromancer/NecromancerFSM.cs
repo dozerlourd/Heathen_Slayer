@@ -39,7 +39,7 @@ public class Necromancer_Variable
     internal GameObject[] skillEffects_PoisonDart;
     internal GameObject[] skillEffects_PoisonExplosion;
 
-    internal BossHP_Shaman bossHP;
+    internal BossHP_Necromancer bossHP;
 
     internal Coroutine Co_Patterns;
 }
@@ -53,13 +53,58 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     #endregion
 
+    #region Property
+
+    BossHP_Necromancer BossHP => necromancer_Variable.bossHP = necromancer_Variable.bossHP ? necromancer_Variable.bossHP : GetComponent<BossHP_Necromancer>();
+
+    #endregion
+
+    #region Unity Life Cycle
+
+    private void Start()
+    {
+        
+
+
+    }
+
+    #endregion
+
+    #region Implementation Place
+
     protected override IEnumerator Co_Pattern()
     {
         while(true)
         {
-            yield return EnemyTrace();
+            if (BossHP.NormalizedCurrHP >= 0.7f)
+                yield return StartCoroutine(Pattern_1());
+
+            else if (BossHP.NormalizedCurrHP >= 0.3f)
+                yield return StartCoroutine(Pattern_2());
+
+            else
+                yield return StartCoroutine(Pattern_3());
         }
     }
+
+    #region Patterns
+
+    IEnumerator Pattern_1()
+    {
+        yield return EnemyIdle();
+    }
+
+    IEnumerator Pattern_2()
+    {
+        yield return null;
+    }
+
+    IEnumerator Pattern_3()
+    {
+        yield return null;
+    }
+
+    #endregion
 
     public IEnumerator EnemyIdle()
     {
@@ -71,12 +116,12 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
         while (GetDistanceB2WPlayer() > attackRange)
         {
             FlipCheck();
-            //anim.SetBool("IsWalk", true);
+            anim.SetBool("IsWalk", true);
             yield return null;
             transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
             yield return null;
         }
-        //anim.SetBool("IsWalk", false);
+        anim.SetBool("IsWalk", false);
     }
 
     public IEnumerator EnemyAttack_1()
@@ -98,4 +143,6 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
     {
         yield return null;
     }
+
+    #endregion
 }
