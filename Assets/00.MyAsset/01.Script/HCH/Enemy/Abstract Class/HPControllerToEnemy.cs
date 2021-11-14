@@ -28,12 +28,12 @@ public abstract class HPControllerToEnemy : MonoBehaviour
         get => currHP;
         protected set
         {
-            float damage = currHP - value;
-            currHP = value < 0 ? 0 : value;
-            RefreshUI(value);
-
             if (!isDead)
             {
+                float damage = currHP - value;
+                currHP = value < 0 ? 0 : value;
+                RefreshUI(value);
+            
                 if (NormalizedCurrHP <= 0)
                 {
                     EnemyFSM.StopAllCoroutines();
@@ -71,6 +71,8 @@ public abstract class HPControllerToEnemy : MonoBehaviour
 
     public void TakeDamage(float _damage)
     {
+        if (isDead) return;
+
         DamageUISystem.Instance.DisplayDamageText(_damage, transform);
         CurrHP -= _damage;
     }

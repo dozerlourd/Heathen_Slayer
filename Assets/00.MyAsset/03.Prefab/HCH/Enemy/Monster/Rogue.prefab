@@ -157,6 +157,12 @@ MonoBehaviour:
   corpseTime: 100
   hpBar: {fileID: 997665915014050663}
   hardnessDuration: 0.1
+  damagedVoiceClips:
+  - {fileID: 8300000, guid: ac6456dc8dd21e8458a64c4bb3e6ca4b, type: 3}
+  - {fileID: 8300000, guid: 757c82fd3f0329e43a3fce924f17c149, type: 3}
+  - {fileID: 8300000, guid: 38a9f61f85f92654d8357dfe12ece638, type: 3}
+  - {fileID: 8300000, guid: b946030dc14cf934fa15ec8d8a805f5c, type: 3}
+  - {fileID: 8300000, guid: b9dc3aa21614a6f4694ea8e80a345189, type: 3}
   deadVoiceClips:
   - {fileID: 8300000, guid: c52d41de9d068234eaf3bfa61ca4dce8, type: 3}
   - {fileID: 8300000, guid: 41591e9916339f1429ed99a3cddef8d8, type: 3}

@@ -23,6 +23,11 @@ public class ItemManager : MonoBehaviour
     [SerializeField] float floatingIntencity = 0.45f;
     [SerializeField] float itemFlyingVecX = 2, itemFlyingVecY = 4;
 
+    [SerializeField] float showInfoPanelDist = 5;
+
+    [SerializeField] float showUIPaddingX = 1;
+    [SerializeField] float showUIPaddingY = 2.5f;
+
     #region NonSerializedField
 
     #endregion
@@ -41,6 +46,10 @@ public class ItemManager : MonoBehaviour
     public float FloatingIntencity => floatingIntencity;
 
     public Vector2 ItemFlyingVec => new Vector2(itemFlyingVecX, itemFlyingVecY);
+
+    public float ShowInfoPanelDist => showInfoPanelDist;
+    public float ShowUIPaddingX => showUIPaddingX;
+    public float ShowUIPaddingY => showUIPaddingY;
 
     #endregion
 

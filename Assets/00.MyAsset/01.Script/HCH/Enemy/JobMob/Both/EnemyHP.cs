@@ -11,6 +11,8 @@ public class EnemyHP : HPControllerToEnemy
 
     [SerializeField] float hardnessDuration;
 
+    [SerializeField] AudioClip[] damagedVoiceClips;
+
     [SerializeField] AudioClip[] deadVoiceClips;
 
     bool isAbsolute = false;
@@ -48,6 +50,7 @@ public class EnemyHP : HPControllerToEnemy
         {
             EnemyFSM.FlipCheck();
             Animator.SetTrigger("ToDamaged");
+            SoundManager.Instance.PlayVoiceOneShot(damagedVoiceClips);
 
             yield return hardnessTime;
         }

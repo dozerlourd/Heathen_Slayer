@@ -4,6 +4,10 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
+    #region Variable
+
+    #region Only Parent Variable
+
     [SerializeField] Vector3 rayOriginLocalPos;
 
     [SerializeField] float rayDist = 0.03f;
@@ -14,20 +18,57 @@ public abstract class Item : MonoBehaviour
 
     Vector3 moveVec = Vector3.zero;
 
+    bool isSpawnComplete = false;
+
+    #endregion
+
+    #region Item Informations
+
+    ItemInfoUI itemInfoUI;
+    GameObject itemInfoPanel;
+
+    #region Number Information
     protected string capacity1_Name;
     protected float capacity1_Coef;
 
     protected string capacity2_Name;
     protected float capacity2_Coef;
+    #endregion
 
-    protected string ItemInfo;
+    #region UI Text
+    protected string itemName;
+
+    protected string capacityInfo;
+    protected string skillInfo;
+
+    protected string itemRank;
+    #endregion
+
+    #endregion
+
+    #endregion
 
     #region Unity Life Cycle
 
     protected void Start()
     {
         floatingWaitTime = new WaitForSeconds(1 / ItemManager.Instance.FloatingSpeed);
+        itemInfoUI = GetComponentInChildren<ItemInfoUI>();
+        itemInfoPanel = itemInfoUI.gameObject;
+        itemInfoPanel.SetActive(false);
+
+        OnStart();
+
+        itemInfoUI.SetInfoText(itemName, capacityInfo, skillInfo, itemRank);
+
         StartCoroutine(RandomFly());
+    }
+
+    private void Update()
+    {
+        if (!isSpawnComplete) return;
+        ShowItemInfo(Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position) <= ItemManager.Instance.ShowInfoPanelDist);
+        itemInfoPanel.transform.position = PlayerSystem.Instance.Player.transform.position + new Vector3(ItemManager.Instance.ShowUIPaddingX, ItemManager.Instance.ShowUIPaddingY, 0);
     }
 
     #endregion
@@ -44,7 +85,7 @@ public abstract class Item : MonoBehaviour
 
         while (!Physics2D.Raycast(transform.position + rayOriginLocalPos, Vector3.down, rayDist, LayerMask.GetMask("L_Ground")) || time < 0.3f)
         {
-            print(time);
+            //print(time);
             moveVec += randomVec * (Mathf.Max(power -= Time.deltaTime * 8, 0) * Time.deltaTime);
             moveVec += Vector3.down * gravity * Time.deltaTime;
             print(randomVec * (Mathf.Max(power -= Time.deltaTime, 0) * Time.deltaTime));
@@ -52,6 +93,7 @@ public abstract class Item : MonoBehaviour
             transform.Translate(moveVec);
             yield return null;
         }
+        isSpawnComplete = true;
         StartCoroutine(ItemFloating());
     }
     #endregion
@@ -78,7 +120,22 @@ public abstract class Item : MonoBehaviour
     }
     #endregion
 
+    #region Method to Show Item Info
+
+    private void ShowItemInfo(bool isActive)
+    {
+        itemInfoPanel.SetActive(isActive);
+    }
+
+    #endregion
+
+    #region Override Method
+
     protected abstract void Execute();
+
+    protected virtual void OnStart() { }
+
+    #endregion
 
     #endregion
 }

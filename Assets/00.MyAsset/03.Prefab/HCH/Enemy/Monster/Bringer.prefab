@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 8689224006875875948}
   - component: {fileID: 8689224006875875939}
   - component: {fileID: 8689224006875875949}
+  - component: {fileID: 5798613253034332335}
   - component: {fileID: 8689224006875875950}
   - component: {fileID: 2135615466}
   m_Layer: 8
@@ -320,6 +321,29 @@ MonoBehaviour:
     - {fileID: 8300000, guid: e27f50f725600624f88427a841fd9596, type: 3}
     - {fileID: 8300000, guid: 8e4851963e3ebde4b948020b48d7cd78, type: 3}
     skillEffectClips_GodHand: []
+  yValue: 6
+--- !u!114 &5798613253034332335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689224006875875945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b27caa472afdad478df69e3315edf7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootingRate_Normal: 100
+  lootItems_Normal:
+  - item: {fileID: 3747274576641902038, guid: 3d38442a038542f439b86628d4fad78b, type: 3}
+    weight: 1
+  lootingRate_Rare: 0
+  lootItems_Rare: []
+  lootingRate_Epic: 0
+  lootItems_Epic: []
+  lootingRate_Legendery: 0
+  lootItems_Legendery: []
 --- !u!61 &8689224006875875950
 BoxCollider2D:
   m_ObjectHideFlags: 0
