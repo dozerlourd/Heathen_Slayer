@@ -185,7 +185,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8689224006875875945}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.7, y: 4.04, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1674582678474400031}
@@ -279,6 +279,8 @@ MonoBehaviour:
   corpseTime: 5
   hpBar: {fileID: 3468088383924859811}
   hardnessDuration: 0.1
+  damagedVoiceClips:
+  - {fileID: 8300000, guid: 4abab8fa42f82594081b3013ed1040d8, type: 3}
   deadVoiceClips:
   - {fileID: 8300000, guid: 4abab8fa42f82594081b3013ed1040d8, type: 3}
 --- !u!114 &8689224006875875949
@@ -298,7 +300,8 @@ MonoBehaviour:
   - 10
   attackSpeed: 1
   moveSpeed: 6.5
-  detectRange: 8
+  playerDetectRange: 10
+  wallDetectRange: 2
   attackRange: 2.5
   groundCheckRayDist: 0
   gravityScale: 3
@@ -321,7 +324,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: e27f50f725600624f88427a841fd9596, type: 3}
     - {fileID: 8300000, guid: 8e4851963e3ebde4b948020b48d7cd78, type: 3}
     skillEffectClips_GodHand: []
-  yValue: 6
+  yValue: 3
 --- !u!114 &5798613253034332335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b27caa472afdad478df69e3315edf7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootingRate_Normal: 100
+  lootingRate_Normal: 0
   lootItems_Normal:
   - item: {fileID: 3747274576641902038, guid: 3d38442a038542f439b86628d4fad78b, type: 3}
     weight: 1
@@ -436,11 +439,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.8
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.8
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_LocalPosition.x

@@ -54,7 +54,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6488827415251801935
 Transform:
   m_ObjectHideFlags: 0
@@ -63,7 +63,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6488827415251801929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -19, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 6488827416191615343}
@@ -184,9 +184,10 @@ MonoBehaviour:
   - 0
   - 0
   attackSpeed: 2
-  moveSpeed: 26
-  detectRange: 18
-  attackRange: 1.75
+  moveSpeed: 14
+  playerDetectRange: 10
+  wallDetectRange: 2
+  attackRange: 3
   groundCheckRayDist: 0
   gravityScale: 3
   flipObjects:
@@ -237,15 +238,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b27caa472afdad478df69e3315edf7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootingRate_Normal: 25
+  lootingRate_Normal: 100
   lootItems_Normal:
-  - item: {fileID: 2114985047887112293, guid: b44a9e5f2c4b46e4390feffd55c9e025, type: 3}
-    weight: 5
-  lootingRate_Rare: 16
+  - item: {fileID: 3747274576641902038, guid: 3d38442a038542f439b86628d4fad78b, type: 3}
+    weight: 1
+  lootingRate_Rare: 0
   lootItems_Rare:
   - item: {fileID: 2114985047887112293, guid: b44a9e5f2c4b46e4390feffd55c9e025, type: 3}
     weight: 3
-  lootingRate_Epic: 7
+  lootingRate_Epic: 0
   lootItems_Epic:
   - item: {fileID: 2114985047887112293, guid: b44a9e5f2c4b46e4390feffd55c9e025, type: 3}
     weight: 1
@@ -264,7 +265,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.75}
+  m_Offset: {x: 0, y: 0.81}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -357,7 +358,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0, y: 0.31}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}

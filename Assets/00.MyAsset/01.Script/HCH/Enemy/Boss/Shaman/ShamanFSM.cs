@@ -65,12 +65,12 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
 
     private new void Awake()
     {
-        base.Awake();   
+        base.Awake();
         for (int i = 0; i < shaman_Variable.attackCols.Length; i++)
         {
             shaman_Variable.attackCols[i].enabled = false;
         }
-        
+
         #region Generate ObjectPool
         shaman_Variable.skillEffects_PoisonDart = new GameObject[shaman_Variable.maxSkillEffectPoolCounts[0]];
         shaman_Variable.skillEffects_PoisonExplosion = new GameObject[shaman_Variable.maxSkillEffectPoolCounts[1]];
@@ -90,7 +90,7 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
         #endregion
     }
 
-    private void Start()
+    private new void Start()
     {
         expInterval = new WaitForSeconds(shaman_Variable.explosionInterval);
     }
@@ -105,11 +105,8 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
 
         while (true)
         {
-            if(BossHP.NormalizedCurrHP >= 0.7f)
+            if (BossHP.NormalizedCurrHP >= 0.5f)
                 yield return StartCoroutine(Pattern_1());
-
-            else if(BossHP.NormalizedCurrHP >= 0.3f)
-                yield return StartCoroutine(Pattern_2());
 
             else
             {
@@ -147,21 +144,6 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
     {
         yield return EnemySkill_3(4, 6);
         yield return EnemySkill_3(3, 4);
-        yield return EnemyAttack_2();
-        yield return EnemySkill_2(ActivateArea(true));
-
-        yield return EnemyAttack_2();
-        yield return EnemySkill_1();
-        yield return EnemyAttack_1();
-
-        yield return EnemySkill_3(3, 6);
-        yield return EnemyAttack_2();
-        yield return EnemyAttack_1();
-        yield return EnemySkill_2(ActivateArea(false));
-
-        yield return EnemyAttack_1();
-        yield return EnemyAttack_2();
-        yield return EnemySkill_1();
     }
 
     #endregion
@@ -173,7 +155,7 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
 
     public IEnumerator EnemyTrace()
     {
-        //print("Trace");
+
         while (GetDistanceB2WPlayer() > attackRange)
         {
             if (GetDistanceB2WPlayer() > shaman_Variable.dartDist)
@@ -185,10 +167,7 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
                 yield return EnemySkill_1();
             }
             FlipCheck();
-            anim.SetBool("ToWalk", true);
-            yield return null;
-            transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
-            yield return null;
+            yield return StartCoroutine(Move());
         }
         anim.SetBool("ToWalk", false);
     }
@@ -342,7 +321,7 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
         yield return new WaitForSeconds(1f);
         while (_count > 0)
         {
-            for (int i = 0; i < Random.Range(1,4); i++)
+            for (int i = 0; i < Random.Range(1, 4); i++)
             {
                 Vector3 effectPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, 1921), Random.Range(0, 1081)));
                 effectPos.z = 0;
@@ -357,7 +336,7 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
     public IEnumerator ExplosionPattern_4(int _count)
     {
         yield return new WaitForSeconds(2f);
-        while(_count > 0)
+        while (_count > 0)
         {
             Vector3 effectPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, 1921), Random.Range(0, 1081)));
             effectPos.z = 0;

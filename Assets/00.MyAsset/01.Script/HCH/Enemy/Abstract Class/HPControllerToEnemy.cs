@@ -32,7 +32,7 @@ public abstract class HPControllerToEnemy : MonoBehaviour
             {
                 float damage = currHP - value;
                 currHP = value < 0 ? 0 : value;
-                RefreshUI(value);
+                RefreshUI();
             
                 if (NormalizedCurrHP <= 0)
                 {
@@ -50,6 +50,8 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     protected EnemyFSM EnemyFSM => enemyFSM = enemyFSM ? enemyFSM : GetComponent<EnemyFSM>();
     protected Animator Animator => animator = animator ? animator : GetComponent<Animator>();
 
+    public bool IsDead => isDead;
+
     #endregion
 
     #region Unity Life Cycle
@@ -63,6 +65,7 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     {
         CurrHP = MaxHP;
         GetComponent<Collider2D>().enabled = true;
+        isDead = false;
     }
 
     #endregion
@@ -77,7 +80,7 @@ public abstract class HPControllerToEnemy : MonoBehaviour
         CurrHP -= _damage;
     }
 
-    protected abstract void RefreshUI(float _val);
+    protected abstract void RefreshUI();
 
     /// <summary> When Enemy Taking Damage, Generate this method </summary>
     protected abstract IEnumerator EnemyDamaged();
