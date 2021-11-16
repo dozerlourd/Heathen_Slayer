@@ -5,11 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class Necromancer_Variable
 {
-    [Header(" - Related to Shaman's attack")]
+    [Header(" - Related to Necromancer's attack")]
     [SerializeField] internal Collider2D[] attackCols;
-    [SerializeField] internal Transform _FirePos;
+    [SerializeField] internal Transform[] _FirePos;
 
-    [Header(" - Related to Shaman's Skill")]
+    [Header(" - Related to Necromancer's Skill")]
     [SerializeField] internal GameObject Skill_PoisonDart;
     [SerializeField] internal GameObject Skill_PoisonExplosion;
     [SerializeField] internal GameObject[] Skill_PoisonArea;
@@ -18,26 +18,15 @@ public class Necromancer_Variable
     [SerializeField] internal int[] maxSkillEffectPoolCounts;
 
     [Tooltip("The timing of the animation where each skill will be activated"), Space(5)]
+    [SerializeField, Range(0f, 1f)] internal float attackEffectTiming = 0.45f;
     [SerializeField, Range(0f, 1f)] internal float[] skillEffectTiming;
-
-    [Tooltip("The speed of moving darts"), Space(5)]
-    [SerializeField] internal float dartSpeed;
-
-    [Tooltip("Related Explosion"), Space(5)]
-    [SerializeField, Min(0.0f)] internal float explosionInterval;
 
     [Header(" - Elapsed Time For State Change"), Min(0.0f)]
     [SerializeField] internal float IdleDelayTime;
-    [SerializeField] internal float dartDelayTime;
-    [SerializeField] internal float areaSkillTime;
 
-    [Header(" - Check Distance")]
-    [SerializeField] internal float dartDist;
-
-    internal Shaman_PoisonArea[] poisonArea;
-
-    internal GameObject[] skillEffects_PoisonDart;
-    internal GameObject[] skillEffects_PoisonExplosion;
+    [Header(" - Sound")]
+    [SerializeField] internal AudioClip[] voiceClips;
+    [SerializeField] internal AudioClip[] attackVoiceClips;
 
     internal BossHP_Necromancer bossHP;
 
@@ -61,7 +50,7 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     #region Unity Life Cycle
 
-    private void Start()
+    private new void Start()
     {
         
 
@@ -108,7 +97,7 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     public IEnumerator EnemyIdle()
     {
-        yield return null;
+        yield return new WaitForSeconds(necromancer_Variable.IdleDelayTime);
     }
 
     public IEnumerator EnemyTrace()
@@ -126,7 +115,20 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     public IEnumerator EnemyAttack_1()
     {
+        yield return StartCoroutine(EnemyTrace());
+        FlipCheck();
+
+        anim.SetTrigger("ToAttack");
         yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
+        SoundManager.Instance.PlayVoiceOneShot(necromancer_Variable.attackVoiceClips);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= necromancer_Variable.attackEffectTiming);
+        necromancer_Variable.attackCols[0].enabled = true;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.67f);
+        necromancer_Variable.attackCols[0].enabled = false;
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Necromancer_Idle"));
     }
 
     public IEnumerator EnemySkill_1()
@@ -136,6 +138,7 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     public IEnumerator EnemySkill_2()
     {
+
         yield return null;
     }
 

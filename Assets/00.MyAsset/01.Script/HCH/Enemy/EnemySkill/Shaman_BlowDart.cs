@@ -35,6 +35,9 @@ public class Shaman_BlowDart : MonoBehaviour
         if(col.gameObject.CompareTag("Player"))
         {
             col.GetComponent<PlayerStat>()?.SetHP(damage, 0.7f);
+        }
+        if(!col.gameObject.CompareTag("Enemy"))
+        {
             Vanish();
         }
     }

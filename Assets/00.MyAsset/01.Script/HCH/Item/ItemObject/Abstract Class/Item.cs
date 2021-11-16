@@ -88,7 +88,7 @@ public abstract class Item : MonoBehaviour
             //print(time);
             moveVec += randomVec * (Mathf.Max(power -= Time.deltaTime * 8, 0) * Time.deltaTime);
             moveVec += Vector3.down * gravity * Time.deltaTime;
-            print(randomVec * (Mathf.Max(power -= Time.deltaTime, 0) * Time.deltaTime));
+            //print(randomVec * (Mathf.Max(power -= Time.deltaTime, 0) * Time.deltaTime));
             time += Time.deltaTime;
             transform.Translate(moveVec);
             yield return null;

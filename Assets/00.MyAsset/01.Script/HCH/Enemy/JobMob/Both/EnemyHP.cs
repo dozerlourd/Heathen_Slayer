@@ -19,7 +19,6 @@ public class EnemyHP : HPControllerToEnemy
 
     WaitForSeconds hardnessTime;
 
-
     #endregion
 
     #region Unity Life Cycle
@@ -32,12 +31,10 @@ public class EnemyHP : HPControllerToEnemy
     new void OnEnable()
     {
         base.OnEnable();
-        if(Co_Dead != null) StopCoroutine(Co_Dead);
-    }
-
-    private void OnDisable()
-    {
         isDead = false;
+        gameObject.tag = "Enemy";
+        hpBar.transform.parent.parent.gameObject.SetActive(true);
+        if (Co_Dead != null) StopCoroutine(Co_Dead);
     }
 
     #endregion
@@ -57,7 +54,7 @@ public class EnemyHP : HPControllerToEnemy
         else yield return null;
     }
 
-    protected override void RefreshUI(float _val)
+    protected override void RefreshUI()
     {
         if (!hpBar) return;
         hpBar.fillAmount = currHP / maxHP;
@@ -66,7 +63,9 @@ public class EnemyHP : HPControllerToEnemy
     protected override IEnumerator EnemyDead()
     {
         SoundManager.Instance.PlayVoiceOneShot(deadVoiceClips);
+        hpBar.transform.parent.parent.gameObject.SetActive(false);
         GetComponent<EnemyItemDrop>().Looting();
+        gameObject.tag = "Corpse";
         isDead = true;
         yield return new WaitForSeconds(corpseTime);
         gameObject.SetActive(false);
