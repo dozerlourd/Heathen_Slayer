@@ -24,24 +24,23 @@ public abstract class EnemyFSM : MonoBehaviour
 
     [Header(" - Check Distance")]
     #region Distance Variables
-    [SerializeField] protected float detectRange = 10f;
+    [SerializeField] protected float playerDetectRange = 10f;
+
+    [SerializeField] protected float wallDetectRange = 0.5f;
 
     [SerializeField] protected float attackRange = 3;
     [SerializeField] protected float groundCheckRayDist = 0.03f;
     #endregion
 
     [Header(" - Gravity")]
-    #region gravity
+    #region Gravity
     [SerializeField] protected float gravityScale = 1.00f;
     #endregion
 
-    [Header(" - Flip Objects")]
-    #region flip objects
+    [Header(" - Flip")]
+    #region Flip
     [SerializeField] protected GameObject[] flipObjects;
-    #endregion
 
-    [Header(" - Flip Objects")]
-    #region flip objects
     [SerializeField] protected float waitStart = 0.7f;
 
     [Tooltip("니가 처음에 왼쪽을 보고있냐 아님 오른쪽을 보고있냐")]
@@ -59,7 +58,6 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected bool isGround = false;
     private bool isFrozen = false;
-
     protected BoxCollider2D boxCol2D;
     protected Animator anim;
     protected SpriteRenderer spriteRenderer;
@@ -86,6 +84,10 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected float InitAnimSpeed => initAnimSpeed;
 
+    protected bool IsMove { get; set; }
+
+    protected bool IsNotWall { get; set; }
+
     #endregion
 
     #region Unity Life Cycle
@@ -103,9 +105,14 @@ public abstract class EnemyFSM : MonoBehaviour
         StartCoroutine(Co_Pattern());
     }
 
-    private void Start()
+    protected void Start()
     {
         initAnimSpeed = anim.GetFloat("AnimSpeed");
+    }
+
+    protected void Update()
+    {
+        StopToWall();
     }
 
     #endregion
@@ -126,6 +133,15 @@ public abstract class EnemyFSM : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    void StopToWall()
+    {
+        Vector2 rayDir = originFlipIsRight ? (spriteRenderer.flipX ? Vector2.left : Vector2.right) : (spriteRenderer.flipX ? Vector2.right : Vector2.left);
+
+        IsNotWall = !Physics2D.Raycast((Vector2)transform.position + boxCol2D.offset, rayDir, wallDetectRange, LayerMask.GetMask("L_Ground"));
+
+        Debug.DrawRay((Vector2)transform.position + boxCol2D.offset, rayDir * wallDetectRange, Color.red);
     }
 
     public void FlipCheck()
@@ -215,6 +231,17 @@ public abstract class EnemyFSM : MonoBehaviour
     #endregion
 
     #endregion
+
+    protected IEnumerator Move()
+    {
+        IsMove = GetDistanceB2WPlayerYValue() <= 5;
+        anim.SetBool("IsWalk", IsMove);
+        yield return null;
+        if(IsMove && IsNotWall)
+        {
+            transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
+        }
+    }
 
     #endregion
 }

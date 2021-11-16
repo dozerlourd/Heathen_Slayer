@@ -32,7 +32,7 @@ public class Bringer_Variable
 
     internal WaitForSeconds waitToPatrol, waitToTrace, waitToAttack, waitToSkill;
 
-    internal Coroutine Co_Patrol, Co_Trace;
+    internal Coroutine Co_Patrol, Co_Trace, Co_Attack;
 
     internal EnemyHP enemyHP;
 }
@@ -66,8 +66,9 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         bringer_Variable.waitToSkill = new WaitForSeconds(bringer_Variable.waitToSkillTime);
     }
 
-    private void Start()
+    private new void Start()
     {
+        base.Start();
         bringer_Variable.skillEffects = new GameObject[bringer_Variable.maxSkillEffectPoolCount];
         bringer_Variable.skillEffects = HCH.GameObjectPool.GeneratePool(bringer_Variable.skill_GodHand, bringer_Variable.maxSkillEffectPoolCount, FolderSystem.Instance.Bringer_SkillPool, false);
     }
@@ -81,9 +82,9 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         yield return new WaitForSeconds(waitStart);
 
         bringer_Variable.Co_Patrol = StartCoroutine(EnemyPatrol());
-        yield return new WaitUntil(() => GetDistanceB2WPlayer() <= detectRange);
-            bringer_Variable.Co_Trace = StartCoroutine(EnemyTrace());
-            StopCoroutine(bringer_Variable.Co_Patrol);
+        yield return new WaitUntil(() => GetDistanceB2WPlayer() <= playerDetectRange);
+        bringer_Variable.Co_Trace = StartCoroutine(EnemyTrace());
+        StopCoroutine(bringer_Variable.Co_Patrol);
     }
 
     public IEnumerator EnemyIdle()
@@ -98,9 +99,8 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         float randomDirTime = 0;
         Vector2 moveVec = RandomVec();
 
-        //print("나 움직인다!");
-        anim.SetTrigger("ToWalk");
-        anim.SetFloat("WalkSpeed", 0.45f);
+        anim.SetBool("IsWalk", true);
+        //anim.SetFloat("WalkSpeed", 0.45f);
 
         while (true)
         {
@@ -122,6 +122,12 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
                 randomDirTime = 0;
                 moveVec = RandomVec();
             }
+            if (!IsNotWall)
+            {
+                moveVec *= -1;
+                spriteRenderer.flipX = !spriteRenderer.flipX;
+            }
+
             transform.Translate(moveVec * moveSpeed * Time.deltaTime);
             yield return null;
         }
@@ -143,30 +149,28 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
             FlipCheck();
             if (GetDistanceB2WPlayer() < attackRange)
             {
-                anim.SetBool("ToWalk", false);
+                anim.SetBool("IsWalk", false);
                 traceCount = 0;
                 if (new HCH_Random.MersenneTwister().Genrand_Int32(3) < bringer_Variable.skillWeight)
-                    yield return StartCoroutine(EnemyAttack_1());
+                    yield return bringer_Variable.Co_Attack = StartCoroutine(EnemyAttack_1());
                 else
-                    yield return StartCoroutine(EnemySkill_1());
+                    yield return bringer_Variable.Co_Attack = StartCoroutine(EnemySkill_1());
 
                 yield return StartCoroutine(EnemyIdle());
             }
-            else if (GetDistanceB2WPlayer() < detectRange)
+            else if (GetDistanceB2WPlayer() < playerDetectRange)
             {
-                anim.SetBool("ToWalk", true);
-                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Walk"))
-                {
-                    yield return null;
-                    continue;
-                }
+                //if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Walk"))
+                //{
+                //    yield return null;
+                //    continue;
+                //}
 
                 traceCount = 0;
-                transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
+                yield return StartCoroutine(Move());
             }
             else
             {
-                anim.SetBool("ToWalk", true);
                 if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Walk"))
                 {
                     yield return null;
@@ -175,7 +179,8 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
                 if (traceCount <= bringer_Variable.aggroDuration)
                 {
-                    transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
+                    yield return StartCoroutine(Move());
+
                     traceCount += Time.deltaTime;
                 }
                 else break;
@@ -190,22 +195,24 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         //print("나 너 때린다!");
         anim.SetTrigger("ToAttack");
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Attack"));
-        //anim.SetFloat("AttackSpeed", 0.85f);
 
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f);
         SoundManager.Instance.PlayVoiceOneShot(bringer_Variable.attackVoiceClips);
+        anim.SetFloat("AttackSpeed", 0.2f);
 
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.35f);
-        //anim.SetFloat("AttackSpeed", 1.35f);
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.4f);
+        anim.SetFloat("AttackSpeed", 1.05f);
 
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.43f);
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Damaged")) { StopCoroutine(bringer_Variable.Co_Attack); }
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.53f);
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Damaged")) { StopCoroutine(bringer_Variable.Co_Attack); }
         bringer_Variable.attackCol.enabled = true;
 
-        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.48f);
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.57f);
         bringer_Variable.attackCol.enabled = false;
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.6f);
-        //anim.SetFloat("AttackSpeed", 0.85f);
+        anim.SetFloat("AttackSpeed", 0.85f);
 
 
         yield return bringer_Variable.waitToAttack;
@@ -224,7 +231,9 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
         anim.SetFloat("AttackSpeed", 0.65f);
 
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Damaged")) { StopCoroutine(bringer_Variable.Co_Attack); }
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= bringer_Variable.skillEffectTiming);
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Damaged")) { StopCoroutine(bringer_Variable.Co_Attack); }
         GodHand();
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.75f);
@@ -242,13 +251,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     /// <summary> Use Bringer's Skill </summary>
     void GodHand() => HCH.GameObjectPool.PopObjectFromPool(bringer_Variable.skillEffects, PlayerSystem.Instance.Player.transform.position + Vector3.up * 2.5f);
-
-    public IEnumerator Damaged()
-    {
-        FlipCheck();
-        anim.SetTrigger("ToDamaged");
-        yield return null;
-    }
 
     #endregion
 }

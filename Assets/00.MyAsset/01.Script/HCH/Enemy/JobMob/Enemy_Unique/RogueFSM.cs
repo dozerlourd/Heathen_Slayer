@@ -78,8 +78,9 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
         rogue_Variable.effect_VanishAttacks = HCH.GameObjectPool.GeneratePool(rogue_Variable.effect_VanishAttack, rogue_Variable.vanishCount, FolderSystem.Instance.Rogue_SkillPool);
     }
 
-    private void Update()
+    new void Update()
     {
+        base.Update();
         anim.SetBool("IsGround", isGround);
 
         if (!rogue_Variable.isFall && !isGround && anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Jump") || anim.GetCurrentAnimatorStateInfo(0).IsName("Rogue_Run"))
@@ -172,15 +173,10 @@ public class RogueFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1,
     {
         while (GetDistanceB2WPlayer() > attackRange)
         {
-            if(GetDistanceB2WPlayerYValue() > 7)
-            {
-                yield return StartCoroutine(EnemySkill_1());
-            }
             FlipCheck();
-            anim.SetBool("IsWalk", true);
-            yield return null;
-            transform.Translate(Vector2.right * flipValue * moveSpeed * Time.deltaTime);
-            yield return null;
+
+            yield return StartCoroutine(Move());
+            //print(GetDistanceB2WPlayerYValue());
         }
         anim.SetBool("IsWalk", false);
     }

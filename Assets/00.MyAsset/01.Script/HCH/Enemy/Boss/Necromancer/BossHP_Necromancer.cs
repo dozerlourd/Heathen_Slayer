@@ -1,9 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossHP_Necromancer : HPControllerToEnemy
 {
+    #region Variable
+
+    [SerializeField] Image hpBar;
+
+    [SerializeField] AudioClip[] deadVoiceClips;
+
+    #endregion
+
     [SerializeField] float stunTime = 5.0f;
     int paze = 1;
 
@@ -29,9 +38,10 @@ public class BossHP_Necromancer : HPControllerToEnemy
         gameObject.SetActive(false);
     }
 
-    protected override void RefreshUI(float _val)
+    protected override void RefreshUI()
     {
-        
+        if(!hpBar) return;
+        hpBar.fillAmount = currHP / maxHP;
     }
 
     IEnumerator DamageColor()

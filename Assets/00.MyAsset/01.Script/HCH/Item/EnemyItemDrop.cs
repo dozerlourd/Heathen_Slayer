@@ -27,7 +27,7 @@ public class EnemyItemDrop : MonoBehaviour
     public void Looting()
     {
         float rand = new HCH_Random.MersenneTwister().Genrand_Int32(2);
-        print(rand);
+        //print(rand);
 
         if (rand <= lootingRate_Legendery) {
             ChoiceDropItem(lootItems_Legendery);
