@@ -18,6 +18,12 @@ public class DamageUISystem : MonoBehaviour
 
     #endregion
 
+    #region Variable
+
+    [SerializeField] int damageUICount = 50;
+
+    #endregion
+
     public GameObject[] damageTextArray;
 
     private void Start()
@@ -25,7 +31,7 @@ public class DamageUISystem : MonoBehaviour
         damageTextArray = new GameObject[50];
 
         transform.SetParent(FolderSystem.Instance.SystemFolder);
-        damageTextArray = HCH.GameObjectPool.GeneratePool(Resources.Load("DamageText") as GameObject, 50, FolderSystem.Instance.DamageText_UIPool, false);
+        damageTextArray = HCH.GameObjectPool.GeneratePool(Resources.Load("DamageText") as GameObject, damageUICount, FolderSystem.Instance.DamageText_UIPool, false);
     }
 
     public void DisplayDamageText(float dmg, Transform enemyTr)

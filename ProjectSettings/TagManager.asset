@@ -61,6 +61,9 @@ TagManager:
   - name: S_Object
     uniqueID: 293399815
     locked: 0
+  - name: S_PlayerBehindUI
+    uniqueID: 190257353
+    locked: 0
   - name: S_Player
     uniqueID: 2419452657
     locked: 0
