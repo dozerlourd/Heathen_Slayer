@@ -28,20 +28,13 @@ public abstract class Item : MonoBehaviour
     GameObject itemInfoPanel;
 
     #region Number Information
+    protected int index;
+
     protected string capacity1_Name;
     protected float capacity1_Coef;
 
     protected string capacity2_Name;
     protected float capacity2_Coef;
-    #endregion
-
-    #region UI Text
-    protected string itemName;
-
-    protected string capacityInfo;
-    protected string skillInfo;
-
-    protected string itemRank;
     #endregion
 
     #endregion
@@ -59,7 +52,7 @@ public abstract class Item : MonoBehaviour
 
         OnStart();
 
-        itemInfoUI.SetInfoText(itemName, capacityInfo, skillInfo, itemRank);
+        itemInfoUI.SetInfoText(GlobalState.passiveItemList[index].ItemName, GlobalState.passiveItemList[index].CapacityInfo, GlobalState.passiveItemList[index].SkillInfo, GlobalState.passiveItemList[index].Rank);
 
         StartCoroutine(RandomFly());
     }
@@ -108,7 +101,7 @@ public abstract class Item : MonoBehaviour
     }
 
     private IEnumerator FloatingOnce()
-    {
+    { 
         iTween.MoveTo(gameObject, iTween.Hash("y", transform.position.y + ItemManager.Instance.FloatingIntencity,
                                               "time", 1 / ItemManager.Instance.FloatingSpeed, "easetype",
                                               iTween.EaseType.easeInOutSine));
