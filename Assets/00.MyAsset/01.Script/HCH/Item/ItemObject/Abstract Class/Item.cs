@@ -28,7 +28,8 @@ public abstract class Item : MonoBehaviour
     GameObject itemInfoPanel;
 
     #region Number Information
-    protected int index;
+    [Header("Spread Sheet Item Index")]
+    [SerializeField] protected int index;
 
     protected string capacity1_Name;
     protected float capacity1_Coef;
@@ -61,7 +62,7 @@ public abstract class Item : MonoBehaviour
     {
         if (!isSpawnComplete) return;
         ShowItemInfo(Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position) <= ItemManager.Instance.ShowInfoPanelDist);
-        itemInfoPanel.transform.position = PlayerSystem.Instance.Player.transform.position + new Vector3(ItemManager.Instance.ShowUIPaddingX, ItemManager.Instance.ShowUIPaddingY, 0);
+        itemInfoPanel.transform.position = transform.position + Vector3.up * 4; /*PlayerSystem.Instance.Player.transform.position + new Vector3(ItemManager.Instance.ShowUIPaddingX, ItemManager.Instance.ShowUIPaddingY, 0)*/;
     }
 
     #endregion
