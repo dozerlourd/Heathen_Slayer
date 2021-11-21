@@ -970,13 +970,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1010549766}
     m_Modifications:
+    - target: {fileID: 5798613253034332335, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: lootItems_Normal.Array.data[0].item
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_Name
       value: Bringer (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
@@ -26225,6 +26229,10 @@ PrefabInstance:
       propertyPath: corpseTime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 9205958518905045458, guid: 90e2ef2b53d5fd64f94a0e48284c3890, type: 3}
+      propertyPath: lootItems_Normal.Array.data[0].item
+      value: 
+      objectReference: {fileID: 8404617657562015941, guid: 208c57992b0c9e14fabfbd081056a69c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 90e2ef2b53d5fd64f94a0e48284c3890, type: 3}
 --- !u!1 &231047815 stripped
@@ -28009,13 +28017,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1010549766}
     m_Modifications:
+    - target: {fileID: 5798613253034332335, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: lootItems_Normal.Array.data[0].item
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_Name
       value: Bringer (4)
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
@@ -29703,13 +29715,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1010549766}
     m_Modifications:
+    - target: {fileID: 5798613253034332335, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: lootItems_Normal.Array.data[0].item
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_Name
       value: Bringer (5)
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
@@ -30919,7 +30935,7 @@ GameObject:
   - component: {fileID: 1067360813}
   - component: {fileID: 1067360814}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Background Imsi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30964,6 +30980,9 @@ GameObject:
   - component: {fileID: 1079241809}
   - component: {fileID: 1079241808}
   - component: {fileID: 1079241810}
+  - component: {fileID: 1079241813}
+  - component: {fileID: 1079241812}
+  - component: {fileID: 1079241811}
   m_Layer: 6
   m_Name: Tilemap_Ground
   m_TagString: Untagged
@@ -33815,10 +33834,302 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!251 &1079241811
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079241806}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 165
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
+--- !u!66 &1079241812
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079241806}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 1079241810}
+    m_ColliderPaths:
+    - - X: 940000000
+        Y: 240000000
+      - X: 930000000
+        Y: 240000000
+      - X: 930000000
+        Y: 100000000
+      - X: 890000000
+        Y: 100000000
+      - X: 890000000
+        Y: 90000000
+      - X: 930000000
+        Y: 90000000
+      - X: 930000000
+        Y: -20000000
+      - X: -310000000
+        Y: -20000000
+      - X: -310000000
+        Y: 220000000
+      - X: -320000000
+        Y: 220000000
+      - X: -320000000
+        Y: -30000000
+      - X: 940000000
+        Y: -30000000
+    - - X: 350000000
+        Y: 130000000
+      - X: 310000000
+        Y: 130000000
+      - X: 310000000
+        Y: 140000000
+      - X: 280000000
+        Y: 140000000
+      - X: 280000000
+        Y: 130000000
+      - X: 300000000
+        Y: 130000000
+      - X: 300000000
+        Y: 120000000
+      - X: 350000000
+        Y: 120000000
+    - - X: 860000000
+        Y: 140000000
+      - X: 820000000
+        Y: 140000000
+      - X: 820000000
+        Y: 130000000
+      - X: 860000000
+        Y: 130000000
+    - - X: 530000000
+        Y: 130000000
+      - X: 480000000
+        Y: 130000000
+      - X: 480000000
+        Y: 120000000
+      - X: 530000000
+        Y: 120000000
+    - - X: 760000000
+        Y: 110000000
+      - X: 740000000
+        Y: 110000000
+      - X: 740000000
+        Y: 100000000
+      - X: 760000000
+        Y: 100000000
+    - - X: 610000000
+        Y: 110000000
+      - X: 570000000
+        Y: 110000000
+      - X: 570000000
+        Y: 100000000
+      - X: 610000000
+        Y: 100000000
+    - - X: 230000000
+        Y: 90000000
+      - X: 150000000
+        Y: 90000000
+      - X: 150000000
+        Y: 80000000
+      - X: 230000000
+        Y: 80000000
+    - - X: -140000000
+        Y: 80000000
+      - X: -220000000
+        Y: 80000000
+      - X: -220000000
+        Y: 70000000
+      - X: -140000000
+        Y: 70000000
+    - - X: 710000000
+        Y: 70000000
+      - X: 640000000
+        Y: 70000000
+      - X: 640000000
+        Y: 60000000
+      - X: 710000000
+        Y: 60000000
+    - - X: 390000000
+        Y: 70000000
+      - X: 320000000
+        Y: 70000000
+      - X: 320000000
+        Y: 60000000
+      - X: 390000000
+        Y: 60000000
+    - - X: 810000000
+        Y: 60000000
+      - X: 780000000
+        Y: 60000000
+      - X: 780000000
+        Y: 50000000
+      - X: 810000000
+        Y: 50000000
+    - - X: 460000000
+        Y: 60000000
+      - X: 390000000
+        Y: 60000000
+      - X: 390000000
+        Y: 50000000
+      - X: 460000000
+        Y: 50000000
+    - - X: 510000000
+        Y: 50000000
+      - X: 460000000
+        Y: 50000000
+      - X: 460000000
+        Y: 40000000
+      - X: 510000000
+        Y: 40000000
+    - - X: 300000000
+        Y: 40000000
+      - X: 210000000
+        Y: 40000000
+      - X: 210000000
+        Y: 30000000
+      - X: 300000000
+        Y: 30000000
+    - - X: 130000000
+        Y: 40000000
+      - X: 60000000
+        Y: 40000000
+      - X: 60000000
+        Y: 30000000
+      - X: 130000000
+        Y: 30000000
+    - - X: -240000000
+        Y: 40000000
+      - X: -300000000
+        Y: 40000000
+      - X: -300000000
+        Y: 30000000
+      - X: -240000000
+        Y: 30000000
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 93.99997, y: -3}
+      - {x: 93.99997, y: 24}
+      - {x: 93, y: 23.999971}
+      - {x: 92.99997, y: 10}
+      - {x: 89, y: 9.99997}
+      - {x: 89.00003, y: 9}
+      - {x: 93, y: 8.99997}
+      - {x: 92.99997, y: -2}
+      - {x: -31, y: -1.9999707}
+      - {x: -31.000029, y: 22}
+      - {x: -32, y: 21.999971}
+      - {x: -31.999971, y: -3}
+    - - {x: 85.99997, y: 13}
+      - {x: 85.99997, y: 14}
+      - {x: 82, y: 13.999971}
+      - {x: 82.00003, y: 13}
+    - - {x: 34.999973, y: 12}
+      - {x: 34.999973, y: 13}
+      - {x: 31, y: 13.00003}
+      - {x: 30.999971, y: 14}
+      - {x: 28, y: 13.999971}
+      - {x: 28.000029, y: 13}
+      - {x: 30, y: 12.99997}
+      - {x: 30.000029, y: 12}
+    - - {x: 52.999973, y: 12}
+      - {x: 52.999973, y: 13}
+      - {x: 48, y: 12.99997}
+      - {x: 48.00003, y: 12}
+    - - {x: 75.99997, y: 10}
+      - {x: 75.99997, y: 11}
+      - {x: 74, y: 10.99997}
+      - {x: 74.00003, y: 10}
+    - - {x: 60.99997, y: 10}
+      - {x: 60.99997, y: 11}
+      - {x: 57, y: 10.99997}
+      - {x: 57.000034, y: 10}
+    - - {x: 22.999971, y: 8}
+      - {x: 22.999971, y: 9}
+      - {x: 15, y: 8.99997}
+      - {x: 15.000029, y: 8}
+    - - {x: -14.000029, y: 7}
+      - {x: -14.000029, y: 8}
+      - {x: -22, y: 7.9999704}
+      - {x: -21.999971, y: 7}
+    - - {x: 70.99997, y: 6}
+      - {x: 70.99997, y: 7}
+      - {x: 64, y: 6.9999704}
+      - {x: 64.00003, y: 6}
+    - - {x: 38.999973, y: 6}
+      - {x: 38.999973, y: 7}
+      - {x: 32, y: 6.9999704}
+      - {x: 32.00003, y: 6}
+    - - {x: 80.99997, y: 5}
+      - {x: 80.99997, y: 6}
+      - {x: 78, y: 5.999971}
+      - {x: 78.00003, y: 5}
+    - - {x: 45.999973, y: 5}
+      - {x: 45.999973, y: 6}
+      - {x: 39, y: 5.999971}
+      - {x: 39.00003, y: 5}
+    - - {x: 50.999973, y: 4}
+      - {x: 50.999973, y: 5}
+      - {x: 46, y: 4.999971}
+      - {x: 46.00003, y: 4}
+    - - {x: 29.999971, y: 3}
+      - {x: 29.999971, y: 4}
+      - {x: 21, y: 3.999971}
+      - {x: 21.000029, y: 3}
+    - - {x: 12.99997, y: 3}
+      - {x: 12.99997, y: 4}
+      - {x: 6, y: 3.999971}
+      - {x: 6.000029, y: 3}
+    - - {x: -24.000029, y: 3}
+      - {x: -24.000029, y: 4}
+      - {x: -30, y: 3.999971}
+      - {x: -29.999971, y: 3}
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+--- !u!50 &1079241813
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079241806}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1100751832 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4091500940329929343, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
@@ -35042,13 +35353,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1010549766}
     m_Modifications:
+    - target: {fileID: 5798613253034332335, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: lootItems_Normal.Array.data[0].item
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_Name
       value: Bringer (2)
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
@@ -36861,13 +37176,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1010549766}
     m_Modifications:
+    - target: {fileID: 5798613253034332335, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: lootItems_Normal.Array.data[0].item
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_Name
       value: Bringer (3)
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
@@ -37293,7 +37612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6488827415251801929, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6488827415251801935, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
       propertyPath: m_RootOrder
@@ -37342,6 +37661,10 @@ PrefabInstance:
     - target: {fileID: 7232238850777220734, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
       propertyPath: lootingRate_Normal
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232238850777220734, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
+      propertyPath: lootItems_Normal.Array.data[0].item
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
@@ -37433,13 +37756,17 @@ PrefabInstance:
       propertyPath: lootingRate_Normal
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 5798613253034332335, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: lootItems_Normal.Array.data[0].item
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_Name
       value: Bringer
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
