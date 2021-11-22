@@ -23,11 +23,17 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region Variable
+
+    Coroutine Co_EntryTheStage;
+
+    #endregion
+
     private void Start()
     {
         if (SceneManager.GetActiveScene().name == "DungeonScene")
         {
-            StartCoroutine(EntryTheStage());
+            Co_EntryTheStage = StartCoroutine(EntryTheStage());
         }
     }
 
