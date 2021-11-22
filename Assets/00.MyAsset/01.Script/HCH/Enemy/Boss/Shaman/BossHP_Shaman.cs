@@ -44,6 +44,8 @@ public class BossHP_Shaman : HPControllerToEnemy
     {
         isDead = true;
         GetComponent<Collider2D>().enabled = false;
+        base.EnemyDead();
+
         yield return new WaitForSeconds(corpseTime);
         gameObject.SetActive(false);
 

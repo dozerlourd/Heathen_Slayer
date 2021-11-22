@@ -34,6 +34,8 @@ public class BossHP_Necromancer : HPControllerToEnemy
     {
         isDead = true;
         GetComponent<Collider2D>().enabled = false;
+        base.EnemyDead();
+
         yield return new WaitForSeconds(corpseTime);
         gameObject.SetActive(false);
     }
