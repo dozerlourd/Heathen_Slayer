@@ -68,7 +68,7 @@ public class GSpreadSheetsToJson : EditorWindow {
 	/// <summary>
 	/// The root of spreadsheet's url.
 	/// </summary>
-	private string urlRoot = "https://spreadsheets.google.com/feeds/spreadsheets/";
+	//private string urlRoot = "https://spreadsheets.google.com/feeds/spreadsheets/";
 
 	/// <summary>
 	/// The directory which contain json files.

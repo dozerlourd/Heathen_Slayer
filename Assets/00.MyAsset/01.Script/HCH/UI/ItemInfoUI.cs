@@ -17,4 +17,9 @@ public class ItemInfoUI : MonoBehaviour
         if (itemInfo != null) Text_ItemInfo.text = itemInfo;
         if (itemRank != null) Text_ItemRank.text = itemRank;
     }
+
+    public void SetInfoText(int idx)
+    {
+        SetInfoText(GlobalState.passiveItemList[idx].ItemName, GlobalState.passiveItemList[idx].CapacityInfo, GlobalState.passiveItemList[idx].SkillInfo, GlobalState.passiveItemList[idx].Rank);
+    }
 }

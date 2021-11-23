@@ -53,7 +53,7 @@ public abstract class Item : MonoBehaviour
 
         OnStart();
 
-        itemInfoUI.SetInfoText(GlobalState.passiveItemList[index].ItemName, GlobalState.passiveItemList[index].CapacityInfo, GlobalState.passiveItemList[index].SkillInfo, GlobalState.passiveItemList[index].Rank);
+        itemInfoUI.SetInfoText(index); 
 
         StartCoroutine(RandomFly());
     }

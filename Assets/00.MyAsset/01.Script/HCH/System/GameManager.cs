@@ -43,9 +43,9 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < StageSystem.Instance.CurrStage.GetDungeonCount(); j++)
             {
-
+                // 던전 패턴을 생성 or 던전 패턴을 만들어놓고 좌표로 이동
+                yield return new WaitUntil(() => StageSystem.Instance.CurrStage.CurrDungeon.GetEnemyCount() == 0 && StageSystem.Instance.CurrStage.CurrDungeon.IsClearThisRoom);
             }
         }
-        yield return new WaitUntil(() => StageSystem.Instance.CurrStage.CurrDungeon.GetEnemyCount() == 0);
     }
 }

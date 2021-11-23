@@ -7,6 +7,10 @@ public class DungeonData : MonoBehaviour
 {
     int enemyCount = 0;
 
+    bool isClearThisRoom = false;
+
+    public bool IsClearThisRoom => isClearThisRoom;
+
     #region Implemetation Place
 
     #region Getter
@@ -15,6 +19,8 @@ public class DungeonData : MonoBehaviour
 
     #region Setter
     public void SetCount(int count) => enemyCount = count; /*transform.GetComponentsInChildren<HPControllerToEnemy>().Length;*/
+
+    public void DungeonClear() => isClearThisRoom = true;
     #endregion
 
     public int MinusEnemyCount() => enemyCount--;
