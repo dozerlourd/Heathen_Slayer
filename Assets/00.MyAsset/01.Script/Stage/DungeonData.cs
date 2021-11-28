@@ -5,8 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class DungeonData : MonoBehaviour
 {
-    int enemyCount = 0;
+    Transform initPos;
 
+    int enemyCount = 0;
     bool isClearThisRoom = false;
 
     public bool IsClearThisRoom => isClearThisRoom;
