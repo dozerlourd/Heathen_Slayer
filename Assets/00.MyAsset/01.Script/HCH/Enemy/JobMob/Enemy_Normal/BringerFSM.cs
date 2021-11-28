@@ -43,8 +43,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     [SerializeField] Bringer_Variable bringer_Variable;
 
-    [SerializeField] float yValue = 6;
-
     #endregion
 
     #region Property

@@ -146,7 +146,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     public void FlipCheck()
     {
-        if (!spriteRenderer) return;
+        if (!spriteRenderer || Mathf.Abs(playerPos.x - transform.position.x) < 0.5f) return;
 
         if (originFlipIsRight)
         {
@@ -234,7 +234,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected IEnumerator Move()
     {
-        IsMove = GetDistanceB2WPlayerYValue() <= 5;
+        IsMove = GetDistanceB2WPlayerYValue() <= 12;
         anim.SetBool("IsWalk", IsMove);
         yield return null;
         if(IsMove && IsNotWall)

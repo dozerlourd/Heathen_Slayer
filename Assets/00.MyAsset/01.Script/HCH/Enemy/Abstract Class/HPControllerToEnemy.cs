@@ -85,7 +85,11 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     /// <summary> When Enemy Taking Damage, Generate this method </summary>
     protected abstract IEnumerator EnemyDamaged();
 
-    protected abstract IEnumerator EnemyDead();
+    protected virtual IEnumerator EnemyDead()
+    {
+        StageSystem.Instance.CurrStage.MinusEnemyCount();
+        yield return null;
+    }
 
     #endregion
 }

@@ -108,8 +108,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2071377787
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a815b2a66ab6d8e42a52433c0d18b97b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -184,7 +184,7 @@ MonoBehaviour:
   - 0
   - 0
   attackSpeed: 2
-  moveSpeed: 14
+  moveSpeed: 10
   playerDetectRange: 10
   wallDetectRange: 2
   attackRange: 3
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootingRate_Normal: 100
   lootItems_Normal:
-  - item: {fileID: 3747274576641902038, guid: 3d38442a038542f439b86628d4fad78b, type: 3}
+  - item: {fileID: 0}
     weight: 1
   lootingRate_Rare: 0
   lootItems_Rare:
@@ -613,7 +613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.35
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

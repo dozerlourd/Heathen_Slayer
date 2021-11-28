@@ -34,6 +34,8 @@ public class BossHP_Necromancer : HPControllerToEnemy
     {
         isDead = true;
         GetComponent<Collider2D>().enabled = false;
+        base.EnemyDead();
+
         yield return new WaitForSeconds(corpseTime);
         gameObject.SetActive(false);
     }
@@ -53,4 +55,6 @@ public class BossHP_Necromancer : HPControllerToEnemy
 
         SpriteRenderer.color = Color.white;
     }
+
+    public void SetHPBar(Image _hpBar) => hpBar = _hpBar;
 }

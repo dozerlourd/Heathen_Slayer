@@ -10,9 +10,7 @@ public class Necromancer_Variable
     [SerializeField] internal Transform[] _FirePos;
 
     [Header(" - Related to Necromancer's Skill")]
-    [SerializeField] internal GameObject Skill_PoisonDart;
-    [SerializeField] internal GameObject Skill_PoisonExplosion;
-    [SerializeField] internal GameObject[] Skill_PoisonArea;
+    [SerializeField] internal GameObject Skill_DeathBolt;
 
     [Tooltip("0 => Dart's Count \n 1 => Explosion's Count"), Space(5)]
     [SerializeField] internal int[] maxSkillEffectPoolCounts;
@@ -40,6 +38,8 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
     [Space(30)]
     [SerializeField] Necromancer_Variable necromancer_Variable;
 
+    GameObject[] skillEffects_DeathBolt;
+
     #endregion
 
     #region Property
@@ -52,9 +52,22 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     private new void Start()
     {
-        
 
+    }
 
+    private new void Awake()
+    {
+        base.Awake();
+        for (int i = 0; i < necromancer_Variable.attackCols.Length; i++)
+        {
+            necromancer_Variable.attackCols[i].enabled = false;
+        }
+
+        #region Generate ObjectPool
+        skillEffects_DeathBolt = new GameObject[necromancer_Variable.maxSkillEffectPoolCounts[0]];
+
+        skillEffects_DeathBolt = HCH.GameObjectPool.GeneratePool(necromancer_Variable.Skill_DeathBolt, skillEffects_DeathBolt.Length, FolderSystem.Instance.Necromancer_SkillPool);
+        #endregion
     }
 
     #endregion
@@ -115,7 +128,6 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     public IEnumerator EnemyAttack_1()
     {
-        yield return StartCoroutine(EnemyTrace());
         FlipCheck();
 
         anim.SetTrigger("ToAttack");
@@ -125,6 +137,12 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= necromancer_Variable.attackEffectTiming);
         necromancer_Variable.attackCols[0].enabled = true;
+
+        Vector3[] attackPos = new Vector3[1];
+        for (int i = 0; i < necromancer_Variable._FirePos.Length; i++) attackPos[i] = necromancer_Variable._FirePos[i].position;
+
+        GameObject[] deathBolts = HCH.GameObjectPool.PopObjectsFromPool(skillEffects_DeathBolt, 1, attackPos);
+
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.67f);
         necromancer_Variable.attackCols[0].enabled = false;
 
@@ -133,7 +151,25 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     public IEnumerator EnemySkill_1()
     {
+        FlipCheck();
+
+        anim.SetTrigger("ToAttack");
         yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
+        SoundManager.Instance.PlayVoiceOneShot(necromancer_Variable.attackVoiceClips);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= necromancer_Variable.attackEffectTiming);
+        necromancer_Variable.attackCols[0].enabled = true;
+
+        Vector3[] attackPos = new Vector3[5];
+        for (int i = 0; i < necromancer_Variable._FirePos.Length; i++) attackPos[i] = necromancer_Variable._FirePos[i].position;
+
+        GameObject[] deathBolts = HCH.GameObjectPool.PopObjectsFromPool(skillEffects_DeathBolt, 5, attackPos);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.67f);
+        necromancer_Variable.attackCols[0].enabled = false;
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Necromancer_Idle"));
     }
 
     public IEnumerator EnemySkill_2()

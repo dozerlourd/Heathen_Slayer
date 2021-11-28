@@ -28,20 +28,14 @@ public abstract class Item : MonoBehaviour
     GameObject itemInfoPanel;
 
     #region Number Information
+    [Header("Spread Sheet Item Index")]
+    [SerializeField] protected int index;
+
     protected string capacity1_Name;
     protected float capacity1_Coef;
 
     protected string capacity2_Name;
     protected float capacity2_Coef;
-    #endregion
-
-    #region UI Text
-    protected string itemName;
-
-    protected string capacityInfo;
-    protected string skillInfo;
-
-    protected string itemRank;
     #endregion
 
     #endregion
@@ -59,7 +53,7 @@ public abstract class Item : MonoBehaviour
 
         OnStart();
 
-        itemInfoUI.SetInfoText(itemName, capacityInfo, skillInfo, itemRank);
+        itemInfoUI.SetInfoText(index); 
 
         StartCoroutine(RandomFly());
     }
@@ -68,7 +62,7 @@ public abstract class Item : MonoBehaviour
     {
         if (!isSpawnComplete) return;
         ShowItemInfo(Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position) <= ItemManager.Instance.ShowInfoPanelDist);
-        itemInfoPanel.transform.position = PlayerSystem.Instance.Player.transform.position + new Vector3(ItemManager.Instance.ShowUIPaddingX, ItemManager.Instance.ShowUIPaddingY, 0);
+        itemInfoPanel.transform.position = transform.position + Vector3.up * 4; /*PlayerSystem.Instance.Player.transform.position + new Vector3(ItemManager.Instance.ShowUIPaddingX, ItemManager.Instance.ShowUIPaddingY, 0)*/;
     }
 
     #endregion
@@ -108,7 +102,7 @@ public abstract class Item : MonoBehaviour
     }
 
     private IEnumerator FloatingOnce()
-    {
+    { 
         iTween.MoveTo(gameObject, iTween.Hash("y", transform.position.y + ItemManager.Instance.FloatingIntencity,
                                               "time", 1 / ItemManager.Instance.FloatingSpeed, "easetype",
                                               iTween.EaseType.easeInOutSine));

@@ -11,7 +11,7 @@ namespace HCH_Random
         /* Period parameters */
         private static short N = 624;
         private static short M = 397;
-        private static uint MATRIX_A = 0x9908b0df;   /* constant vector a */
+        //private static uint MATRIX_A = 0x9908b0df;   /* constant vector a */
         private static uint UPPER_MASK = 0x80000000; /* most significant w-r bits */
         private static uint LOWER_MASK = 0x7fffffff; /* least significant r bits */
         private static uint[] mt = new uint[624]; /* the array for the state vector  */
