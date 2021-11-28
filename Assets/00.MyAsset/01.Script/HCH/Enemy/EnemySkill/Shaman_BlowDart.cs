@@ -8,7 +8,6 @@ public class Shaman_BlowDart : MonoBehaviour
 
     [SerializeField] float damage = 7;
     [SerializeField] float Duration;
-    [SerializeField] Rigidbody2D Body;
 
     #endregion
 

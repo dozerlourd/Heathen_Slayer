@@ -55,4 +55,6 @@ public class BossHP_Necromancer : HPControllerToEnemy
 
         SpriteRenderer.color = Color.white;
     }
+
+    public void SetHPBar(Image _hpBar) => hpBar = _hpBar;
 }

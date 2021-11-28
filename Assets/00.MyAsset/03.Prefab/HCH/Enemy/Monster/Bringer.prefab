@@ -176,7 +176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8689224006875875951
 Transform:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ MonoBehaviour:
   skillAttackDmg:
   - 10
   attackSpeed: 1
-  moveSpeed: 6.5
+  moveSpeed: 8.5
   playerDetectRange: 10
   wallDetectRange: 2
   attackRange: 2.5
@@ -324,7 +324,6 @@ MonoBehaviour:
     - {fileID: 8300000, guid: e27f50f725600624f88427a841fd9596, type: 3}
     - {fileID: 8300000, guid: 8e4851963e3ebde4b948020b48d7cd78, type: 3}
     skillEffectClips_GodHand: []
-  yValue: 3
 --- !u!114 &5798613253034332335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,7 +478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.5
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

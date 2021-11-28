@@ -982,6 +982,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: moveSpeed
+      value: 8.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1320,8 +1324,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -737990357
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -26810,8 +26814,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 469286138}
   - {fileID: 2091248261}
+  - {fileID: 894202223}
+  - {fileID: 469286138}
+  - {fileID: 1034585244}
   - {fileID: 1820589526}
   m_Father: {fileID: 444666059}
   m_RootOrder: 0
@@ -27368,9 +27374,9 @@ GameObject:
   m_Component:
   - component: {fileID: 469286138}
   m_Layer: 0
-  m_Name: FirePos1
+  m_Name: FirePos_Death Bolt 3
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -27382,11 +27388,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469286137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.2, y: 0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 414284830}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480013144
 GameObject:
@@ -28029,6 +28035,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: moveSpeed
+      value: 8.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -28229,8 +28239,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillPoolFolder: {fileID: 1463858896}
   bringer_SkillPool: {fileID: 0}
-  shaman_SkillPool: {fileID: 0}
   rogue_SkillPool: {fileID: 0}
+  shaman_SkillPool: {fileID: 0}
+  necromancer_SkillPool: {fileID: 0}
   damageText_UIPool: {fileID: 524337835}
 --- !u!1 &694153491
 GameObject:
@@ -28459,6 +28470,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 746052992}
+  - component: {fileID: 746052993}
   m_Layer: 0
   m_Name: Attack_1
   m_TagString: Untagged
@@ -28480,6 +28492,32 @@ Transform:
   m_Father: {fileID: 1880309491}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &746052993
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746052991}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.7, y: 0.75}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.1, y: 1.5}
+  m_EdgeRadius: 0
 --- !u!1 &755973486
 GameObject:
   m_ObjectHideFlags: 0
@@ -29520,6 +29558,36 @@ Transform:
   m_Father: {fileID: 1880392092}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &894202222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 894202223}
+  m_Layer: 0
+  m_Name: FirePos_Death Bolt 2
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &894202223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894202222}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.025, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 414284830}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &903394551
 GameObject:
   m_ObjectHideFlags: 0
@@ -29726,6 +29794,10 @@ PrefabInstance:
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: moveSpeed
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
@@ -30524,7 +30596,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &998671384
 Animator:
   serializedVersion: 3
@@ -30581,9 +30653,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -2071377787
+  m_SortingLayer: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 3b290abebd884514c9e1bf1db2d6a845, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -30607,7 +30679,7 @@ Transform:
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 444666059}
-  m_Father: {fileID: 1010549766}
+  m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &998671387
@@ -30622,7 +30694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f048a921837ae6a4da1705cbc6b9f57b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAttackDmg: 10
+  basicAttackDmg: 16
   skillAttackDmg:
   - 0
   - 0
@@ -30639,18 +30711,19 @@ MonoBehaviour:
   waitStart: 0.5
   originFlipIsRight: 1
   necromancer_Variable:
-    attackCols: []
+    attackCols:
+    - {fileID: 746052993}
     _FirePos:
     - {fileID: 469286138}
+    - {fileID: 894202223}
+    - {fileID: 1034585244}
     - {fileID: 2091248261}
     - {fileID: 1820589526}
-    Skill_PoisonDart: {fileID: 0}
-    Skill_PoisonExplosion: {fileID: 0}
-    Skill_PoisonArea: []
-    maxSkillEffectPoolCounts: 
+    Skill_DeathBolt: {fileID: 7583210544039957963, guid: c1bcf5abcedd7e74c9ec2a43d0d2e784, type: 3}
+    maxSkillEffectPoolCounts: 14000000
     attackEffectTiming: 0.45
     skillEffectTiming: []
-    IdleDelayTime: 0
+    IdleDelayTime: 0.35
     voiceClips: []
     attackVoiceClips: []
 --- !u!114 &998671388
@@ -30669,7 +30742,7 @@ MonoBehaviour:
   corpseTime: 100
   hpBar: {fileID: 0}
   deadVoiceClips: []
-  stunTime: 5
+  stunTime: 3
 --- !u!61 &998671389
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -30753,7 +30826,6 @@ Transform:
   - {fileID: 1849376667}
   - {fileID: 1474737498}
   - {fileID: 1501522717}
-  - {fileID: 998671386}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30839,6 +30911,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4091500940329929329, guid: b4e663b72eb6bbd4089d658474d170a3, type: 3}
   m_PrefabInstance: {fileID: 1026194202}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1034585243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1034585244}
+  m_Layer: 0
+  m_Name: FirePos_Death Bolt 4
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1034585244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034585243}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.025, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 414284830}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1050717032
 GameObject:
   m_ObjectHideFlags: 0
@@ -31041,8 +31143,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1041912479
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -35365,6 +35467,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: moveSpeed
+      value: 8.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -36455,9 +36561,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1820589526}
   m_Layer: 0
-  m_Name: FirePos3
+  m_Name: FirePos_Death Bolt 5
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -36469,11 +36575,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1820589525}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.75, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 414284830}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1849376659 stripped
 GameObject:
@@ -37130,6 +37236,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: moveSpeed
+      value: 8.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -37329,9 +37439,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2091248261}
   m_Layer: 0
-  m_Name: FirePos2
+  m_Name: FirePos_Death Bolt 1
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -37343,11 +37453,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091248260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.75, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 414284830}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2093622702
 GameObject:
@@ -37556,6 +37666,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6488827415251801932, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6488827415251801935, guid: 1da2f221c2838f94f8c67287e54ac1da, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -37709,6 +37823,10 @@ PrefabInstance:
     - target: {fileID: 8689224006875875945, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689224006875875949, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
+      propertyPath: moveSpeed
+      value: 8.5
       objectReference: {fileID: 0}
     - target: {fileID: 8689224006875875951, guid: 946af6d3db84c464db20165f6c6445db, type: 3}
       propertyPath: m_RootOrder

@@ -184,7 +184,7 @@ MonoBehaviour:
   - 0
   - 0
   attackSpeed: 2
-  moveSpeed: 14
+  moveSpeed: 10
   playerDetectRange: 10
   wallDetectRange: 2
   attackRange: 3
@@ -613,7 +613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.35
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 5239783345283680569, guid: cf896e7f7915d874c848b61e9c605f13, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
