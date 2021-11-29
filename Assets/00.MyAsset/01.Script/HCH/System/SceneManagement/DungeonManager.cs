@@ -8,7 +8,9 @@ public class DungeonManager : MonoBehaviour
 
     void Start()
     {
-        Instantiate(player);
+        GameObject _player = Instantiate(player);
+        _player.TryGetComponent(out SpriteRenderer sp);
+        if (sp != null) sp.sortingLayerName = "S_Player";
     }
 
     void Update()
