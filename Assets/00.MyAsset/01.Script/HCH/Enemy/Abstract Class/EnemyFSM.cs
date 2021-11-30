@@ -30,6 +30,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     [SerializeField] protected float attackRange = 3;
     [SerializeField] protected float groundCheckRayDist = 0.03f;
+    [SerializeField] protected float detectingHeight = 5;
     #endregion
 
     [Header(" - Gravity")]
@@ -234,7 +235,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected IEnumerator Move()
     {
-        IsMove = GetDistanceB2WPlayerYValue() <= 12;
+        IsMove = GetDistanceB2WPlayerXValue() >= attackRange;
         anim.SetBool("IsWalk", IsMove);
         yield return null;
         if(IsMove && IsNotWall)

@@ -5,21 +5,51 @@ using UnityEngine;
 [System.Serializable]
 public class DungeonData : MonoBehaviour
 {
-    Transform initPos;
+    [SerializeField] Transform enemiesFloder;
+    [SerializeField] bool isBossRoom = false;
+
+    [SerializeField] Transform initPos;
 
     int enemyCount = 0;
     bool isClearThisRoom = false;
+    bool isNext = true;
 
+    public bool IsBossRoom => isBossRoom;
     public bool IsClearThisRoom => isClearThisRoom;
+    public bool IsNext { get => isNext; set => isNext = value; }
+
+    public Transform InitPos => initPos;
+
+    #region Unity Life Cycle
+
+    private void Start()
+    {
+        for (int i = 0; i < enemiesFloder.childCount; i++)
+        {
+            enemiesFloder.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
+    #endregion
 
     #region Implemetation Place
 
     #region Getter
     public int GetEnemyCount() => enemyCount;
+
     #endregion
 
     #region Setter
     public void SetCount(int count) => enemyCount = count; /*transform.GetComponentsInChildren<HPControllerToEnemy>().Length;*/
+
+    public void OnEnemies()
+    {
+        for (int i = 0; i < enemiesFloder.childCount; i++)
+        {
+            enemiesFloder.GetChild(i).gameObject.SetActive(true);
+        }
+        SetCount(enemiesFloder.childCount);
+    }
 
     public void DungeonClear() => isClearThisRoom = true;
     #endregion

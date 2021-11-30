@@ -304,6 +304,7 @@ MonoBehaviour:
   wallDetectRange: 2
   attackRange: 2.5
   groundCheckRayDist: 0
+  detectingHeight: 5
   gravityScale: 3
   flipObjects:
   - {fileID: 6011242937552956245}

@@ -88,6 +88,8 @@ public abstract class HPControllerToEnemy : MonoBehaviour
     protected virtual IEnumerator EnemyDead()
     {
         StageSystem.Instance.CurrStage.MinusEnemyCount();
+        //print("GetCurrDungeonIndex - " + StageSystem.Instance.CurrStage.GetCurrDungeonIndex());
+        //print("GetEnemyCount - " + StageSystem.Instance.CurrStage.CurrDungeon.GetEnemyCount());
         yield return null;
     }
 

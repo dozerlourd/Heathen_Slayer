@@ -26,7 +26,7 @@ public class StageSystem : MonoBehaviour
     [SerializeField] List<StageData> StageDatas = new List<StageData>();
     private int currStageIndex;
 
-    public StageData CurrStage => StageDatas[StageDatas[currStageIndex].GetCurrDungeonIndex()];
+    public StageData CurrStage => StageDatas[currStageIndex];
 
     //private void Start()
     //{

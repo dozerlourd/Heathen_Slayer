@@ -67,7 +67,7 @@ public class EnemyHP : HPControllerToEnemy
         GetComponent<EnemyItemDrop>().Looting();
         gameObject.tag = "Corpse";
         isDead = true;
-        base.EnemyDead();
+        StartCoroutine(base.EnemyDead());
 
         yield return new WaitForSeconds(corpseTime);
         gameObject.SetActive(false);

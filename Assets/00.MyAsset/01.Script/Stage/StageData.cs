@@ -26,12 +26,13 @@ public class StageData : MonoBehaviour
         CurrDungeon.MinusEnemyCount();
         if (CurrDungeon.GetEnemyCount() <= 0)
         {
-            NextDungeon();
+            print("던전 클리어");
+            CurrDungeon.DungeonClear();
         }
     }
 
     #region Getter
-    public int GetDungeonCount() => DungeonDatas.Count - 1;
+    public int GetDungeonCount() => DungeonDatas.Count;
     public int GetCurrDungeonIndex() => currDungeonIndex;
     #endregion
 

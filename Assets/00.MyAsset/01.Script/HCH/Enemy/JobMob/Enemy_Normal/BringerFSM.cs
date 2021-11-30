@@ -5,12 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class Bringer_Variable
 {
-    [Header(" - Elapsed Time For State Change"), Min(0.0f)]
-    [SerializeField] internal float waitToPatrolTime;
-    [SerializeField] internal float waitToTraceTime;
-    [SerializeField] internal float waitToAttackTime;
-    [SerializeField] internal float waitToSkillTime;
-
     [Header(" - Related to Bringer's skill")]
     [SerializeField] internal GameObject skill_GodHand;
     [SerializeField] internal int maxSkillEffectPoolCount;
@@ -19,6 +13,7 @@ public class Bringer_Variable
 
     [Header(" - Related to Bringer's attack")]
     [SerializeField] internal Collider2D attackCol;
+    [SerializeField] internal float waitToAttack, waitToSkill;
 
     [Space(15)]
     [Tooltip("Max Aggro Duration: After end duration, change to patrol")]
@@ -30,7 +25,6 @@ public class Bringer_Variable
 
     internal GameObject[] skillEffects;
 
-    internal WaitForSeconds waitToPatrol, waitToTrace, waitToAttack, waitToSkill;
 
     internal Coroutine Co_Patrol, Co_Trace, Co_Attack;
 
@@ -58,10 +52,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     new void Awake()
     {
         base.Awake();
-        bringer_Variable.waitToPatrol = new WaitForSeconds(bringer_Variable.waitToPatrolTime);
-        bringer_Variable.waitToTrace = new WaitForSeconds(bringer_Variable.waitToTraceTime);
-        bringer_Variable.waitToAttack = new WaitForSeconds(bringer_Variable.waitToAttackTime);
-        bringer_Variable.waitToSkill = new WaitForSeconds(bringer_Variable.waitToSkillTime);
     }
 
     private new void Start()
@@ -78,11 +68,15 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
     protected override IEnumerator Co_Pattern()
     {
         yield return new WaitForSeconds(waitStart);
-
-        bringer_Variable.Co_Patrol = StartCoroutine(EnemyPatrol());
-        yield return new WaitUntil(() => GetDistanceB2WPlayer() <= playerDetectRange);
-        bringer_Variable.Co_Trace = StartCoroutine(EnemyTrace());
-        StopCoroutine(bringer_Variable.Co_Patrol);
+        while (true)
+        {
+            print("start");
+            bringer_Variable.Co_Patrol = StartCoroutine(EnemyPatrol());
+            yield return new WaitUntil(() => GetDistanceB2WPlayer() <= playerDetectRange);
+            StopCoroutine(bringer_Variable.Co_Patrol);
+            yield return bringer_Variable.Co_Trace = StartCoroutine(EnemyTrace());
+            print("end");
+        }
     }
 
     public IEnumerator EnemyIdle()
@@ -94,39 +88,35 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     public IEnumerator EnemyPatrol()
     {
+        print("patrol");
         float randomDirTime = 0;
+        float randomPatrolTime = Random.Range(3.5f, 5f);
         Vector2 moveVec = RandomVec();
-
-        anim.SetBool("IsWalk", true);
-        //anim.SetFloat("WalkSpeed", 0.45f);
 
         while (true)
         {
-            //if (GetDistanceB2WPlayer() <= detectRange)
-            //{
-            //    bringer_Variable.Co_Trace = StartCoroutine(EnemyTrace());
-            //    StopCoroutine(bringer_Variable.Co_Patrol);
-            //}
-
             spriteRenderer.flipX = moveVec == Vector2.right ? true : false;
 
-            if (randomDirTime < Random.Range(3.5f, 5f))
+            if (randomDirTime < randomPatrolTime)
             {
                 randomDirTime += Time.deltaTime;
             }
             else
             {
-                if (Random.Range(0, 5) <= 2) yield return StartCoroutine(EnemyIdle());
+                randomPatrolTime = Random.Range(3.5f, 5f);
                 randomDirTime = 0;
                 moveVec = RandomVec();
             }
+
             if (!IsNotWall)
             {
                 moveVec *= -1;
                 spriteRenderer.flipX = !spriteRenderer.flipX;
             }
 
-            transform.Translate(moveVec * moveSpeed * Time.deltaTime);
+            print(moveVec);
+            anim.SetBool("IsWalk", moveVec != Vector2.zero);
+            transform.Translate(moveVec * moveSpeed * 0.5f * Time.deltaTime);
             yield return null;
         }
     }
@@ -137,19 +127,13 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
         while (true)
         {
-            //if(GetDistanceB2WPlayerYValue() > yValue)
-            //{
-            //    anim.SetBool("ToWalk", false);
-            //    if(bringer_Variable.Co_Trace != null) StopCoroutine(bringer_Variable.Co_Trace);
-            //    yield return new WaitForSeconds(2f);
-            //    bringer_Variable.Co_Patrol = StartCoroutine(EnemyPatrol());
-            //}
+            print("trace");
             FlipCheck();
             if (GetDistanceB2WPlayer() < attackRange)
             {
                 anim.SetBool("IsWalk", false);
                 traceCount = 0;
-                if (new HCH_Random.MersenneTwister().Genrand_Int32(3) < bringer_Variable.skillWeight)
+                if (HCH_Random.Random.Genrand_Int32(3) < bringer_Variable.skillWeight)
                     yield return bringer_Variable.Co_Attack = StartCoroutine(EnemyAttack_1());
                 else
                     yield return bringer_Variable.Co_Attack = StartCoroutine(EnemySkill_1());
@@ -158,30 +142,29 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
             }
             else if (GetDistanceB2WPlayer() < playerDetectRange)
             {
+                traceCount = 0;
+                anim.SetBool("IsWalk", true);
+                yield return StartCoroutine(Move());
+            }
+            else
+            {
                 //if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Walk"))
                 //{
                 //    yield return null;
                 //    continue;
                 //}
 
-                traceCount = 0;
-                yield return StartCoroutine(Move());
-            }
-            else
-            {
-                if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Walk"))
-                {
-                    yield return null;
-                    continue;
-                }
-
                 if (traceCount <= bringer_Variable.aggroDuration)
                 {
+                    anim.SetBool("IsWalk", true);
                     yield return StartCoroutine(Move());
 
                     traceCount += Time.deltaTime;
                 }
-                else break;
+                else
+                {
+                    yield break;
+                }
             }
             yield return null;
         }
@@ -196,7 +179,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f);
         SoundManager.Instance.PlayVoiceOneShot(bringer_Variable.attackVoiceClips);
-        anim.SetFloat("AttackSpeed", 0.2f);
+        anim.SetFloat("AttackSpeed", 0.75f);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.4f);
         anim.SetFloat("AttackSpeed", 1.05f);
@@ -243,7 +226,7 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Idle"));
     }
 
-    Vector2 RandomVec() => new HCH_Random.MersenneTwister().Genrand_Int32(1) % 2 == 0 ? Vector2.right : Vector2.left;
+    Vector2 RandomVec() => HCH_Random.Random.Genrand_Int32(1) <= 3 ? Vector2.zero : HCH_Random.Random.Genrand_Int32(1) >= 6 ? Vector2.right : Vector2.left;
 
     public void SetAttackSpeed() => anim.SetFloat("AttackSpeed", attackSpeed);
 

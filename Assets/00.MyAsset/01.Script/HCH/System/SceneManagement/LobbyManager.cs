@@ -9,6 +9,12 @@ public class LobbyManager : MonoBehaviour
 
     public void OnEnterDungeonButton()
     {
+        StartCoroutine(OnButtonStart());
+    }
+
+    IEnumerator OnButtonStart()
+    {
+        yield return StartCoroutine(SceneEffectSystem.Instance.FadeOutCoroutine());
         SceneManager.LoadScene("DungeonScene");
     }
 
