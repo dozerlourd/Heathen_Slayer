@@ -32,7 +32,7 @@ public class CameraManager : MonoBehaviour
 
     #region Method
 
-    public void ShakeCamera(float duration, float intensity = 1, bool isX = false, bool isY = false) => CameraShakeController.CameraShake(duration, intensity, isX, isY);
+    public void ShakeCamera(float duration, float intensity = 1, bool isX = true, bool isY = true) => StartCoroutine(CameraShakeController.CameraShake(duration, intensity, isX, isY));
 
     #endregion
 }

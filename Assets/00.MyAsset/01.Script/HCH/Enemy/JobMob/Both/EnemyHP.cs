@@ -47,7 +47,7 @@ public class EnemyHP : HPControllerToEnemy
         {
             EnemyFSM.FlipCheck();
             Animator.SetTrigger("ToDamaged");
-            SoundManager.Instance.PlayVoiceOneShot(damagedVoiceClips);
+            //SoundManager.Instance.PlayVoiceOneShot(damagedVoiceClips);
 
             yield return hardnessTime;
         }

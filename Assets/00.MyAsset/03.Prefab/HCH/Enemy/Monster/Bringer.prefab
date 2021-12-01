@@ -279,8 +279,7 @@ MonoBehaviour:
   corpseTime: 5
   hpBar: {fileID: 3468088383924859811}
   hardnessDuration: 0.1
-  damagedVoiceClips:
-  - {fileID: 8300000, guid: 4abab8fa42f82594081b3013ed1040d8, type: 3}
+  damagedVoiceClips: []
   deadVoiceClips:
   - {fileID: 8300000, guid: 4abab8fa42f82594081b3013ed1040d8, type: 3}
 --- !u!114 &8689224006875875949
@@ -311,19 +310,15 @@ MonoBehaviour:
   waitStart: 0.5
   originFlipIsRight: 0
   bringer_Variable:
-    waitToPatrolTime: 1
-    waitToTraceTime: 5
-    waitToAttackTime: 0.8
-    waitToSkillTime: 1.8
     skill_GodHand: {fileID: 5723722605407805117, guid: 99a24cd6f49384941abc0faa511f35dd, type: 3}
     maxSkillEffectPoolCount: 5
     skillEffectTiming: 0.375
     skillWeight: 800
     attackCol: {fileID: 8016015614558165628}
+    waitToAttack: 0
+    waitToSkill: 0
     aggroDuration: 5
-    attackVoiceClips:
-    - {fileID: 8300000, guid: e27f50f725600624f88427a841fd9596, type: 3}
-    - {fileID: 8300000, guid: 8e4851963e3ebde4b948020b48d7cd78, type: 3}
+    attackVoiceClips: []
     skillEffectClips_GodHand: []
 --- !u!114 &5798613253034332335
 MonoBehaviour:

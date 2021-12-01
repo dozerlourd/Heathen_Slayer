@@ -46,12 +46,14 @@ public class GameManager : MonoBehaviour
             {
                 PlayerSystem.Instance.Player.transform.position = StageSystem.Instance.CurrStage.CurrDungeon.InitPos.position;
 
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.1f);
 
                 yield return StartCoroutine(SceneEffectSystem.Instance.FadeInCoroutine());
 
                 // 던전 패턴을 생성 or 던전 패턴을 만들어놓고 좌표로 이동
                 StageSystem.Instance.CurrStage.CurrDungeon.OnEnemies();
+
+                StageSystem.Instance.CurrStage.CurrDungeon.IsJoin = true;
 
                 yield return new WaitUntil(() => StageSystem.Instance.CurrStage.CurrDungeon.GetEnemyCount() == 0 &&
                                                  StageSystem.Instance.CurrStage.CurrDungeon.IsClearThisRoom &&

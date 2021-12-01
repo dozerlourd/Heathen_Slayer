@@ -20,10 +20,20 @@ public class WeaponColCheck : MonoBehaviour
         // 만약 충돌 대상의 태그가 Enemy면
         if (col.gameObject.CompareTag("Enemy"))
         {
+            StartCoroutine(TimeStopu(0.15f));
+            CameraManager.Instance.ShakeCamera(0.1f, 0.08f);
+
             // Enemy 체력 감소
             col.GetComponent<HPControllerToEnemy>()?.TakeDamage(attackDamage);
 
             PlayerAttack.atkCollider.enabled = false;
         }
+    }
+
+    IEnumerator TimeStopu(float time)
+    {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(time);
+        Time.timeScale = 1;
     }
 }

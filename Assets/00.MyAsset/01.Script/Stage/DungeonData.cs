@@ -12,11 +12,13 @@ public class DungeonData : MonoBehaviour
 
     int enemyCount = 0;
     bool isClearThisRoom = false;
-    bool isNext = true;
+    bool isNext = false;
+    bool isJoin = false;
 
     public bool IsBossRoom => isBossRoom;
     public bool IsClearThisRoom => isClearThisRoom;
     public bool IsNext { get => isNext; set => isNext = value; }
+    public bool IsJoin { get => isNext; set => isNext = value; }
 
     public Transform InitPos => initPos;
 

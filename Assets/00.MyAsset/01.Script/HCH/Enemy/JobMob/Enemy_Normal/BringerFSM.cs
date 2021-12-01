@@ -88,7 +88,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
     public IEnumerator EnemyPatrol()
     {
-        print("patrol");
         float randomDirTime = 0;
         float randomPatrolTime = Random.Range(3.5f, 5f);
         Vector2 moveVec = RandomVec();
@@ -114,7 +113,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
                 spriteRenderer.flipX = !spriteRenderer.flipX;
             }
 
-            print(moveVec);
             anim.SetBool("IsWalk", moveVec != Vector2.zero);
             transform.Translate(moveVec * moveSpeed * 0.5f * Time.deltaTime);
             yield return null;
@@ -127,7 +125,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
 
         while (true)
         {
-            print("trace");
             FlipCheck();
             if (GetDistanceB2WPlayer() < attackRange)
             {
@@ -178,7 +175,6 @@ public class BringerFSM : EnemyFSM, IIdle, IPatrol, ITrace, IAttack_1, ISkill_1
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).IsName("Bringer_Attack"));
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f);
-        SoundManager.Instance.PlayVoiceOneShot(bringer_Variable.attackVoiceClips);
         anim.SetFloat("AttackSpeed", 0.75f);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.4f);

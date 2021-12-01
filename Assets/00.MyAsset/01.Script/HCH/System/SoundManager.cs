@@ -15,11 +15,6 @@ public class SoundManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    private void Start()
-    {
-        transform.SetParent(FolderSystem.Instance.SystemFolder);
-    }
-
     #endregion
 
     #region Variable
@@ -30,6 +25,11 @@ public class SoundManager : MonoBehaviour
     AudioSource EnvironmentSource => audioSource[2] = audioSource[2] ? audioSource[2] : gameObject.AddComponent<AudioSource>();
 
     #endregion
+
+    private void Start()
+    {
+        transform.SetParent(FolderSystem.Instance.SystemFolder);
+    }
 
     #region Implementation Place
 

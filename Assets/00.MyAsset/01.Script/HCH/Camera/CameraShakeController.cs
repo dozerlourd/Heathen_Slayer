@@ -34,7 +34,7 @@ public class CameraShakeController : MonoBehaviour
             float x = isX ? Random.Range(-1f, 1f) * intensity : 0;
             float y = isY ? Random.Range(-1f, 1f) * intensity : 0;
 
-            transform.localPosition = new Vector2(x, y);
+            transform.localPosition += new Vector3(x, y, 0);
 
             elapsed += Time.deltaTime;
             yield return null;
