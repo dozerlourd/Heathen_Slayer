@@ -36,7 +36,14 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
-    public float NearestValue => nearestValue;
+    public float NearestValue
+    {
+        get
+        {
+            CheckNearestObj();
+            return nearestValue;
+        }
+    }
 
     #endregion
 
@@ -51,24 +58,29 @@ public class InteractionManager : MonoBehaviour
 
     #region Implamentaion Place
 
-    public void AddInterList(GameObject _interactionObject)
+    public void AddInterList(object _interObjType, GameObject _interactionObject)
     {
-        if(typeof(InteractionObject).IsSubclassOf(_interactionObject.GetType()))
+        InteractionObject interObj = _interObjType as InteractionObject;
+        print(interObj != null);
+        if (interObj != null)
             interObjList.Add(_interactionObject);
     }
 
     void CheckNearestObj()
-    {        int nearestIndex = 0;
+    {
+        int nearestIndex = 0;
+        float nearDist = 9999;
         for (int i = 0; i < interObjList.Count; i++)
         {
             float temp = Vector2.Distance(PlayerSystem.Instance.Player.transform.position, interObjList[i].transform.position);
-            if (temp < nearestValue)
+            if (temp < nearDist)
             {
-                nearestValue = temp;
+                nearDist = temp;
                 nearestIndex = i;
             }
         }
         nearestObj = interObjList[nearestIndex];
+        nearestValue = nearDist;
     }
 
     #endregion

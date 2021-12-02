@@ -18,7 +18,7 @@ public class DungeonData : MonoBehaviour
     public bool IsBossRoom => isBossRoom;
     public bool IsClearThisRoom => isClearThisRoom;
     public bool IsNext { get => isNext; set => isNext = value; }
-    public bool IsJoin { get => isNext; set => isNext = value; }
+    public bool IsJoin { get => isJoin; set => isJoin = value; }
 
     public Transform InitPos => initPos;
 

@@ -13,7 +13,7 @@ public class TestText : MonoBehaviour
 
     private void Update()
     {
-        text.text = PlayerStat?.currentHP.ToString();
+        //text.text = PlayerStat?.currentHP.ToString();
     }
 
     public void OnEnemy(GameObject go)

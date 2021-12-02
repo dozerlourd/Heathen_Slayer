@@ -31,6 +31,8 @@ public class PlayerMove : PlayerStat
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerAttack = GetComponent<PlayerAttack>();
+
+        StartCoroutine(SearchPlayerAndUILink());
     }
 
     void Update()
@@ -87,7 +89,7 @@ public class PlayerMove : PlayerStat
             posionEffect.SetActive(false);
         }
 
-        if (currentHP <= 0)
+        if (CurrentHP <= 0)
         {
             // 사망 애니메이션 출력
             anim.SetTrigger("Die");

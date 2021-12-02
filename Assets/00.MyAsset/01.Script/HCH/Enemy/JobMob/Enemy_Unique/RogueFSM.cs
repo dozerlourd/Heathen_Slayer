@@ -44,8 +44,6 @@ public class Rogue_Variable
 
     internal float tempVelocityY = 0;
 
-    internal int pace;
-
     internal bool isFall = false;
 }
 

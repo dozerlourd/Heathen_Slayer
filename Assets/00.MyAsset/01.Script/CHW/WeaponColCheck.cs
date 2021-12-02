@@ -20,8 +20,8 @@ public class WeaponColCheck : MonoBehaviour
         // 만약 충돌 대상의 태그가 Enemy면
         if (col.gameObject.CompareTag("Enemy"))
         {
-            StartCoroutine(TimeStopu(0.15f));
-            CameraManager.Instance.ShakeCamera(0.1f, 0.08f);
+            CameraManager.Instance.ShakeCamera(0.075f, 0.065f);
+            StartCoroutine(TimeStopu(0.085f));
 
             // Enemy 체력 감소
             col.GetComponent<HPControllerToEnemy>()?.TakeDamage(attackDamage);

@@ -16,7 +16,9 @@ public class PlayerInteraction : MonoBehaviour
 
     void Interaction()
     {
-        if(InteractionManager.Instance.NearestValue <= interactionDist)
-        InteractionManager.Instance.NearestObj.GetComponent<InteractionObject>().Interaction();
+        if (InteractionManager.Instance.NearestValue <= interactionDist)
+        {
+            InteractionManager.Instance.NearestObj.GetComponent<InteractionObject>().Interaction();
+        }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStat : MonoBehaviour
 {
@@ -17,24 +18,59 @@ public class PlayerStat : MonoBehaviour
     [Tooltip("대쉬 쿨타임")]
     public float dashCoolDown = 3f;
     [Tooltip("최대 체력")]
-    public float maxHP = 100;
+    [SerializeField] protected float maxHP = 100;
     [Tooltip("현재 체력")]
-    public float currentHP = 0;
+    protected float currentHP = 0;
 
     public bool isPoison = false;
 
     private void Awake()
     {
-        currentHP = maxHP;
+        CurrentHP = MaxHP;
     }
+
+    #region HCH
+
+    protected Image PlayerHPBar;
+
+    public float CurrentHP
+    {
+        get => currentHP;
+        set
+        {
+            if(currentHP > value)
+            {
+                SceneEffectSystem.Instance.BloodFrame();
+                CameraManager.Instance.ShakeCamera(0.075f, 0.05f);
+            }
+            currentHP = value;
+            RefreshUI(value);
+        }
+    }
+
+    public float MaxHP => maxHP;
 
     // HP 변동사항
     public void SetHP(float value, float time)
     {
-        currentHP -= value;
-
+        CurrentHP -= value;
+        
         StartCoroutine(SetGracePeriod(time));
     }
+
+    protected void RefreshUI(float currHP)
+    {
+        if (PlayerHPBar == null) return;
+        PlayerHPBar.fillAmount = currHP / MaxHP;
+    }
+
+    protected IEnumerator SearchPlayerAndUILink()
+    {
+        yield return new WaitUntil(() => PlayerSystem.Instance.Player != null);
+        PlayerHPBar = GameObject.Find("PlayerUI_Curr HP Bar").GetComponent<Image>();
+    }
+
+#endregion
 
     // 해당 시간만큼 게임 오브젝트를 무적 상태로 설정
     public IEnumerator SetGracePeriod(float gracePeriod)

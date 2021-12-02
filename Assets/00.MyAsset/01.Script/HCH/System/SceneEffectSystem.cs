@@ -36,6 +36,14 @@ public class SceneEffectSystem : MonoBehaviour
         fadingImage = transform.GetChild(0).GetComponent<Image>();
         bloodFrameImage = transform.GetChild(1).GetComponent<Image>();
 
+        Initailze();
+    }
+
+    void Initailze()
+    {
+        fadingImage.gameObject.SetActive(true);
+        bloodFrameImage.gameObject.SetActive(true);
+
         fadingImage.color = new Color(0, 0, 0, 0);
         bloodFrameImage.color = new Color(1, 1, 1, 0);
     }
@@ -63,7 +71,7 @@ public class SceneEffectSystem : MonoBehaviour
     public void FadeOut(float _speed = 1) => Co_FadeOut = StartCoroutine(FadeOutCoroutine(_speed));
     public IEnumerator FadeOutCoroutine(float fadeSpeed = 1)
     {
-        if(Co_FadeIn != null) StopCoroutine(Co_FadeIn);
+        if (Co_FadeIn != null) StopCoroutine(Co_FadeIn);
         if (Co_FadeOut != null) StopCoroutine(Co_FadeOut);
 
         float alpha = fadingImage.color.a;

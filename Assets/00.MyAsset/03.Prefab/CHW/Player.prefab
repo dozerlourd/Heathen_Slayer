@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 7964452285988426791}
   - component: {fileID: 7964452285988426790}
   - component: {fileID: 7964452285988426793}
+  - component: {fileID: 2930510606197403851}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -406,16 +407,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 9
-  jumpPower: 12
+  jumpPower: 16
   jumpCount: 2
   dashCount: 2
   dashCoolDown: 0.8
   maxHP: 100
-  currentHP: 0
   isPoison: 0
   isDamaged: 0
   isMove: 1
-  lerpSpeed: 4
+  lerpSpeed: 3
   dashCountTime: 1
   posionEffect: {fileID: 786224459}
 --- !u!114 &7964452285988426790
@@ -450,6 +450,19 @@ MonoBehaviour:
   animController:
   - {fileID: 9100000, guid: d1cd75ff15822eb48aeda6bfaf6fe8ad, type: 2}
   - {fileID: 9100000, guid: c9c3f4c896448b043a0c1e127f19c9c5, type: 2}
+--- !u!114 &2930510606197403851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7964452285988426795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619a61437e64c7e4499c61f21a111c0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionDist: 3
 --- !u!1 &7964452286125892113
 GameObject:
   m_ObjectHideFlags: 0

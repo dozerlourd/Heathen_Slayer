@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour, InteractionObject
 {
+    DungeonData thisDungeon;
+
     private void Awake()
     {
-        InteractionManager.Instance.AddInterList(gameObject);
+        InteractionManager.Instance.AddInterList(this, gameObject);
         GetComponent<Animator>().SetTrigger("ToOpen");
     }
 
+    public void SetDungeonData(DungeonData value) => thisDungeon = value;
+
     public void EntryNextDungeon()
     {
-        StageSystem.Instance.CurrStage.CurrDungeon.IsNext = true;
+        thisDungeon.IsNext = true;
     }
 
     public void Interaction()

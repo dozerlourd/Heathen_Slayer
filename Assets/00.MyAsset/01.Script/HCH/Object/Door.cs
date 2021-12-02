@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] DungeonData thisDungeon;
     [SerializeField] GameObject portal;
     Transform portalPos;
+
+    bool isPortalInstantiate = false;
 
     private void Start()
     {
@@ -14,13 +17,15 @@ public class Door : MonoBehaviour
 
     private void Update()
     {
-        if(EnemyCountEqualZero() && StageSystem.Instance.CurrStage.CurrDungeon.IsJoin)
+        if(IsClearThisRoom() && IsCurrRoom() && !isPortalInstantiate)
         {
-            StageSystem.Instance.CurrStage.CurrDungeon.IsJoin = false;
-            Instantiate(portal, portalPos.position, Quaternion.identity);
+            isPortalInstantiate = true;
             //문 열렸을 때 효과같은거 따단~
+            GameObject _portal = Instantiate(portal, portalPos.position, Quaternion.identity);
+            _portal.GetComponent<Portal>().SetDungeonData(thisDungeon);
         }
     }
 
-    bool EnemyCountEqualZero() => StageSystem.Instance.CurrStage.CurrDungeon.GetEnemyCount() != 0;
+    bool IsClearThisRoom() => StageSystem.Instance.CurrStage.CurrDungeon.IsClearThisRoom;
+    bool IsCurrRoom() => StageSystem.Instance.CurrStage.CurrDungeon == thisDungeon;
 }

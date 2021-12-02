@@ -184,7 +184,7 @@ MonoBehaviour:
   - 0
   - 0
   attackSpeed: 2
-  moveSpeed: 10
+  moveSpeed: 7.75
   playerDetectRange: 10
   wallDetectRange: 2
   attackRange: 3
