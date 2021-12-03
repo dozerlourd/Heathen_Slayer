@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00.MyAsset/06.Scene/Game Play Scene/DungeonScene.unity
     guid: 737116345fe7195459dd50dbb8998cc5
+  - enabled: 1
+    path: Assets/00.MyAsset/06.Scene/Game Play Scene/Dead Scene.unity
+    guid: 4402e6193a310214eb907aa4627bed75
   m_configObjects: {}

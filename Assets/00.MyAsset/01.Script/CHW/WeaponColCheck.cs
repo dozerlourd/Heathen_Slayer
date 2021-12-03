@@ -9,6 +9,8 @@ public class WeaponColCheck : MonoBehaviour
     [Tooltip("스킬 계수")]
     public float skillFactor = 1.5f;
 
+    [SerializeField] AudioClip attackSound;
+
     PlayerAttack playerAttack;
 
     // playerAttack = playerAttack ? playerAttack : GetComponent<PlayerAttack>();
@@ -20,8 +22,9 @@ public class WeaponColCheck : MonoBehaviour
         // 만약 충돌 대상의 태그가 Enemy면
         if (col.gameObject.CompareTag("Enemy"))
         {
-            CameraManager.Instance.ShakeCamera(0.075f, 0.065f);
-            StartCoroutine(TimeStopu(0.085f));
+            CameraManager.Instance.ShakeCamera(0.07f, 0.06f);
+            StartCoroutine(TimeStopu(0.05f));
+            SoundManager.Instance.PlayEffectOneShot(attackSound, 0.875f);
 
             // Enemy 체력 감소
             col.GetComponent<HPControllerToEnemy>()?.TakeDamage(attackDamage);

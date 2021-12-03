@@ -11,6 +11,7 @@ public class ButtonClick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        SoundManager.Instance.PlayEnvironmentOneShot(SoundManager.Instance.ButtonClickSounds, 0.6f);
         GetComponent<Image>().sprite = downSprite;
     }
 

@@ -13,11 +13,14 @@ public class SoundManager : MonoBehaviour
     {
         if (!instance) instance = this;
         else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     #endregion
 
     #region Variable
+
+    [SerializeField] AudioClip[] buttonClickSounds;
 
     AudioSource[] audioSource = new AudioSource[3];
     AudioSource VoiceSource => audioSource[0] = audioSource[0] ? audioSource[0] : gameObject.AddComponent<AudioSource>();
@@ -26,10 +29,11 @@ public class SoundManager : MonoBehaviour
 
     #endregion
 
-    private void Start()
-    {
-        transform.SetParent(FolderSystem.Instance.SystemFolder);
-    }
+    #region Property
+
+    public AudioClip[] ButtonClickSounds => buttonClickSounds;
+
+    #endregion
 
     #region Implementation Place
 

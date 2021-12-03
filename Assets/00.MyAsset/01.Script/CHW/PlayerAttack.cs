@@ -7,6 +7,8 @@ public class PlayerAttack : MonoBehaviour
     [Tooltip("공격 범위")]
     public BoxCollider2D atkCollider;
 
+    [SerializeField] AudioClip[] attackSounds;
+
     Animator anim;
     PlayerMove playerMove;
     Rigidbody2D rb;
@@ -94,6 +96,7 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("Attack1");
 
         yield return null;
+        SoundManager.Instance.PlayVoiceOneShot(attackSounds[0]);
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.4f);
         atkCollider.enabled = true;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f);
@@ -117,6 +120,7 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("Attack2");
 
         yield return null;
+        SoundManager.Instance.PlayVoiceOneShot(attackSounds[1]);
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.4f);
         atkCollider.enabled = true;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f);
@@ -141,6 +145,7 @@ public class PlayerAttack : MonoBehaviour
 
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.55f);
+        SoundManager.Instance.PlayVoiceOneShot(attackSounds[2]);
         atkCollider.enabled = true;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.85f);
         atkCollider.enabled = false;

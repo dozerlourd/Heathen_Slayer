@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2324799808799112424}
   - component: {fileID: 8016015614558165628}
   - component: {fileID: 8689224006473635822}
-  - component: {fileID: 4381676847313765053}
   m_Layer: 8
   m_Name: Attack_1
   m_TagString: Untagged
@@ -78,20 +77,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 5
   gracePeriod: 0.1
---- !u!114 &4381676847313765053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4514911253778437421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aeb562e6d32bc244adab37322178884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDamage: 0
-  gracePeriod: 0
 --- !u!1 &6011242937552956245
 GameObject:
   m_ObjectHideFlags: 0

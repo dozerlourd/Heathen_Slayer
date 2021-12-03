@@ -74,19 +74,20 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
         #region Generate ObjectPool
         skillEffects_PoisonDart = new GameObject[shaman_Variable.maxSkillEffectPoolCounts[0]];
         skillEffects_PoisonExplosion = new GameObject[shaman_Variable.maxSkillEffectPoolCounts[1]];
-        poisonArea = new Shaman_PoisonArea[shaman_Variable.Skill_PoisonArea.Length];
+        //poisonArea = new Shaman_PoisonArea[shaman_Variable.Skill_PoisonArea.Length];
 
         skillEffects_PoisonDart = HCH.GameObjectPool.GeneratePool(shaman_Variable.Skill_PoisonDart, shaman_Variable.maxSkillEffectPoolCounts[0], FolderSystem.Instance.Shaman_SkillPool);
         skillEffects_PoisonExplosion = HCH.GameObjectPool.GeneratePool(shaman_Variable.Skill_PoisonExplosion, shaman_Variable.maxSkillEffectPoolCounts[1], FolderSystem.Instance.Shaman_SkillPool);
 
         // Poison Area
-        for (int i = 0; i < shaman_Variable.Skill_PoisonArea.Length; i++)
-        {
-            shaman_Variable.Skill_PoisonArea[i].transform.SetParent(FolderSystem.Instance.Shaman_SkillPool);
-            shaman_Variable.Skill_PoisonArea[i].SetActive(false);
 
-            poisonArea[i] = shaman_Variable.Skill_PoisonArea[i].GetComponent<Shaman_PoisonArea>();
-        }
+        //for (int i = 0; i < shaman_Variable.Skill_PoisonArea.Length; i++)
+        //{
+        //    shaman_Variable.Skill_PoisonArea[i].transform.SetParent(FolderSystem.Instance.Shaman_SkillPool);
+        //    shaman_Variable.Skill_PoisonArea[i].SetActive(false);
+
+        //    poisonArea[i] = shaman_Variable.Skill_PoisonArea[i].GetComponent<Shaman_PoisonArea>();
+        //}
         #endregion
     }
 
@@ -111,7 +112,7 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
             else
             {
                 yield return EnemySkill_2(ActivateArea(false));
-                yield return StartCoroutine(Pattern_3());
+                yield return StartCoroutine(Pattern_2());
             }
         }
     }
@@ -124,16 +125,16 @@ public class ShamanFSM : EnemyFSM, IIdle, ITrace, IAttack_1, IAttack_2, ISkill_1
         yield return EnemyAttack_2();
         yield return EnemyAttack_1();
         yield return EnemyAttack_2();
-        yield return EnemySkill_2(FiniteActivateArea(5));
+        //yield return EnemySkill_2(FiniteActivateArea(5));
     }
 
     IEnumerator Pattern_2()
     {
-        yield return EnemySkill_2(ActivateArea(true));
+        //yield return EnemySkill_2(ActivateArea(true));
 
         yield return EnemyAttack_1();
         yield return EnemyAttack_1();
-        yield return EnemySkill_2(ActivateArea(false));
+        //yield return EnemySkill_2(ActivateArea(false));
 
         yield return EnemyAttack_2();
         yield return EnemyAttack_1();

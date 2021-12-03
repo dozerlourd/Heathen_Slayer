@@ -117,13 +117,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1fc2ae71741f0d42bf1c2637634bcd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expRadius: 2.5
+  expRadius: 1
   damage: 7
   gracePariod: 0.2
-  moveSpeed: 13
+  moveSpeed: 8
   rotSpeed: 2.5
-  Duration: 6.5
-  forwardDir: {x: 0, y: 0, z: 0}
+  Duration: 3.75
+  BloodEffect: {fileID: 8314712557264907636, guid: a0aa672e1338a4041b6aed8bde9749bb, type: 3}
 --- !u!70 &7583210544039957966
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -158,6 +158,6 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0

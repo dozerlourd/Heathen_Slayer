@@ -239,14 +239,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b27caa472afdad478df69e3315edf7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootingRate_Normal: 100
+  lootingRate_Normal: 98
   lootItems_Normal:
-  - item: {fileID: 1047826736, guid: 3d38442a038542f439b86628d4fad78b, type: 3}
-    weight: 1
-  - item: {fileID: 8112550830564280647, guid: dcd060dcc8a70624a8b5e5828608b6e1, type: 3}
-    weight: 2
   - item: {fileID: 8341920705697892998, guid: 25787cc1969d1644d84ab0dd3fbf6903, type: 3}
-    weight: 3
+    weight: 22
+  - item: {fileID: 8404617657562015941, guid: 208c57992b0c9e14fabfbd081056a69c, type: 3}
+    weight: 12
+  - item: {fileID: 1047826736, guid: 3d38442a038542f439b86628d4fad78b, type: 3}
+    weight: 76
   lootingRate_Rare: 0
   lootItems_Rare:
   - item: {fileID: 2114985047887112293, guid: b44a9e5f2c4b46e4390feffd55c9e025, type: 3}

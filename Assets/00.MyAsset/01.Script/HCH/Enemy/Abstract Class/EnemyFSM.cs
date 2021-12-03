@@ -170,7 +170,12 @@ public abstract class EnemyFSM : MonoBehaviour
         isGround = Physics2D.Raycast(transform.position + Vector3.up * boxCol2D.offset.y, -transform.up, boxCol2D.size.y / 2 + dist, LayerMask.GetMask("L_Ground")) ? true : false;
     }
 
-    protected float GetDistanceB2WPlayer() => Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position);
+    protected float GetDistanceB2WPlayer()
+    {
+        if (PlayerSystem.Instance.Player == null) return 0;
+        return Vector2.Distance(PlayerSystem.Instance.Player.transform.position, transform.position);
+    }
+
     protected float GetDistanceB2WPlayerXValue() => Mathf.Abs(PlayerSystem.Instance.Player.transform.position.x - transform.position.x);
     protected float GetDistanceB2WPlayerYValue() => Mathf.Abs(PlayerSystem.Instance.Player.transform.position.y - transform.position.y);
 

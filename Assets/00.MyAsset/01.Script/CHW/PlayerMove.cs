@@ -25,6 +25,9 @@ public class PlayerMove : PlayerStat
 
     public GameObject posionEffect;
 
+    [SerializeField] AudioClip[] dashSounds;
+    [SerializeField] AudioClip[] jumpSounds;
+
 
     void Start()
     {
@@ -152,6 +155,8 @@ public class PlayerMove : PlayerStat
         if (!isJumping)
             return;
 
+        SoundManager.Instance.PlayEffectOneShot(jumpSounds, 0.2f);
+
         Vector2 jumpVelocity = new Vector2(0, jumpPower);
 
         //점프 가능 횟수가 0 이상이면
@@ -177,6 +182,7 @@ public class PlayerMove : PlayerStat
             float curTime = 0;
             anim.speed = 3.5f;
             isMove = false;
+            SoundManager.Instance.PlayEffectOneShot(dashSounds, 0.45f);
 
             // dashCurTime 동안 대쉬를 실행한다.
             while (curTime <= dashTime)

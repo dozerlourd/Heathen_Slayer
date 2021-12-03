@@ -19,6 +19,10 @@ public class LobbyManager : MonoBehaviour
         yield return StartCoroutine(SceneEffectSystem.Instance.FadeOutCoroutine());
         SceneManager.LoadScene("DungeonScene");
     }
+    public void OnClickQuitButton()
+    {
+        Application.Quit();
+    }
 
     #endregion
 }

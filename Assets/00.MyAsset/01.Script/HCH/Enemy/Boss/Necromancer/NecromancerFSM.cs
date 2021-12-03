@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Necromancer_Variable
@@ -11,6 +12,7 @@ public class Necromancer_Variable
 
     [Header(" - Related to Necromancer's Skill")]
     [SerializeField] internal GameObject Skill_DeathBolt;
+    [SerializeField] internal GameObject Skill_BloodExplosion;
 
     [Tooltip("0 => Dart's Count \n 1 => Explosion's Count"), Space(5)]
     [SerializeField] internal int[] maxSkillEffectPoolCounts;
@@ -23,8 +25,7 @@ public class Necromancer_Variable
     [SerializeField] internal float IdleDelayTime;
 
     [Header(" - Sound")]
-    [SerializeField] internal AudioClip[] voiceClips;
-    [SerializeField] internal AudioClip[] attackVoiceClips;
+    [SerializeField] internal AudioClip[] attackEffectClips;
 
     internal BossHP_Necromancer bossHP;
 
@@ -50,11 +51,6 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     #region Unity Life Cycle
 
-    private new void Start()
-    {
-
-    }
-
     private new void Awake()
     {
         base.Awake();
@@ -76,24 +72,41 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     protected override IEnumerator Co_Pattern()
     {
-        while(true)
-        {
-            if (BossHP.NormalizedCurrHP >= 0.7f)
-                yield return StartCoroutine(Pattern_1());
+        yield return StartCoroutine(Pattern_1());
+        //while(true)
+        //{
+        //    if (BossHP.NormalizedCurrHP >= 0.7f)
+        //        yield return StartCoroutine(Pattern_1());
 
-            else if (BossHP.NormalizedCurrHP >= 0.3f)
-                yield return StartCoroutine(Pattern_2());
+        //    else if (BossHP.NormalizedCurrHP >= 0.3f)
+        //        yield return StartCoroutine(Pattern_2());
 
-            else
-                yield return StartCoroutine(Pattern_3());
-        }
+        //    else
+        //        yield return StartCoroutine(Pattern_3());
+        //}
     }
 
     #region Patterns
 
     IEnumerator Pattern_1()
     {
+        yield return EnemyTrace();
+        yield return EnemyAttack_1();
         yield return EnemyIdle();
+        yield return EnemyAttack_1();
+        yield return EnemyIdle();
+        yield return EnemySkill_1();
+        yield return EnemyIdle();
+        yield return EnemyIdle();
+        yield return EnemyTrace();
+        yield return EnemyAttack_1();
+        yield return EnemyIdle();
+        yield return EnemyAttack_1();
+        yield return EnemyIdle();
+        yield return EnemySkill_1();
+        yield return EnemyIdle();
+        yield return EnemyIdle();
+        yield return EnemySkill_2();
     }
 
     IEnumerator Pattern_2()
@@ -133,15 +146,10 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
         anim.SetTrigger("ToAttack");
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
-        SoundManager.Instance.PlayVoiceOneShot(necromancer_Variable.attackVoiceClips);
+        SoundManager.Instance.PlayVoiceOneShot(necromancer_Variable.attackEffectClips);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= necromancer_Variable.attackEffectTiming);
         necromancer_Variable.attackCols[0].enabled = true;
-
-        Vector3[] attackPos = new Vector3[1];
-        for (int i = 0; i < necromancer_Variable._FirePos.Length; i++) attackPos[i] = necromancer_Variable._FirePos[i].position;
-
-        GameObject[] deathBolts = HCH.GameObjectPool.PopObjectsFromPool(skillEffects_DeathBolt, 1, attackPos);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.67f);
         necromancer_Variable.attackCols[0].enabled = false;
@@ -156,15 +164,15 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
         anim.SetTrigger("ToAttack");
         yield return null;
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
-        SoundManager.Instance.PlayVoiceOneShot(necromancer_Variable.attackVoiceClips);
+        SoundManager.Instance.PlayVoiceOneShot(necromancer_Variable.attackEffectClips);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= necromancer_Variable.attackEffectTiming);
         necromancer_Variable.attackCols[0].enabled = true;
 
-        Vector3[] attackPos = new Vector3[5];
-        for (int i = 0; i < necromancer_Variable._FirePos.Length; i++) attackPos[i] = necromancer_Variable._FirePos[i].position;
+        Vector3[] attackPos = new Vector3[3];
+        for (int i = 0; i < attackPos.Length; i++) attackPos[i] = necromancer_Variable._FirePos[i].position;
 
-        GameObject[] deathBolts = HCH.GameObjectPool.PopObjectsFromPool(skillEffects_DeathBolt, 5, attackPos);
+        GameObject[] deathBolts = HCH.GameObjectPool.PopObjectsFromPool(skillEffects_DeathBolt, 3, attackPos);
 
         yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.67f);
         necromancer_Variable.attackCols[0].enabled = false;
@@ -174,8 +182,22 @@ public class NecromancerFSM : EnemyFSM, IIdle, ITrace, IAttack_1, ISkill_1, ISki
 
     public IEnumerator EnemySkill_2()
     {
-
+        anim.SetTrigger("ToAttack");
         yield return null;
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.25f);
+        anim.SetFloat("AnimSpeed", 0.75f);
+        SoundManager.Instance.PlayVoiceOneShot(necromancer_Variable.attackEffectClips);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= necromancer_Variable.attackEffectTiming);
+        anim.SetFloat("AnimSpeed", 1f);
+
+        yield return new WaitForSeconds(0.5f);
+        //±¤¿ª Áï»ç±â
+        GameObject gwang = Instantiate(necromancer_Variable.Skill_BloodExplosion, transform.position, Quaternion.identity);
+
+        yield return new WaitUntil(() => anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.959f);
+        anim.SetFloat("AnimSpeed", 0f);
+
     }
 
     public IEnumerator EnemySkill_3()

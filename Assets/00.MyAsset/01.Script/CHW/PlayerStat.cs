@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerStat : MonoBehaviour
@@ -24,6 +25,8 @@ public class PlayerStat : MonoBehaviour
 
     public bool isPoison = false;
 
+    [SerializeField] AudioClip[] DamagedSounds;
+
     private void Awake()
     {
         CurrentHP = MaxHP;
@@ -44,6 +47,10 @@ public class PlayerStat : MonoBehaviour
                 CameraManager.Instance.ShakeCamera(0.075f, 0.05f);
             }
             currentHP = value;
+            if(currentHP <= 0)
+            {
+                StartCoroutine(Dead());
+            }
             RefreshUI(value);
         }
     }
@@ -53,8 +60,13 @@ public class PlayerStat : MonoBehaviour
     // HP 변동사항
     public void SetHP(float value, float time)
     {
+        if(CurrentHP != 0)
+        {
+            SoundManager.Instance.PlayVoiceOneShot(DamagedSounds, 0.85f);
+        }
+
         CurrentHP -= value;
-        
+
         StartCoroutine(SetGracePeriod(time));
     }
 
@@ -84,5 +96,11 @@ public class PlayerStat : MonoBehaviour
     public void PoisonStatus(bool isCheck)
     {
         isPoison = isCheck;
+    }
+
+    IEnumerator Dead()
+    {
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("Dead Scene");
     }
 }

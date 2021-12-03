@@ -15,7 +15,7 @@ public class Necro_DeathBolt : MonoBehaviour
     [SerializeField] float rotSpeed = 30;
     [SerializeField] float Duration = 10;
 
-    [SerializeField] Vector3 forwardDir;
+    Vector3 forwardDir;
 
     [SerializeField] GameObject BloodEffect;
 

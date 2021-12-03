@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour, InteractionObject
 {
     #region Variable
 
@@ -128,6 +128,11 @@ public abstract class Item : MonoBehaviour
     protected abstract void Execute();
 
     protected virtual void OnStart() { }
+
+    public void Interaction()
+    {
+        Destroy(gameObject);
+    }
 
     #endregion
 

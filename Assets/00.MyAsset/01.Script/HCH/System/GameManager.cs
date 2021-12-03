@@ -44,6 +44,11 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < StageSystem.Instance.CurrStage.GetDungeonCount(); j++)
             {
+                if (StageSystem.Instance.CurrStage.CurrDungeon.IsBossRoom)
+                {
+                    GameObject go = Instantiate(Resources.Load("BossHPBarCanvas")) as GameObject;
+                    go.name = "BossHPBarCanvas";
+                }
                 PlayerSystem.Instance.Player.transform.position = StageSystem.Instance.CurrStage.CurrDungeon.InitPos.position;
 
                 yield return new WaitForSeconds(0.1f);
